@@ -1,0 +1,18 @@
+@import url("./theme.css");
+
+[data-md-color-scheme="default"] .sm-kicker {
+  color: #a74408;
+}
+
+[data-md-color-scheme="slate"] .sm-kicker {
+  color: #fb923c;
+}
+
+.sm-button:focus-visible {
+  outline: 3px solid var(--sm-cyan);
+  outline-offset: 3px;
+}
+
+.sm-button--primary:focus-visible {
+  outline-color: var(--sm-orange);
+}

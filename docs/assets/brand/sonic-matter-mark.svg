@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img">
+  <title>SonicMatter mark</title>
+  <defs>
+    <linearGradient id="surface" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#152238"/>
+      <stop offset="1" stop-color="#080d18"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="11" y1="18" x2="54" y2="47" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38bdf8"/>
+      <stop offset="0.52" stop-color="#a3e635"/>
+      <stop offset="1" stop-color="#fb923c"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="17" fill="url(#surface)"/>
+  <rect x="2.75" y="2.75" width="58.5" height="58.5" rx="16.25" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="1.5"/>
+  <path d="M10 34h8l4.7-15 7.2 29 6.4-24 4.8 15 4.4-9H54" fill="none" stroke="url(#signal)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="10" cy="34" r="2.2" fill="#38bdf8"/>
+  <circle cx="54" cy="30" r="2.2" fill="#fb923c"/>
+</svg>

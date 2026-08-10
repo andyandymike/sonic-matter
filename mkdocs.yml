@@ -1,5 +1,6 @@
 site_name: SonicMatter
 site_description: Physics-driven, controllable Foley for games.
+site_author: SonicMatter contributors
 site_url: https://andyandymike.github.io/sonic-matter/
 repo_url: https://github.com/andyandymike/sonic-matter
 repo_name: andyandymike/sonic-matter
@@ -8,34 +9,51 @@ edit_uri: edit/main/docs/
 theme:
   name: material
   language: en
+  logo: assets/brand/sonic-matter-mark.svg
+  favicon: assets/brand/sonic-matter-mark.svg
+  font: false
+  icon:
+    repo: fontawesome/brands/github
   features:
-    - navigation.instant
+    - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
     - content.action.edit
     - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: blue grey
-      accent: deep orange
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-night
         name: Use dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: blue grey
-      accent: orange
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-sunny
         name: Use light mode
 
 nav:
   - Home: README.md
-  - Gate A contract: gate-a-contract.md
+  - Getting started: getting-started.md
+  - Gate A: gate-a-contract.md
   - Decisions:
       - Gate A bootstrap: adr/0001-gate-a-bootstrap.md
   - Maintainers:
       - GitHub governance: maintainer/github-governance.md
+
+plugins:
+  - search:
+      lang: en
 
 markdown_extensions:
   - admonition
@@ -43,6 +61,22 @@ markdown_extensions:
   - def_list
   - md_in_html
   - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
   - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/andyandymike/sonic-matter
+      name: SonicMatter on GitHub
 
 copyright: Copyright &copy; 2026 SonicMatter contributors
