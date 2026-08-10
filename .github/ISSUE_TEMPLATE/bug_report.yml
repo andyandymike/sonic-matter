@@ -1,0 +1,54 @@
+name: Bug report
+description: Report a reproducible problem in SonicMatter.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to provide a reproducible report.
+  - type: input
+    id: version
+    attributes:
+      label: Version or revision
+      placeholder: Release, tag, or commit SHA
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, CPU, audio device, engine version, and sample rate.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Include the smallest project or event sequence that reproduces the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Logs, profiler output, waveform details, or a minimal redistributable audio example.
+  - type: checkboxes
+    id: licensing
+    attributes:
+      label: Asset safety
+      options:
+        - label: I have permission to share every attached audio or project asset.
+          required: true

@@ -1,0 +1,41 @@
+name: Feature request
+description: Propose a focused game-audio capability.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What game-audio workflow or runtime problem should this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Concrete game use case
+      description: Describe the event, material, control signal, and desired audible result.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+    validations:
+      required: true
+  - type: input
+    id: platforms
+    attributes:
+      label: Target platforms
+      placeholder: Windows, Linux, macOS, Web, Android, iOS, consoles
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Performance and licensing constraints
+      description: Include voice count, latency, CPU budget, dependencies, assets, or model terms.
+  - type: textarea
+    id: validation
+    attributes:
+      label: Acceptance evidence
+      description: How should the project verify that this feature works?

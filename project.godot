@@ -1,0 +1,29 @@
+; Engine configuration file.
+; Prefer editing through the Godot editor when changing engine-owned settings.
+
+config_version=5
+
+[application]
+
+config/name="SonicMatter Gate A"
+run/main_scene="res://examples/gate_a_3d/gate_a_demo.tscn"
+config/features=PackedStringArray("4.6", "GL Compatibility")
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/sonic_matter/plugin.cfg")
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
+

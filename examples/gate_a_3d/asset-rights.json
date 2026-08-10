@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "assets": [
+    {
+      "asset_id": "gate-a-generated-impact-fixtures",
+      "kind": "runtime-generated-audio",
+      "generator": "res://examples/gate_a_3d/generated_test_audio.gd",
+      "author": "Born Lu and SonicMatter contributors",
+      "source": "project-authored",
+      "license": "CC0-1.0",
+      "local_preview": "allow",
+      "game_distribution": "allow",
+      "unchanged_redistribution": "allow",
+      "baked_derivative_publication": "allow",
+      "training_or_parameter_fitting": "allow",
+      "evaluation": "allow",
+      "notes": "Generated in memory; no third-party recordings are used."
+    }
+  ]
+}
+

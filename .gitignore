@@ -1,0 +1,49 @@
+# Private planning material. This directory must never be committed.
+/spec/
+/planning-private/
+/.local/
+
+# Secrets and machine-local configuration.
+.env
+.env.*
+!.env.example
+*.local
+
+# Editors and operating systems.
+.idea/
+.vscode/
+.vs/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Godot-generated state.
+.godot/
+.import/
+export.cfg
+export_presets.cfg
+
+# Native build output.
+/build/
+/bin/
+/obj/
+/out/
+CMakeFiles/
+CMakeCache.txt
+compile_commands.json
+
+# Optional tooling environments.
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+node_modules/
+
+# Generated evidence and temporary audio renders.
+/artifacts/
+/benchmark-results/
+/renders/
+*.tmp.wav
+*.log
