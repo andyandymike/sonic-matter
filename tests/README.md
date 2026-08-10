@@ -19,3 +19,8 @@ and played while the active voice count remains within eight.
 Audio-thread profiling, clipping/discontinuity analysis, cross-platform golden
 renders, asset-package auditing, and proportional runtime benchmarks remain
 future gates; the current tests do not establish those claims.
+
+The separate `tests/material_lab` Python suite covers the experimental offline
+authoring path: PCM24 I/O, deterministic modal/residual analysis and rendering,
+six-arm output, ZIP quarantine safety, exact kit inventory, and fail-closed
+rights decisions. Passing those tests does not upgrade Gate A or B0 status.

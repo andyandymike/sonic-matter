@@ -3,6 +3,7 @@ extends Node3D
 
 signal impact_played(details: Dictionary)
 
+@export var impact_route_map: SonicImpactRouteMap
 @export_range(1, 8, 1) var voice_limit: int = 8
 @export var output_bus: StringName = &"Master"
 @export_range(0.1, 100.0, 0.1) var unit_size: float = 4.0
@@ -13,8 +14,16 @@ var _allocator := SonicVoiceAllocator.new()
 var _players: Array[AudioStreamPlayer3D] = []
 var _voice_tokens: Array[int] = []
 var _stats: Dictionary = {
+    "impact_submissions": 0,
+    "invalid_submissions": 0,
     "played": 0,
     "bus_fallbacks": 0,
+    "exact_ordered": 0,
+    "exact_symmetric": 0,
+    "target_family": 0,
+    "source_family": 0,
+    "global_default": 0,
+    "route_drops": 0,
 }
 
 
@@ -37,14 +46,33 @@ func _process(_delta: float) -> void:
 
 
 func play_impact(
-        material: SonicAcousticMaterial,
+        source_material: SonicAcousticMaterial,
+        target_material: SonicAcousticMaterial,
         event: SonicFoleyEvent,
 ) -> Dictionary:
     if Engine.is_editor_hint():
         return {}
+    _stats["impact_submissions"] += 1
+    if event == null or not event.is_valid():
+        _stats["invalid_submissions"] += 1
+        return {}
     if _players.is_empty():
         _build_voice_pool()
+    if impact_route_map == null:
+        _stats["route_drops"] += 1
+        return {}
 
+    var route_result := impact_route_map.resolve_impact(
+        source_material,
+        target_material,
+    )
+    if not bool(route_result.get("resolved", false)):
+        _stats["route_drops"] += 1
+        return {}
+
+    var resolution := String(route_result["resolution"])
+    _stats[resolution] = int(_stats.get(resolution, 0)) + 1
+    var material := route_result["material"] as SonicAcousticMaterial
     var selection := _selector.select_impact(material, event)
     if selection.is_empty():
         return {}
@@ -75,6 +103,10 @@ func play_impact(
     _stats["played"] += 1
 
     var details := selection.duplicate(true)
+    details["route_id"] = route_result["route_id"]
+    details["route_resolution"] = route_result["resolution"]
+    details["source_material_id"] = route_result["source_material_id"]
+    details["target_material_id"] = route_result["target_material_id"]
     details["voice_index"] = voice_index
     details["voice_token"] = voice_token
     details["voice_stolen"] = bool(allocation["stolen"])
@@ -85,8 +117,22 @@ func play_impact(
 
 func debug_snapshot() -> Dictionary:
     var snapshot := _selector.stats()
+    var sample_submissions := int(snapshot["submitted"])
+    var sample_invalid := int(snapshot["invalid_events"])
+    var sample_missing := int(snapshot["missing_mappings"])
+    snapshot["sample_submissions"] = sample_submissions
+    snapshot["submitted"] = int(_stats["impact_submissions"])
+    snapshot["invalid_events"] = sample_invalid + int(_stats["invalid_submissions"])
+    snapshot["sample_missing_mappings"] = sample_missing
+    snapshot["route_drops"] = int(_stats["route_drops"])
+    snapshot["missing_mappings"] = sample_missing + int(_stats["route_drops"])
     snapshot["played"] = int(_stats["played"])
     snapshot["bus_fallbacks"] = int(_stats["bus_fallbacks"])
+    snapshot["route_exact_ordered"] = int(_stats["exact_ordered"])
+    snapshot["route_exact_symmetric"] = int(_stats["exact_symmetric"])
+    snapshot["route_target_family"] = int(_stats["target_family"])
+    snapshot["route_source_family"] = int(_stats["source_family"])
+    snapshot["route_global_default"] = int(_stats["global_default"])
     snapshot["voice_capacity"] = _allocator.capacity()
     snapshot["active_voices"] = _allocator.active_count()
     snapshot["voice_steals"] = _allocator.steal_count()

@@ -2,6 +2,7 @@ site_name: SonicMatter
 site_description: Physics-driven, controllable Foley for games.
 site_author: SonicMatter contributors
 site_url: https://andyandymike.github.io/sonic-matter/
+site_dir: artifacts/site
 repo_url: https://github.com/andyandymike/sonic-matter
 repo_name: andyandymike/sonic-matter
 edit_uri: edit/main/docs/
@@ -48,6 +49,7 @@ nav:
   - Gate A: gate-a-contract.md
   - Decisions:
       - Gate A bootstrap: adr/0001-gate-a-bootstrap.md
+      - Impact material routing: adr/0002-impact-material-routing.md
   - Maintainers:
       - GitHub governance: maintainer/github-governance.md
 

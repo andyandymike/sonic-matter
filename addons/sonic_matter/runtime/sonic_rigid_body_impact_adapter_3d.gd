@@ -44,10 +44,21 @@ func _exit_tree() -> void:
         _body.body_entered.disconnect(_on_body_entered)
 
 
-func _on_body_entered(_other_body: Node) -> void:
+func get_sonic_acoustic_material() -> SonicAcousticMaterial:
+    return acoustic_material
+
+
+func get_sonic_stable_source_id() -> int:
+    return stable_source_id
+
+
+func _on_body_entered(other_body: Node) -> void:
     if acoustic_material == null or _emitter == null:
         return
+    if not _is_canonical_reporter(other_body):
+        return
 
+    var target_material := _find_acoustic_material(other_body)
     var intensity := clampf(
         _body.linear_velocity.length() / maxf(reference_speed_mps, 0.1),
         0.0,
@@ -58,6 +69,11 @@ func _on_body_entered(_other_body: Node) -> void:
 
     _event_sequence += 1
     var event_id := stable_source_id * 1000000 + _event_sequence
+    var target_id := (
+        target_material.stable_id()
+        if target_material != null
+        else StringName()
+    )
     var event := SonicFoleyEvent.impact(
         event_id,
         base_seed ^ event_id,
@@ -65,6 +81,64 @@ func _on_body_entered(_other_body: Node) -> void:
         _body.global_position,
         priority,
         SonicFoleyEvent.Evidence.ESTIMATED,
+        acoustic_material.stable_id(),
+        target_id,
+        SonicFoleyEvent.Evidence.ESTIMATED,
     )
-    _emitter.call("play_impact", acoustic_material, event)
+    _emitter.call(
+        "play_impact",
+        acoustic_material,
+        target_material,
+        event,
+    )
+
+
+func _is_canonical_reporter(other_body: Node) -> bool:
+    var other_adapter := _find_impact_adapter(other_body)
+    if other_adapter == null:
+        return true
+    var other_source_id := int(
+        other_adapter.call("get_sonic_stable_source_id"),
+    )
+    if stable_source_id != other_source_id:
+        return stable_source_id < other_source_id
+    return String(_body.get_path()) < String(other_body.get_path())
+
+
+func _find_impact_adapter(body: Node) -> Node:
+    if body == null:
+        return null
+    for child in body.get_children():
+        if (
+            child.has_method("get_sonic_stable_source_id")
+            and child.has_method("get_sonic_acoustic_material")
+        ):
+            return child
+    return null
+
+
+func _find_acoustic_material(body: Node) -> SonicAcousticMaterial:
+    if body == null:
+        return null
+
+    var other_adapter := _find_impact_adapter(body)
+    if other_adapter != null:
+        var adapter_material: Variant = other_adapter.call(
+            "get_sonic_acoustic_material",
+        )
+        if adapter_material is SonicAcousticMaterial:
+            return adapter_material as SonicAcousticMaterial
+
+    if body.has_method("get_sonic_acoustic_material"):
+        var body_material: Variant = body.call("get_sonic_acoustic_material")
+        if body_material is SonicAcousticMaterial:
+            return body_material as SonicAcousticMaterial
+
+    for child in body.get_children():
+        if not child.has_method("get_sonic_acoustic_material"):
+            continue
+        var child_material: Variant = child.call("get_sonic_acoustic_material")
+        if child_material is SonicAcousticMaterial:
+            return child_material as SonicAcousticMaterial
+    return null
 

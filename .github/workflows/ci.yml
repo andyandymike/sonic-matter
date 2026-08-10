@@ -51,3 +51,140 @@ jobs:
 
       - name: Run instrumented scene smoke
         run: godot --headless --path . --script res://tests/gate_a/scene_smoke_runner.gd
+      - name: Run lifecycle and burst smoke
+        run: godot --headless --path . --script res://tests/gate_a/lifecycle_smoke_runner.gd
+      - name: Run generated-audio safety gate
+        run: godot --headless --path . --script res://tests/gate_a/audio_safety_runner.gd
+
+      - name: Record main-thread submission probe
+        run: godot --headless --path . --script res://tests/gate_a/submission_probe.gd
+
+      - name: Audit and build deterministic RC0 packages
+        run: python -X utf8 tools/package_rc0.py --kind all
+
+  material-lab:
+    name: Material Lab (offline authoring)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Reject private and quarantine files
+        shell: bash
+        run: |
+          leaked_files="$(git ls-files 'spec/**' 'planning-private/**' '.local/**')"
+          if [[ -n "$leaked_files" ]]; then
+            printf '%s\n' "Private or quarantine files are tracked:" "$leaked_files"
+            exit 1
+          fi
+
+      - name: Report Python version
+        run: python --version
+
+      - name: Install authoring-only dependency
+        run: python -m pip install --disable-pip-version-check -r requirements-material-lab.txt
+
+      - name: Run Material Lab tests
+        run: python -X utf8 -m unittest discover -s tests/material_lab -v
+
+      - name: Smoke CLI boundary
+        run: python -X utf8 -m tools.material_lab --help
+
+  windows-export:
+    name: Windows export and package
+    runs-on: windows-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Reject private files
+        shell: pwsh
+        run: |
+          $leaked = git ls-files 'spec/**' 'planning-private/**' '.local/**'
+          if ($leaked) {
+            Write-Error "Private files are tracked:"
+            $leaked
+            exit 1
+          }
+
+      - name: Install Godot with export templates
+        uses: chickensoft-games/setup-godot@f166999204a4f2722c6fe042fbaa3b3ea0d9c789 # v2.4.1
+        with:
+          version: 4.6.1
+          use-dotnet: false
+          include-templates: true
+
+      - name: Import project
+        run: godot --headless --editor --path . --quit
+
+      - name: Run Windows Gate A tests
+        shell: pwsh
+        run: |
+          godot --headless --path . --script res://tests/gate_a/test_runner.gd
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          godot --headless --path . --script res://tests/gate_a/scene_smoke_runner.gd
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          godot --headless --path . --script res://tests/gate_a/lifecycle_smoke_runner.gd
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          godot --headless --path . --script res://tests/gate_a/audio_safety_runner.gd
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          godot --headless --path . --script res://tests/gate_a/submission_probe.gd
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Export Windows release
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path artifacts/export | Out-Null
+          godot --headless --path . --export-release "Windows Gate A RC0" artifacts/export/SonicMatterGateA.exe
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Run exported release smoke
+        shell: pwsh
+        run: |
+          $stdout = "artifacts/export/export-smoke.stdout.log"
+          $stderr = "artifacts/export/export-smoke.stderr.log"
+          $startParameters = @{
+            FilePath = "artifacts/export/SonicMatterGateA.exe"
+            ArgumentList = @("--headless", "--", "--gate-a-export-smoke")
+            RedirectStandardOutput = $stdout
+            RedirectStandardError = $stderr
+            PassThru = $true
+            WindowStyle = "Hidden"
+          }
+          $process = Start-Process @startParameters
+          if (-not $process.WaitForExit(20000)) {
+            Stop-Process -Id $process.Id -Force
+            throw "Exported release smoke timed out."
+          }
+          Get-Content $stdout
+          Get-Content $stderr
+          if ($process.ExitCode -ne 0) {
+            throw "Exported release exited with $($process.ExitCode)."
+          }
+          if (-not (Select-String -Path $stdout -Pattern "GATE_A_EXPORT_SMOKE_OK" -Quiet)) {
+            throw "Exported release did not emit GATE_A_EXPORT_SMOKE_OK."
+          }
+
+      - name: Audit and build deterministic RC0 packages
+        run: python -X utf8 tools/package_rc0.py --kind all
+
+      - name: Verify clean addon install and plugin cycle
+        run: >-
+          python -X utf8 tools/verify_clean_install.py
+          --archive artifacts/packages/sonic-matter-addon-0.1.0-rc0.zip
+          --godot godot
+      - name: Upload RC0 evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: sonic-matter-gate-a-rc0
+          path: |
+            artifacts/packages/*.zip
+            artifacts/export/SonicMatterGateA.exe
+            artifacts/export/SonicMatterGateA.pck
+            artifacts/export/export-smoke.*.log
+          if-no-files-found: error
+          retention-days: 14

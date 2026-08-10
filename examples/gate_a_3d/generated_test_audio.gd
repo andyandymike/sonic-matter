@@ -5,17 +5,29 @@ const MIX_RATE: int = 48000
 const UINT32_MASK: int = 0xFFFFFFFF
 
 
-static func create_material(material_name: StringName) -> SonicAcousticMaterial:
+static func create_material(
+        material_name: StringName,
+        family_name: StringName = StringName(),
+        sound_profile: StringName = StringName(),
+) -> SonicAcousticMaterial:
     var material := SonicAcousticMaterial.new()
     material.material_id = material_name
+    material.family_id = (
+        family_name
+        if family_name != StringName()
+        else material_name
+    )
     material.impact_gain_db = Vector2(-20.0, -4.0)
     material.gain_variation_db = 0.8
     material.pitch_variation = 0.025
 
+    var effective_profile := sound_profile
+    if effective_profile == StringName():
+        effective_profile = material.family_id
     for variant_index in 3:
         var variant := SonicSampleVariant.new()
         variant.stream = _make_impact_stream(
-            String(material_name),
+            String(effective_profile),
             variant_index,
         )
         variant.weight = 1.0 - float(variant_index) * 0.15

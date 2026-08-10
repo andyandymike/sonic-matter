@@ -23,7 +23,7 @@ Desktop.ini
 .godot/
 .import/
 export.cfg
-export_presets.cfg
+# export_presets.cfg is checked in as Gate A export evidence.
 
 # Native build output.
 /build/
@@ -42,7 +42,8 @@ __pycache__/
 node_modules/
 
 # Generated evidence and temporary audio renders.
-/artifacts/
+/artifacts/*
+!/artifacts/.gdignore
 /benchmark-results/
 /renders/
 *.tmp.wav

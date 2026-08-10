@@ -13,6 +13,8 @@ func _run() -> void:
     _test_deterministic_trace()
     _test_no_adjacent_repeat()
     _test_invalid_and_missing_inputs()
+    _test_pair_resolution_order()
+    _test_pair_resolution_fail_closed()
     _test_voice_budget_and_stale_release()
     _test_generated_audio_fixture()
 
@@ -102,6 +104,200 @@ func _test_invalid_and_missing_inputs() -> void:
         selector.select_impact(empty_material, _impact_event(1, 1)).is_empty(),
         "unmapped material should fail closed",
     )
+    _test_zero_weight_and_stats(selector)
+
+
+func _test_pair_resolution_order() -> void:
+    var wood_source := GeneratedTestAudio.create_material(
+        &"wood_prop",
+        &"wood",
+        &"wood",
+    )
+    var stone_target := GeneratedTestAudio.create_material(
+        &"stone_floor",
+        &"stone",
+        &"stone",
+    )
+    var metal_target := GeneratedTestAudio.create_material(
+        &"metal_plate",
+        &"metal",
+        &"metal",
+    )
+    var glass_source := GeneratedTestAudio.create_material(
+        &"glass_prop",
+        &"glass",
+        &"stone",
+    )
+    var glass_target := GeneratedTestAudio.create_material(
+        &"glass_wall",
+        &"glass",
+        &"stone",
+    )
+
+    var exact_output := GeneratedTestAudio.create_material(&"exact_output")
+    var symmetric_output := GeneratedTestAudio.create_material(&"symmetric_output")
+    var target_output := GeneratedTestAudio.create_material(&"target_output")
+    var source_output := GeneratedTestAudio.create_material(&"source_output")
+    var default_output := GeneratedTestAudio.create_material(&"default_output")
+
+    var route_map := SonicImpactRouteMap.new()
+    route_map.exact_routes.append(
+        _impact_route(
+            &"wood-on-stone",
+            wood_source.stable_id(),
+            stone_target.stable_id(),
+            exact_output,
+        ),
+    )
+    route_map.exact_routes.append(
+        _impact_route(
+            &"metal-and-wood",
+            metal_target.stable_id(),
+            wood_source.stable_id(),
+            symmetric_output,
+            true,
+        ),
+    )
+    route_map.target_family_fallbacks.append(
+        _family_fallback(&"stone-target", &"stone", target_output),
+    )
+    route_map.source_family_fallbacks.append(
+        _family_fallback(&"wood-source", &"wood", source_output),
+    )
+    route_map.global_default = default_output
+
+    _expect_route(
+        route_map.resolve_impact(wood_source, stone_target),
+        &"exact_output",
+        SonicImpactRouteMap.EXACT_ORDERED,
+        "ordered exact route",
+    )
+    _expect_route(
+        route_map.resolve_impact(wood_source, metal_target),
+        &"symmetric_output",
+        SonicImpactRouteMap.EXACT_SYMMETRIC,
+        "explicit symmetric route",
+    )
+    _expect_route(
+        route_map.resolve_impact(glass_source, stone_target),
+        &"target_output",
+        SonicImpactRouteMap.TARGET_FAMILY,
+        "target-family fallback",
+    )
+    _expect_route(
+        route_map.resolve_impact(wood_source, glass_target),
+        &"source_output",
+        SonicImpactRouteMap.SOURCE_FAMILY,
+        "source-family fallback",
+    )
+    _expect_route(
+        route_map.resolve_impact(glass_source, glass_target),
+        &"default_output",
+        SonicImpactRouteMap.GLOBAL_DEFAULT,
+        "global fallback",
+    )
+
+
+func _test_pair_resolution_fail_closed() -> void:
+    var source := GeneratedTestAudio.create_material(&"source", &"wood", &"wood")
+    var target := GeneratedTestAudio.create_material(&"target", &"stone", &"stone")
+    var output := GeneratedTestAudio.create_material(&"output")
+
+    var missing_map := SonicImpactRouteMap.new()
+    var missing := missing_map.resolve_impact(source, target)
+    _expect(
+        not bool(missing.get("resolved", false)),
+        "unmapped pair should fail closed",
+    )
+    _expect(
+        missing.get("reason") == &"missing_mapping",
+        "unmapped pair reason drifted",
+    )
+
+    var ambiguous_map := SonicImpactRouteMap.new()
+    ambiguous_map.exact_routes.append(
+        _impact_route(&"duplicate-a", &"source", &"target", output),
+    )
+    ambiguous_map.exact_routes.append(
+        _impact_route(&"duplicate-b", &"source", &"target", output),
+    )
+    var ambiguous := ambiguous_map.resolve_impact(source, target)
+    _expect(
+        not bool(ambiguous.get("resolved", false)),
+        "ambiguous exact routes should fail closed",
+    )
+    _expect(
+        ambiguous.get("reason") == &"ambiguous_exact_ordered",
+        "ambiguous exact route reason drifted",
+    )
+
+    var invalid_map := SonicImpactRouteMap.new()
+    invalid_map.exact_routes.append(
+        _impact_route(&"invalid-output", &"source", &"target", null),
+    )
+    var invalid := invalid_map.resolve_impact(source, target)
+    _expect(
+        not bool(invalid.get("resolved", false)),
+        "exact route without output should fail closed",
+    )
+    _expect(
+        invalid.get("reason") == &"invalid_exact_output",
+        "invalid exact output reason drifted",
+    )
+
+
+func _impact_route(
+        route_id: StringName,
+        source_id: StringName,
+        target_id: StringName,
+        output: SonicAcousticMaterial,
+        symmetric: bool = false,
+) -> SonicImpactRoute:
+    var route := SonicImpactRoute.new()
+    route.route_id = route_id
+    route.source_material_id = source_id
+    route.target_material_id = target_id
+    route.output_material = output
+    route.symmetric = symmetric
+    return route
+
+
+func _family_fallback(
+        fallback_id: StringName,
+        family_id: StringName,
+        output: SonicAcousticMaterial,
+) -> SonicImpactFamilyFallback:
+    var fallback := SonicImpactFamilyFallback.new()
+    fallback.fallback_id = fallback_id
+    fallback.family_id = family_id
+    fallback.output_material = output
+    return fallback
+
+
+func _expect_route(
+        result: Dictionary,
+        expected_material_id: StringName,
+        expected_resolution: StringName,
+        label: String,
+) -> void:
+    _expect(
+        bool(result.get("resolved", false)),
+        "%s did not resolve" % label,
+    )
+    var material := result.get("material") as SonicAcousticMaterial
+    _expect(material != null, "%s returned no material" % label)
+    if material != null:
+        _expect(
+            material.stable_id() == expected_material_id,
+            "%s selected the wrong output material" % label,
+        )
+    _expect(
+        result.get("resolution") == expected_resolution,
+        "%s reported the wrong resolution tier" % label,
+    )
+
+
+func _test_zero_weight_and_stats(selector: SonicSampleSelector) -> void:
 
     var zero_weight_material := GeneratedTestAudio.create_material(&"stone")
     for variant in zero_weight_material.impact_variants:

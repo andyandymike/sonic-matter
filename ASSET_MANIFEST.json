@@ -1,0 +1,61 @@
+{
+  "schema_version": 2,
+  "scope": "repository-and-gate-a-demo",
+  "assets": [
+    {
+      "asset_id": "gate-a-generated-impact-fixtures",
+      "kind": "runtime-generated-audio",
+      "source": {
+        "type": "project-authored-generator",
+        "path": "examples/gate_a_3d/generated_test_audio.gd",
+        "author": "Born Lu and SonicMatter contributors",
+        "acquired_on": "2026-08-10"
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "sha256": "4373948e134744408b6c3d1a093f70e005c95206e5070e50c01380cd9d51a300"
+      },
+      "license": {
+        "spdx": "CC0-1.0",
+        "version": "1.0",
+        "text_path": "examples/gate_a_3d/ASSET_LICENSE.md",
+        "attribution": "No attribution required; provenance is retained for audit."
+      },
+      "parents": [],
+      "transformations": [
+        "Deterministic runtime synthesis from project-authored source code"
+      ],
+      "rights": {
+        "local_playback": {
+          "decision": "allow",
+          "evidence": "Project authors dedicate generated audio under CC0-1.0."
+        },
+        "game_distribution_unchanged": {
+          "decision": "allow",
+          "evidence": "CC0-1.0 permits redistribution without additional permission."
+        },
+        "baked_derivative_publication": {
+          "decision": "allow",
+          "evidence": "CC0-1.0 permits modification and publication."
+        },
+        "ml_parameter_fitting": {
+          "decision": "allow",
+          "evidence": "CC0-1.0 imposes no fitting restriction."
+        },
+        "evaluation": {
+          "decision": "allow",
+          "evidence": "Project-authored CC0-1.0 output is approved for evaluation."
+        },
+        "private_embedding": {
+          "decision": "allow",
+          "evidence": "CC0-1.0 permits private transformation."
+        },
+        "index_redistribution": {
+          "decision": "allow",
+          "evidence": "CC0-1.0 permits redistribution of derived representations."
+        }
+      },
+      "notes": "Generated in memory; no third-party recordings or model weights are used."
+    }
+  ]
+}

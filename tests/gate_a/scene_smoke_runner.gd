@@ -28,6 +28,8 @@ func _run() -> void:
         and int(snapshot.get("played", 0)) >= 3
         and int(snapshot.get("invalid_events", 0)) == 0
         and int(snapshot.get("missing_mappings", 0)) == 0
+        and int(snapshot.get("route_exact_ordered", 0)) >= 3
+        and int(snapshot.get("route_drops", 0)) == 0
         and capacity == 8
         and active >= 0
         and active <= capacity

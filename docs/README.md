@@ -1,13 +1,19 @@
+---
+hide:
+  - navigation
+  - toc
+---
+
 <section class="sm-hero">
   <div class="sm-hero__copy">
-    <div class="sm-eyebrow">Godot 4.6.1 · Gate A</div>
+    <div class="sm-eyebrow">Godot 4.6.1 · Gate A RC0</div>
     <h1>Make collisions sound <span>alive.</span></h1>
     <p class="sm-hero__lede">
       Physics-driven, controllable Foley for games—local-first, deterministic,
       and deliberately small enough to run without a model server or high-end GPU.
     </p>
     <div class="sm-actions">
-      <a class="sm-button sm-button--primary" href="getting-started/">Build your first material →</a>
+      <a class="sm-button sm-button--primary" href="getting-started/">Build your first route →</a>
       <a class="sm-button sm-button--secondary" href="https://github.com/andyandymike/sonic-matter">View source on GitHub</a>
     </div>
   </div>
@@ -50,9 +56,9 @@
       <h2>Variation without a black box.</h2>
     </div>
     <p>
-      Gate A starts from recorded impact variants and adds the event logic an
-      independent game actually needs: intensity, repeat control, bounded
-      variation, deterministic seeds, and a shared 3D voice budget.
+      Gate A starts from recorded impact variants and adds explicit contact-pair
+      routing, intensity, repeat control, bounded variation, deterministic
+      seeds, and a shared 3D voice budget.
     </p>
   </div>
   <div class="sm-card-grid">
@@ -92,7 +98,7 @@
     </div>
     <div class="sm-flow__step">
       <strong>Resolve</strong>
-      <span>An acoustic material supplies eligible authored variants.</span>
+      <span>An ordered pair or explicit fallback chooses the output material.</span>
     </div>
     <div class="sm-flow__step">
       <strong>Select</strong>
@@ -120,7 +126,8 @@
     <div class="sm-boundary__badge">EXPERIMENTAL</div>
     <p>
       Gate A is not production Foley and does not yet include resonators,
-      footsteps, scrape, roll, ambience, or an exported-package guarantee.
+      footsteps, scrape, roll, or ambience. Windows export and deterministic
+      package automation now exist; timed first-user acceptance is outstanding.
       Read the <a href="gate-a-contract/">public contract</a> before integrating
       it into a shipping project.
     </p>

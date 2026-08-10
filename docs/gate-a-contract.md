@@ -1,42 +1,60 @@
 # Gate A public contract
 
-Gate A is a sample-first implementation slice. It is not the hybrid Foley
-research result and it is not a production release.
+Gate A is a sample-first implementation slice. Version 0.1.0-rc0 is an
+acceptance candidate, not the hybrid Foley research result or a production
+release.
 
 ## Included
 
-- One normalized impact event with stable event ID, seed, estimated intensity,
-  priority, and 3D position.
-- An acoustic material containing weighted `AudioStream` variants.
+- One normalized impact event with stable event ID, seed, intensity, evidence,
+  priority, 3D position, and source/target material identities.
+- Acoustic materials with stable material/family IDs and weighted AudioStream
+  variants.
+- Explicit impact resolution in this fixed order: ordered pair, explicitly
+  symmetric reverse pair, target family, source family, global default, drop.
+- Fail-closed ambiguous, missing, and invalid route behavior.
+- SonicMaterialBinding3D for contacted collision bodies.
 - Deterministic weighted selection with no adjacent repeat when at least two
   eligible variants exist.
 - Bounded pitch, gain, and intensity mapping.
-- A shared pool of at most eight `AudioStreamPlayer3D` voices.
+- One shared pool of at most eight AudioStreamPlayer3D voices.
 - Deterministic voice replacement and stale-release protection.
-- A `RigidBody3D` adapter that labels velocity-based intensity as estimated.
-- Observable counters for submissions, playback, invalid events, missing
-  mappings, selections, prevented repeats, active voices, and steals.
+- A RigidBody3D adapter that labels velocity and source/target roles as
+  estimated and suppresses duplicate two-adapter reports with a stable rule.
+- Observable counters for route tiers/drops, submissions, playback, invalid
+  events, sample misses, selections, prevented repeats, active voices, and
+  steals.
 - A self-contained 3D scene and project-authored synthetic test fixtures.
+- Deterministic addon/demo archives with per-file hashes and a fail-closed
+  rights audit.
+- A checked-in Windows export preset and an exported-build sentinel smoke.
 
 ## Excluded
 
 - Resonators, body modes, roughness synthesis, learned components, or native DSP.
 - Footsteps, scrape, roll, ambience, similarity search, and vocal queries.
 - Production Foley assets or any claim that the generated fixtures sound real.
-- Cross-platform, performance, exported-package, or first-user acceptance
-  claims until their evidence exists.
+- Cross-platform or measured real-time performance claims.
+- A Gate A completion claim until the required first-user evidence passes.
 
 ## Current compatibility
 
-The development target is Godot 4.6.1 on Windows. Other Godot or platform
-combinations are unverified rather than implicitly supported.
+The bound target is Godot 4.6.1 on Windows. Other Godot or platform combinations
+are unverified rather than implicitly supported.
 
 ## Evidence required before calling Gate A complete
 
-- Headless determinism, no-repeat, selection, validation, and voice-policy tests.
-- Editor import without parser or plugin errors.
-- Runtime smoke of the acceptance scene.
-- Exported-build smoke.
-- Asset-rights and public-package audit.
-- The timed first-user workflow described by the private acceptance plan.
+- Headless determinism, route-order, ambiguity, no-repeat, validation, and
+  voice-policy tests.
+- Editor import and plugin initialization without parser errors.
+- Runtime, lifecycle/burst, generated-audio safety, and exported Windows
+  release smokes.
+- Blank-project plugin disable/enable/disable/re-enable and routed-impact smoke.
+- Main-thread submission scaling metrics, explicitly not audio callback timing.
+- Asset-rights and public-package audit with deterministic archive hashes.
+- At least four of five new users reaching a first audible impact within 15
+  minutes from an uninstalled local release archive without maintainer help.
+
+The RC0 automation implements the machine-verifiable evidence paths. The timed
+first-user study remains outstanding, so Gate A remains in progress.
 

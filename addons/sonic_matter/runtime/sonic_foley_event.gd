@@ -19,6 +19,9 @@ var intensity: float = 0.0
 var intensity_evidence: Evidence = Evidence.UNAVAILABLE
 var position: Vector3 = Vector3.ZERO
 var priority: int = 0
+var source_material_id: StringName
+var target_material_id: StringName
+var material_role_evidence: Evidence = Evidence.UNAVAILABLE
 
 
 static func impact(
@@ -28,6 +31,9 @@ static func impact(
         new_position: Vector3,
         new_priority: int = 0,
         evidence: Evidence = Evidence.AUTHORED,
+        new_source_material_id: StringName = StringName(),
+        new_target_material_id: StringName = StringName(),
+        new_material_role_evidence: Evidence = Evidence.UNAVAILABLE,
 ) -> SonicFoleyEvent:
     var event := SonicFoleyEvent.new()
     event.kind = Kind.IMPACT
@@ -37,6 +43,9 @@ static func impact(
     event.intensity_evidence = evidence
     event.position = new_position
     event.priority = new_priority
+    event.source_material_id = new_source_material_id
+    event.target_material_id = new_target_material_id
+    event.material_role_evidence = new_material_role_evidence
     return event
 
 

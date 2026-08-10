@@ -7,6 +7,8 @@ const TEST_AUDIO := preload("res://examples/gate_a_3d/generated_test_audio.gd")
 var _emitter: Node3D
 var _bodies: Array[RigidBody3D] = []
 var _initial_positions: Array[Vector3] = []
+var _source_materials: Dictionary = {}
+var _ground_material: SonicAcousticMaterial
 var _debug_label: Label
 var _last_event: String = "waiting for impact"
 
@@ -15,6 +17,34 @@ func _ready() -> void:
     _build_world()
     _build_interface()
     _reset_all()
+    if OS.get_cmdline_user_args().has("--gate-a-export-smoke"):
+        call_deferred("_run_export_smoke")
+
+
+func _run_export_smoke() -> void:
+    await get_tree().create_timer(4.0).timeout
+    var snapshot: Dictionary = _emitter.call("debug_snapshot")
+    print("GATE_A_EXPORT_SNAPSHOT %s" % JSON.stringify(snapshot))
+    var capacity := int(snapshot.get("voice_capacity", 0))
+    var active := int(snapshot.get("active_voices", 0))
+    var passed := (
+        int(snapshot.get("submitted", 0)) >= 3
+        and int(snapshot.get("selected", 0)) >= 3
+        and int(snapshot.get("played", 0)) >= 3
+        and int(snapshot.get("invalid_events", 0)) == 0
+        and int(snapshot.get("missing_mappings", 0)) == 0
+        and int(snapshot.get("route_exact_ordered", 0)) >= 3
+        and int(snapshot.get("route_drops", 0)) == 0
+        and capacity == 8
+        and active >= 0
+        and active <= capacity
+    )
+    if passed:
+        print("GATE_A_EXPORT_SMOKE_OK")
+        get_tree().quit(0)
+        return
+    push_error("GATE_A_EXPORT_SMOKE_FAILED unexpected snapshot")
+    get_tree().quit(1)
 
 
 func _process(_delta: float) -> void:
@@ -25,6 +55,7 @@ func _process(_delta: float) -> void:
         "Space: drop all    1/2/3: drop one    R: reset\n"
         + "Synthetic fixtures only — not production Foley\n"
         + "submitted=%d  selected=%d  played=%d  active=%d/%d  steals=%d\n"
+        + "routes exact=%d sym=%d target=%d source=%d default=%d drops=%d\n"
         + "no-repeat=%d  missing=%d  invalid=%d\nlast: %s"
     ) % [
         int(snapshot.get("submitted", 0)),
@@ -33,6 +64,12 @@ func _process(_delta: float) -> void:
         int(snapshot.get("active_voices", 0)),
         int(snapshot.get("voice_capacity", 0)),
         int(snapshot.get("voice_steals", 0)),
+        int(snapshot.get("route_exact_ordered", 0)),
+        int(snapshot.get("route_exact_symmetric", 0)),
+        int(snapshot.get("route_target_family", 0)),
+        int(snapshot.get("route_source_family", 0)),
+        int(snapshot.get("route_global_default", 0)),
+        int(snapshot.get("route_drops", 0)),
         int(snapshot.get("no_repeat_avoided", 0)),
         int(snapshot.get("missing_mappings", 0)),
         int(snapshot.get("invalid_events", 0)),
@@ -83,21 +120,53 @@ func _build_world() -> void:
     environment_node.environment = environment
     add_child(environment_node)
 
-    _create_ground()
-
-    _emitter = EMITTER_SCRIPT.new()
-    _emitter.name = "SonicFoleyEmitter3D"
-    _emitter.set("voice_limit", 8)
-    add_child(_emitter)
-    _emitter.connect("impact_played", _on_impact_played)
-
     var definitions := [
         {"id": &"wood", "x": -3.0, "color": Color("b77a45"), "mass": 0.8},
         {"id": &"metal", "x": 0.0, "color": Color("9eb4c5"), "mass": 2.2},
         {"id": &"stone", "x": 3.0, "color": Color("888b91"), "mass": 3.4},
     ]
+    for definition in definitions:
+        var family_id := definition["id"] as StringName
+        var source_id := StringName("%s_prop" % family_id)
+        _source_materials[family_id] = TEST_AUDIO.create_material(
+            source_id,
+            family_id,
+            family_id,
+        )
+    _ground_material = TEST_AUDIO.create_material(
+        &"stone_ground",
+        &"stone",
+        &"stone",
+    )
+    _create_ground()
+
+    _emitter = EMITTER_SCRIPT.new()
+    _emitter.name = "SonicFoleyEmitter3D"
+    _emitter.set("voice_limit", 8)
+    _emitter.set("impact_route_map", _create_route_map(definitions))
+    add_child(_emitter)
+    _emitter.connect("impact_played", _on_impact_played)
+
     for index in definitions.size():
         _create_drop_body(index, definitions[index])
+
+
+func _create_route_map(definitions: Array) -> SonicImpactRouteMap:
+    var route_map := SonicImpactRouteMap.new()
+    for definition in definitions:
+        var family_id := definition["id"] as StringName
+        var source := _source_materials[family_id] as SonicAcousticMaterial
+        var route := SonicImpactRoute.new()
+        route.route_id = StringName("%s-on-stone" % family_id)
+        route.source_material_id = source.stable_id()
+        route.target_material_id = _ground_material.stable_id()
+        route.output_material = TEST_AUDIO.create_material(
+            StringName("%s_on_stone" % family_id),
+            family_id,
+            family_id,
+        )
+        route_map.exact_routes.append(route)
+    return route_map
 
 
 func _create_ground() -> void:
@@ -105,6 +174,11 @@ func _create_ground() -> void:
     ground.name = "Ground"
     ground.position = Vector3(0.0, -0.5, 0.0)
     add_child(ground)
+
+    var material_binding := SonicMaterialBinding3D.new()
+    material_binding.name = "SonicMaterialBinding3D"
+    material_binding.acoustic_material = _ground_material
+    ground.add_child(material_binding)
 
     var collision := CollisionShape3D.new()
     var shape := BoxShape3D.new()
@@ -151,7 +225,7 @@ func _create_drop_body(index: int, definition: Dictionary) -> void:
     var adapter := IMPACT_ADAPTER_SCRIPT.new()
     adapter.name = "SonicImpactAdapter3D"
     adapter.set("emitter_path", _emitter.get_path())
-    adapter.set("acoustic_material", TEST_AUDIO.create_material(definition["id"]))
+    adapter.set("acoustic_material", _source_materials[definition["id"]])
     adapter.set("stable_source_id", index + 1)
     adapter.set("base_seed", 0x51A7 + index * 101)
     adapter.set("reference_speed_mps", 8.0)
@@ -166,7 +240,7 @@ func _build_interface() -> void:
     add_child(layer)
     var panel := PanelContainer.new()
     panel.position = Vector2(24.0, 24.0)
-    panel.custom_minimum_size = Vector2(620.0, 152.0)
+    panel.custom_minimum_size = Vector2(720.0, 184.0)
     layer.add_child(panel)
     _debug_label = Label.new()
     _debug_label.add_theme_font_size_override("font_size", 18)
@@ -192,8 +266,11 @@ func _reset_body(index: int) -> void:
 
 
 func _on_impact_played(details: Dictionary) -> void:
-    _last_event = "%s variant=%d voice=%d%s" % [
-        String(details.get("material_id", &"unknown")),
+    _last_event = "%s -> %s via %s (%s) variant=%d voice=%d%s" % [
+        String(details.get("source_material_id", &"unknown")),
+        String(details.get("target_material_id", &"unknown")),
+        String(details.get("route_id", &"unknown")),
+        String(details.get("route_resolution", &"unknown")),
         int(details.get("variant_index", -1)),
         int(details.get("voice_index", -1)),
         " (stole)" if bool(details.get("voice_stolen", false)) else "",

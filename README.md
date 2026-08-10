@@ -17,17 +17,20 @@ should be exportable as ordinary audio assets for constrained platforms.
 
 ## Status
 
-Gate A implementation has started. The repository now contains a narrow Godot
-4.6.1 vertical slice for deterministic, physics-driven 3D impact Foley. It is
-an experimental acceptance harness, not a production release.
+Gate A 0.1.0-rc0 now contains an explicit source-target material router,
+deterministic sample selection, an eight-voice runtime, lifecycle/burst smokes,
+fail-closed rights-aware packaging, and a real Windows exported-build smoke on
+Godot 4.6.1. It remains an experimental acceptance candidate rather than a
+production release: the five-person timed workflow is still outstanding.
 
 The private working specification is intentionally excluded from version
 control. Stable decisions are rewritten as public documentation before
 implementation or release.
 
-The current public contract is [docs/gate-a-contract.md](docs/gate-a-contract.md),
-with bootstrap decisions recorded in
-[docs/adr/0001-gate-a-bootstrap.md](docs/adr/0001-gate-a-bootstrap.md).
+The current public contract is [docs/gate-a-contract.md](docs/gate-a-contract.md).
+Bootstrap and explicit pair-routing decisions are recorded in
+[ADR 0001](docs/adr/0001-gate-a-bootstrap.md) and
+[ADR 0002](docs/adr/0002-impact-material-routing.md).
 The rendered documentation is published at
 [andyandymike.github.io/sonic-matter](https://andyandymike.github.io/sonic-matter/).
 
@@ -45,9 +48,10 @@ The rendered documentation is published at
 
 - `addons/sonic_matter/` — the experimental Godot addon and runtime slice.
 - `docs/` — stable public contracts and architecture decisions.
-- `examples/gate_a_3d/` — standalone 3D impact-Foley acceptance scene.
-- `tests/gate_a/` — deterministic selection and instrumented scene tests.
-- `tools/` — reserved for later authoring and asset-validation tools.
+- `examples/gate_a_3d/` — explicit material-pair acceptance scene.
+- `tests/gate_a/` — deterministic, scene, lifecycle, and burst evidence.
+- `packaging/` — canonical addon/demo package inputs.
+- `tools/package_rc0.py` — deterministic package and rights audit.
 
 ## Quick verification
 
@@ -56,10 +60,15 @@ With Godot 4.6.1 available as `godot`:
 ```powershell
 godot --headless --path . --script res://tests/gate_a/test_runner.gd
 godot --headless --path . --script res://tests/gate_a/scene_smoke_runner.gd
+godot --headless --path . --script res://tests/gate_a/lifecycle_smoke_runner.gd
+godot --headless --path . --script res://tests/gate_a/audio_safety_runner.gd
+godot --headless --path . --script res://tests/gate_a/submission_probe.gd
+python -X utf8 tools/package_rc0.py --kind all
 ```
 
-The commands pass only when they print `GATE_A_TESTS_OK` and
-`GATE_A_SCENE_SMOKE_OK`, respectively, and exit with code `0`.
+Passing output includes `GATE_A_TESTS_OK`, `GATE_A_SCENE_SMOKE_OK`,
+`GATE_A_LIFECYCLE_OK`, and two `PACKAGE_BUILD_OK` records. CI additionally
+exports and runs the Windows release sentinel.
 
 ## Contributing
 

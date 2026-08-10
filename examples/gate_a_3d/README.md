@@ -2,10 +2,13 @@
 
 This scene exercises the current sample-first implementation. It creates three
 rigid bodies, maps their collision speed to estimated impact intensity, and
-routes all playback through one eight-voice emitter.
+routes `wood_prop`, `metal_prop`, and `stone_prop` into `stone_ground`
+through one eight-voice emitter.
 
 The sound fixtures are generated in memory by `generated_test_audio.gd`. They
 are deliberately synthetic and are not evidence of production Foley quality.
+The ground exposes its target material through `SonicMaterialBinding3D`; all
+three output choices come from exact ordered routes.
 
 ## Controls
 
@@ -13,8 +16,8 @@ are deliberately synthetic and are not evidence of production Foley quality.
 - `1`, `2`, `3` — reset one material body.
 - `R` — reset all bodies.
 
-The overlay exposes selection, no-repeat, missing-mapping, active-voice, and
-voice-steal counters.
+The overlay exposes pair resolution tiers, route drops, selection, no-repeat,
+missing-mapping, active-voice, and voice-steal counters.
 
 Run from the repository root with Godot 4.6.1:
 

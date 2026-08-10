@@ -3,6 +3,7 @@ extends Resource
 class_name SonicAcousticMaterial
 
 @export var material_id: StringName = &"default"
+@export var family_id: StringName
 @export var impact_variants: Array[SonicSampleVariant] = []
 @export var impact_gain_db: Vector2 = Vector2(-18.0, -3.0)
 @export_range(0.0, 12.0, 0.1) var gain_variation_db: float = 1.0
@@ -13,6 +14,12 @@ func stable_id() -> StringName:
     if material_id == StringName():
         return &"default"
     return material_id
+
+
+func stable_family_id() -> StringName:
+    if family_id == StringName():
+        return stable_id()
+    return family_id
 
 
 func intensity_gain_db(intensity: float) -> float:
