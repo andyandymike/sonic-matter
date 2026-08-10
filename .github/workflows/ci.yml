@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gate-a:
+    name: Gate A
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Reject private files
+        shell: bash
+        run: |
+          leaked_files="$(git ls-files 'spec/**' 'planning-private/**' '.local/**')"
+          if [[ -n "$leaked_files" ]]; then
+            printf '%s\n' "Private files are tracked:" "$leaked_files"
+            exit 1
+          fi
+
+      - name: Install Godot
+        uses: chickensoft-games/setup-godot@f166999204a4f2722c6fe042fbaa3b3ea0d9c789 # v2.4.1
+        with:
+          version: 4.6.1
+          use-dotnet: false
+          include-templates: false
+
+      - name: Report engine version
+        run: godot --version
+
+      - name: Import project
+        run: godot --headless --editor --path . --quit
+
+      - name: Run Gate A tests
+        run: godot --headless --path . --script res://tests/gate_a/test_runner.gd
+
+      - name: Run instrumented scene smoke
+        run: godot --headless --path . --script res://tests/gate_a/scene_smoke_runner.gd

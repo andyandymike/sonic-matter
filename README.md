@@ -2,6 +2,10 @@
 
 Physics-driven, controllable Foley for games.
 
+[![CI](https://github.com/andyandymike/sonic-matter/actions/workflows/ci.yml/badge.svg)](https://github.com/andyandymike/sonic-matter/actions/workflows/ci.yml)
+[![Docs](https://github.com/andyandymike/sonic-matter/actions/workflows/docs.yml/badge.svg)](https://andyandymike.github.io/sonic-matter/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 SonicMatter is an experimental open-source project exploring how gameplay and
 physics events can drive responsive sound effects without requiring a cloud
 service, a large generative model, or a high-end GPU.
@@ -24,6 +28,8 @@ implementation or release.
 The current public contract is [docs/gate-a-contract.md](docs/gate-a-contract.md),
 with bootstrap decisions recorded in
 [docs/adr/0001-gate-a-bootstrap.md](docs/adr/0001-gate-a-bootstrap.md).
+The rendered documentation is published at
+[andyandymike.github.io/sonic-matter](https://andyandymike.github.io/sonic-matter/).
 
 ## Principles
 
