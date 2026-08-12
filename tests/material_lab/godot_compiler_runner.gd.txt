@@ -1,7 +1,7 @@
 extends SceneTree
 
 
-const FIXTURE_ROOT := "res://tests/material_lab/generated_ci"
+const FIXTURE_ROOT := "res://compiled"
 
 var _failures: Array[String] = []
 

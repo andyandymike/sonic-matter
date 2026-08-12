@@ -16,6 +16,20 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 GENERATED_DIR = Path(__file__).resolve().parent / "generated_ci"
+RUNNER_TEMPLATE = Path(__file__).resolve().parent / "godot_compiler_runner.gd.txt"
+ADDON_SOURCE = ROOT / "addons" / "sonic_matter"
+
+PROJECT_TEXT = """; Generated standalone Material Lab compiler smoke project.
+config_version=5
+
+[application]
+config/name="SonicMatter Material Lab Compiler Smoke"
+config/features=PackedStringArray("4.6", "GL Compatibility")
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+"""
 
 RIGHTS_ACTIONS = (
     "local_preview",
@@ -225,14 +239,22 @@ def build_generated_fixture(output: Path = GENERATED_DIR) -> Path:
         raise RuntimeError("refusing to replace a symlinked generated fixture")
     if output.exists():
         shutil.rmtree(output)
+    output.mkdir(parents=True)
     with tempfile.TemporaryDirectory(prefix="sonic-matter-compiler-fixture-") as temporary:
         kit_path, plan_path = build_compiler_inputs(Path(temporary))
         compile_godot_kit(
             kit_path,
             plan_path,
-            output,
+            output / "compiled",
             rights_targets=("local-preview",),
         )
+    shutil.copytree(ADDON_SOURCE, output / "addons" / "sonic_matter")
+    shutil.copyfile(RUNNER_TEMPLATE, output / "godot_compiler_runner.gd")
+    (output / "project.godot").write_text(
+        PROJECT_TEXT,
+        encoding="utf-8",
+        newline="\n",
+    )
     return output
 
 

@@ -109,10 +109,15 @@ jobs:
         run: python -X utf8 -m tests.material_lab.build_godot_compiler_fixture
 
       - name: Import generated compiler fixture
-        run: godot --headless --editor --path . --quit
+        run: >-
+          godot --headless --editor
+          --path tests/material_lab/generated_ci --quit
 
       - name: Run Godot compiler resource smoke
-        run: godot --headless --path . --script res://tests/material_lab/godot_compiler_runner.gd
+        run: >-
+          godot --headless
+          --path tests/material_lab/generated_ci
+          --script res://godot_compiler_runner.gd
 
 
       - name: Run UI Foley offline tests
