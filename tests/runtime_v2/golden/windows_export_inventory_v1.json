@@ -1,17 +1,17 @@
 {
   "blocking_engine": "Godot 4.6.1 stable 14d19694e",
   "blocking_platform": "Windows x86_64",
-  "compact_oracle_sha256": "b288bda100f28b192d0051eb10b3126eeb650d0d0ce03af278a24372cb6385f6",
+  "compact_oracle_sha256": "d2549c35168bdff2edfec377fbcda82cfc761895b9f69dedf205818ae920a930",
   "exe_sha256_same_machine": "6669c1e822d17367028b017bf0306a4a1147d3bfa794768789276c19edb56447",
   "golden_kind": "windows_export_inventory_v1",
-  "inventory_sha256": "b0feb0ad479d06870dd71cbb9fb60394a4fca1f66db6dbe0de101cefb0a9303f",
+  "inventory_sha256": "5a95b770c88ad0d54b1bdb7027a82a19c3a8974aca00cf25b7e9c9b165717b93",
   "oracle_excluded_from_records": true,
   "oracle_path": "res://examples/gate_a_3d/export_inventory_v1.json",
-  "pck_sha256_same_machine": "c5eaf66c7c755c2abd6be3f7694e33a2e382b8fa7b80d396667576e41b10ee34",
+  "pck_sha256_same_machine": "952b856f56073951785a20648eb29106f7d5325716f61c237bb1e62cca514e4e",
   "records": [
     {
       "path": "res://.godot/exported/133200997/export-89befd62f8ea3b6598266e5e50023940-gate_a_demo.scn",
-      "sha256": "1eb0ff2df36edb317a65c2b39f50b5ef5a080a11b184ef9e50fed645bb124c66",
+      "sha256": "feb443447ad4c769ba76a7f23c450e0685d560b691ded46113a9b684c845c594",
       "size": 700
     },
     {

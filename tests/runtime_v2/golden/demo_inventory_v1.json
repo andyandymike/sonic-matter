@@ -1,6 +1,6 @@
 {
   "archive_root": "sonic-matter-demo-0.1.0-rc1",
-  "archive_sha256_same_machine": "6dba2561bad41dfecaf7a0faad958a158cbc8b1b25b2107835a83c63159494c8",
+  "archive_sha256_same_machine": "abc22d7d73bbc851c8a6272e8c6de4d2590e4c5fb14ff4c99a4c1d335e058ec4",
   "golden_kind": "demo_inventory_v1",
   "package": "sonic-matter-demo",
   "records": [
@@ -186,7 +186,7 @@
     },
     {
       "path": "examples/gate_a_3d/export_inventory_v1.json",
-      "sha256": "b288bda100f28b192d0051eb10b3126eeb650d0d0ce03af278a24372cb6385f6",
+      "sha256": "d2549c35168bdff2edfec377fbcda82cfc761895b9f69dedf205818ae920a930",
       "size": 7793
     },
     {
@@ -201,8 +201,8 @@
     },
     {
       "path": "examples/gate_a_3d/gate_a_demo.tscn",
-      "sha256": "11d20f659a2819d2200d1afcb089aa3309a120800bfb226aecaa28855c5f5874",
-      "size": 193
+      "sha256": "8c5b782b91719623a260cb577d8258785025e398d9db652805e9d076ea6e0b68",
+      "size": 212
     },
     {
       "path": "examples/gate_a_3d/generated_test_audio.gd",

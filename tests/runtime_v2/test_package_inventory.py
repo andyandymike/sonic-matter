@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import tempfile
@@ -48,6 +49,31 @@ class ExactPackageInventoryTests(unittest.TestCase):
                 paths = package_rc0.collect_package(kind)
                 leaked = [path for path in paths if path.startswith(forbidden)]
                 self.assertEqual([], leaked)
+
+    def test_windows_export_oracles_are_synchronized(self) -> None:
+        compact_path = Path("examples/gate_a_3d/export_inventory_v1.json")
+        golden_path = Path("tests/runtime_v2/golden/windows_export_inventory_v1.json")
+        compact_bytes = compact_path.read_bytes()
+        compact = json.loads(compact_bytes)
+        golden = json.loads(golden_path.read_text(encoding="utf-8"))
+
+        self.assertEqual("0.1.0-rc1", compact["release"])
+        self.assertEqual(compact["release"], golden["release"])
+        self.assertEqual(compact["records"], golden["records"])
+        self.assertEqual(
+            hashlib.sha256(compact_bytes).hexdigest(),
+            golden["compact_oracle_sha256"],
+        )
+
+        canonical_records = json.dumps(
+            compact["records"],
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+        inventory_sha256 = hashlib.sha256(canonical_records).hexdigest()
+        self.assertEqual(inventory_sha256, compact["inventory_sha256"])
+        self.assertEqual(inventory_sha256, golden["inventory_sha256"])
 
     def test_archive_verify_rejects_self_consistent_content_tamper(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

@@ -15,6 +15,7 @@ func _run() -> void:
     _test_forbidden_prefix()
     _test_missing_extra_and_tamper()
     _test_existing_error()
+    _test_scene_has_frozen_unique_id()
     _test_frozen_oracle_shape()
     if _failures.is_empty():
         print("RUNTIME_V2_EXPORT_INVENTORY_VALIDATOR_OK")
@@ -94,6 +95,21 @@ func _test_existing_error() -> void:
         ["collector failed"],
     )
     _expect(not bool(result.get("ok", true)), "collector error passed")
+
+
+func _test_scene_has_frozen_unique_id() -> void:
+    var scene_path := "res://examples/gate_a_3d/gate_a_demo.tscn"
+    var scene_file := FileAccess.open(scene_path, FileAccess.READ)
+    _expect(scene_file != null, "Gate A source scene is missing")
+    if scene_file == null:
+        return
+    var scene_text := scene_file.get_as_text()
+    _expect(
+        scene_text.contains(
+            '[node name="GateADemo" type="Node3D" unique_id=123456789]'
+        ),
+        "Gate A root unique_id drifted; clean exports would stop being reproducible",
+    )
 
 
 func _test_frozen_oracle_shape() -> void:
