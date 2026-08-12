@@ -144,29 +144,30 @@ jobs:
           include-templates: true
 
       - name: Import project
-        run: godot --headless --editor --path . --quit
+        shell: pwsh
+        run: |
+          & tools/invoke_godot_windows.ps1 `
+            -GodotArguments @("--headless", "--editor", "--path", ".", "--quit")
 
       - name: Run Windows Gate A tests
         shell: pwsh
         run: |
-          godot --headless --path . --script res://tests/runtime_v2/gate_a_policy_compat_runner.gd
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          godot --headless --path . --script res://tests/runtime_v2/weighted_choice_microkernel_runner.gd
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          godot --headless --path . --script res://tests/runtime_v2/export_inventory_validator_runner.gd
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          godot --headless --path . --script res://tests/runtime_v2/policy_benchmark_runner.gd
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          godot --headless --path . --script res://tests/gate_a/test_runner.gd
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          godot --headless --path . --script res://tests/gate_a/scene_smoke_runner.gd
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          godot --headless --path . --script res://tests/gate_a/lifecycle_smoke_runner.gd
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          godot --headless --path . --script res://tests/gate_a/audio_safety_runner.gd
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          godot --headless --path . --script res://tests/gate_a/submission_probe.gd
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $runnerMatrix = @(
+            @{ Script = "res://tests/runtime_v2/gate_a_policy_compat_runner.gd"; Sentinel = "RUNTIME_V2_COMPAT_OK" },
+            @{ Script = "res://tests/runtime_v2/weighted_choice_microkernel_runner.gd"; Sentinel = "RUNTIME_V2_MICROKERNEL_OK" },
+            @{ Script = "res://tests/runtime_v2/export_inventory_validator_runner.gd"; Sentinel = "RUNTIME_V2_EXPORT_INVENTORY_VALIDATOR_OK" },
+            @{ Script = "res://tests/runtime_v2/policy_benchmark_runner.gd"; Sentinel = "RUNTIME_V2_POLICY_BENCHMARK_OK" },
+            @{ Script = "res://tests/gate_a/test_runner.gd"; Sentinel = "GATE_A_TESTS_OK" },
+            @{ Script = "res://tests/gate_a/scene_smoke_runner.gd"; Sentinel = "GATE_A_SCENE_SMOKE_OK" },
+            @{ Script = "res://tests/gate_a/lifecycle_smoke_runner.gd"; Sentinel = "GATE_A_LIFECYCLE_OK" },
+            @{ Script = "res://tests/gate_a/audio_safety_runner.gd"; Sentinel = "GATE_A_AUDIO_SAFETY_OK" },
+            @{ Script = "res://tests/gate_a/submission_probe.gd"; Sentinel = "GATE_A_SUBMISSION_PROBE_OK" }
+          )
+          foreach ($runner in $runnerMatrix) {
+            & tools/invoke_godot_windows.ps1 `
+              -GodotArguments @("--headless", "--path", ".", "--script", $runner.Script) `
+              -ExpectedSentinel $runner.Sentinel
+          }
 
       - name: Run exact package inventory negative tests
         run: python -X utf8 -m unittest discover -s tests/runtime_v2 -p 'test_*.py' -v
@@ -175,8 +176,20 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path artifacts/export | Out-Null
-          godot --headless --path . --export-release "Windows Gate A RC1" artifacts/export/SonicMatterGateA.exe
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & tools/invoke_godot_windows.ps1 `
+            -GodotArguments @(
+              "--headless",
+              "--path", ".",
+              "--export-release", "Windows Gate A RC1",
+              "artifacts/export/SonicMatterGateA.exe"
+            ) `
+            -TimeoutSeconds 300
+          if (-not (Test-Path -LiteralPath "artifacts/export/SonicMatterGateA.exe" -PathType Leaf)) {
+            throw "Godot exited successfully without producing the exported executable."
+          }
+          if (-not (Test-Path -LiteralPath "artifacts/export/SonicMatterGateA.pck" -PathType Leaf)) {
+            throw "Godot exited successfully without producing the exported PCK."
+          }
 
       - name: Run exported release smoke
         shell: pwsh
