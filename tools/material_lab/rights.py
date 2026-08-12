@@ -43,6 +43,8 @@ STATUSES = {"allow", "deny", "unknown"}
 STATUS_RANK = {"deny": 0, "unknown": 1, "allow": 2}
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 ID_RE = re.compile(r"^[a-z0-9][a-z0-9._:/-]{2,127}$")
+PROJECT_OUTPUT_AUDIO_DECISION_ID = "D-015"
+PROJECT_OUTPUT_AUDIO_GRANT_STATUS = "unknown"
 
 
 @dataclass(frozen=True)
@@ -78,6 +80,66 @@ class RightsReport:
             "target": self.target,
             "status": "validated",
         }
+
+
+def current_project_output_audio_grant() -> dict[str, Any]:
+    return {
+        "decision_id": PROJECT_OUTPUT_AUDIO_DECISION_ID,
+        "status": PROJECT_OUTPUT_AUDIO_GRANT_STATUS,
+        "license_spdx": None,
+        "evidence_ids": [],
+    }
+
+
+def publication_rights(
+    *,
+    review_state: str,
+    parent_publication_eligible: bool,
+) -> dict[str, Any]:
+    blockers: list[str] = []
+    if not parent_publication_eligible:
+        blockers.append("input_rights_not_publication_ready")
+    if PROJECT_OUTPUT_AUDIO_GRANT_STATUS != "allow":
+        blockers.append("project_output_audio_grant_unknown")
+    return {
+        "review_state": review_state,
+        "parent_publication_eligible": parent_publication_eligible,
+        "project_output_audio_grant": current_project_output_audio_grant(),
+        "publication_eligible": not blockers,
+        "publication_blockers": blockers,
+    }
+
+
+def validate_recipe_publication_rights(raw: Any) -> dict[str, Any]:
+    if not isinstance(raw, dict):
+        raw = {}
+    parent_value = raw.get("parent_publication_eligible", False)
+    if not isinstance(parent_value, bool):
+        raise ManifestError("rights.parent_publication_eligible must be boolean")
+    review_state = raw.get("review_state", "unreviewed-local-only")
+    if not isinstance(review_state, str) or not review_state.strip():
+        raise ManifestError("rights.review_state must be a non-empty string")
+
+    expected = publication_rights(
+        review_state=review_state,
+        parent_publication_eligible=parent_value,
+    )
+    declared_grant = raw.get("project_output_audio_grant")
+    if declared_grant is not None and declared_grant != expected["project_output_audio_grant"]:
+        raise ManifestError(
+            "recipe output-audio grant conflicts with current D-015 state"
+        )
+    declared_eligible = raw.get("publication_eligible", False)
+    if not isinstance(declared_eligible, bool):
+        raise ManifestError("rights.publication_eligible must be boolean")
+    if declared_eligible != expected["publication_eligible"]:
+        raise ManifestError(
+            "recipe publication_eligible conflicts with current rights decisions"
+        )
+    declared_blockers = raw.get("publication_blockers")
+    if declared_blockers is not None and declared_blockers != expected["publication_blockers"]:
+        raise ManifestError("recipe publication blockers are stale or inconsistent")
+    return expected
 
 
 def _require_text(value: Any, label: str) -> str:

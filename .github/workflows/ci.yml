@@ -46,6 +46,16 @@ jobs:
       - name: Import project
         run: godot --headless --editor --path . --quit
 
+      - name: Run internal weighted-choice tests
+        run: godot --headless --path . --script res://tests/runtime_v2/weighted_choice_microkernel_runner.gd
+
+      - name: Observe legacy replay portability (non-support signal)
+        continue-on-error: true
+        run: godot --headless --path . --script res://tests/runtime_v2/gate_a_policy_compat_runner.gd
+
+      - name: Run exact package inventory negative tests
+        run: python -X utf8 -m unittest discover -s tests/runtime_v2 -p 'test_*.py' -v
+
       - name: Run Gate A tests
         run: godot --headless --path . --script res://tests/gate_a/test_runner.gd
 
@@ -59,7 +69,7 @@ jobs:
       - name: Record main-thread submission probe
         run: godot --headless --path . --script res://tests/gate_a/submission_probe.gd
 
-      - name: Audit and build deterministic RC0 packages
+      - name: Audit and build deterministic RC1 packages
         run: python -X utf8 tools/package_rc0.py --kind all
 
   material-lab:
@@ -89,8 +99,23 @@ jobs:
       - name: Run Material Lab tests
         run: python -X utf8 -m unittest discover -s tests/material_lab -v
 
+      - name: Run UI Foley offline tests
+        run: python -X utf8 -m unittest discover -s tests/ui_foley -v
+
       - name: Smoke CLI boundary
         run: python -X utf8 -m tools.material_lab --help
+
+  content-packs:
+    name: Content packs (rights and integrity)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Audit optional content packs
+        run: python -X utf8 -m unittest discover -s tests/content_packs -v
 
   windows-export:
     name: Windows export and package
@@ -124,6 +149,14 @@ jobs:
       - name: Run Windows Gate A tests
         shell: pwsh
         run: |
+          godot --headless --path . --script res://tests/runtime_v2/gate_a_policy_compat_runner.gd
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          godot --headless --path . --script res://tests/runtime_v2/weighted_choice_microkernel_runner.gd
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          godot --headless --path . --script res://tests/runtime_v2/export_inventory_validator_runner.gd
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          godot --headless --path . --script res://tests/runtime_v2/policy_benchmark_runner.gd
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           godot --headless --path . --script res://tests/gate_a/test_runner.gd
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           godot --headless --path . --script res://tests/gate_a/scene_smoke_runner.gd
@@ -135,11 +168,14 @@ jobs:
           godot --headless --path . --script res://tests/gate_a/submission_probe.gd
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+      - name: Run exact package inventory negative tests
+        run: python -X utf8 -m unittest discover -s tests/runtime_v2 -p 'test_*.py' -v
+
       - name: Export Windows release
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path artifacts/export | Out-Null
-          godot --headless --path . --export-release "Windows Gate A RC0" artifacts/export/SonicMatterGateA.exe
+          godot --headless --path . --export-release "Windows Gate A RC1" artifacts/export/SonicMatterGateA.exe
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Run exported release smoke
@@ -147,8 +183,14 @@ jobs:
         run: |
           $stdout = "artifacts/export/export-smoke.stdout.log"
           $stderr = "artifacts/export/export-smoke.stderr.log"
+          $exeCandidate = Join-Path (Get-Location) "artifacts/export/SonicMatterGateA.exe"
+          if (-not (Test-Path -LiteralPath $exeCandidate -PathType Leaf)) {
+            Get-ChildItem -LiteralPath "artifacts/export" -Force
+            throw "Exported executable is missing: $exeCandidate"
+          }
+          $exePath = (Resolve-Path -LiteralPath $exeCandidate -ErrorAction Stop).Path
           $startParameters = @{
-            FilePath = "artifacts/export/SonicMatterGateA.exe"
+            FilePath = $exePath
             ArgumentList = @("--headless", "--", "--gate-a-export-smoke")
             RedirectStandardOutput = $stdout
             RedirectStandardError = $stderr
@@ -168,19 +210,33 @@ jobs:
           if (-not (Select-String -Path $stdout -Pattern "GATE_A_EXPORT_SMOKE_OK" -Quiet)) {
             throw "Exported release did not emit GATE_A_EXPORT_SMOKE_OK."
           }
+          if (-not (Select-String -Path $stdout -Pattern 'GATE_A_EXPORT_INVENTORY .*"ok":true' -Quiet)) {
+            throw "Exported release did not prove exact logical PCK inventory."
+          }
 
-      - name: Audit and build deterministic RC0 packages
+      - name: Audit and build deterministic RC1 packages
         run: python -X utf8 tools/package_rc0.py --kind all
+
+      - name: Rebuild RC1 packages and compare hashes
+        shell: pwsh
+        run: |
+          python -X utf8 tools/package_rc0.py --kind all --output-dir artifacts/packages-repeat
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          foreach ($name in @('sonic-matter-addon-0.1.0-rc1.zip', 'sonic-matter-demo-0.1.0-rc1.zip')) {
+            $first = (Get-FileHash -Algorithm SHA256 -LiteralPath "artifacts/packages/$name").Hash
+            $second = (Get-FileHash -Algorithm SHA256 -LiteralPath "artifacts/packages-repeat/$name").Hash
+            if ($first -ne $second) { throw "Package repeatability failed: $name" }
+          }
 
       - name: Verify clean addon install and plugin cycle
         run: >-
           python -X utf8 tools/verify_clean_install.py
-          --archive artifacts/packages/sonic-matter-addon-0.1.0-rc0.zip
+          --archive artifacts/packages/sonic-matter-addon-0.1.0-rc1.zip
           --godot godot
-      - name: Upload RC0 evidence
+      - name: Upload RC1 evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: sonic-matter-gate-a-rc0
+          name: sonic-matter-gate-a-rc1
           path: |
             artifacts/packages/*.zip
             artifacts/export/SonicMatterGateA.exe
@@ -188,3 +244,39 @@ jobs:
             artifacts/export/export-smoke.*.log
           if-no-files-found: error
           retention-days: 14
+
+  release-gate:
+    name: Release Gate
+    if: ${{ always() }}
+    needs:
+      - gate-a
+      - material-lab
+      - content-packs
+      - windows-export
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - name: Require every release job
+        shell: bash
+        env:
+          GATE_A_RESULT: "${{ needs['gate-a'].result }}"
+          MATERIAL_LAB_RESULT: "${{ needs['material-lab'].result }}"
+          CONTENT_PACKS_RESULT: "${{ needs['content-packs'].result }}"
+          WINDOWS_EXPORT_RESULT: "${{ needs['windows-export'].result }}"
+        run: |
+          printf '%s\n' \
+            "Gate A=$GATE_A_RESULT" \
+            "Material Lab=$MATERIAL_LAB_RESULT" \
+            "Content packs=$CONTENT_PACKS_RESULT" \
+            "Windows export=$WINDOWS_EXPORT_RESULT"
+          for result in \
+            "$GATE_A_RESULT" \
+            "$MATERIAL_LAB_RESULT" \
+            "$CONTENT_PACKS_RESULT" \
+            "$WINDOWS_EXPORT_RESULT"
+          do
+            if [ "$result" != "success" ]; then
+              exit 1
+            fi
+          done

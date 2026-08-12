@@ -21,6 +21,9 @@ addon do not require Python, NumPy, a model, a GPU, or a network connection.
   uses a versioned PCG32 stream derived from recipe hash, seed, and variant.
 - Running without a rights manifest is allowed only for private local research;
   the generated report records `publication_eligible: false`.
+- Even when every input permits fitting and redistribution, D-015 currently
+  leaves the project output-audio grant unknown. Renders remain local-only and
+  cannot enter a verified public Material Kit until that decision is recorded.
 - This is a bake-first evidence slice. It does not yet satisfy the B0 realtime
   GDExtension, callback timing, listening-test, or public asset gates.
 
@@ -93,7 +96,11 @@ action rights review.
 Public targets fail closed on either `deny` or `unknown`. Local preview may use
 `unknown`, but still rejects an explicit `deny`. `official-cc0` accepts only
 project-owned/CC0 intake with an explicit `CC0-1.0` outbound media grant; it
-does not infer an audio license from the repository's MIT code license.
+does not infer an audio license from the repository's MIT code license. Every
+audio file in a kit must have an exact path/hash record in the rights manifest.
+A verified recipe must also pass the current D-015 output-audio decision for
+every non-local target; choosing a different distribution target cannot bypass
+that gate.
 
 ## Tests
 

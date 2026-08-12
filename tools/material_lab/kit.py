@@ -7,7 +7,11 @@ from typing import Any
 
 from .errors import ManifestError
 from .io import load_json, safe_relative_path, sha256_file
-from .rights import RightsReport, validate_rights
+from .rights import (
+    RightsReport,
+    validate_recipe_publication_rights,
+    validate_rights,
+)
 
 
 SCHEMA = "sonic-material-kit/v1"
@@ -16,6 +20,18 @@ KIT_ID_RE = re.compile(r"^[a-z0-9][a-z0-9._-]{2,127}$")
 MAX_FILES = 512
 MAX_TOTAL_BYTES = 512 * 1024 * 1024
 COVERAGE_STATES = {"verified", "fallback", "unsupported"}
+AUDIO_EXTENSIONS = {
+    ".aac",
+    ".aif",
+    ".aiff",
+    ".flac",
+    ".m4a",
+    ".mp3",
+    ".ogg",
+    ".opus",
+    ".pcm",
+    ".wav",
+}
 
 
 @dataclass(frozen=True)
@@ -113,6 +129,18 @@ def validate_kit(
         raise ManifestError(
             f"kit inventory is not exact; missing={missing}, unexpected={unexpected}"
         )
+    rights = validate_rights(rights_path, root=root, target=rights_target)
+    declared_audio = {
+        rel for rel in declared if Path(rel).suffix.lower() in AUDIO_EXTENSIONS
+    }
+    rights_files = {asset.file.replace("\\", "/") for asset in rights.assets}
+    missing_rights = sorted(declared_audio - rights_files)
+    unpackaged_rights = sorted(rights_files - set(declared))
+    if missing_rights or unpackaged_rights:
+        raise ManifestError(
+            "kit audio rights coverage is not exact; "
+            f"missing_rights={missing_rights}, unpackaged_rights={unpackaged_rights}"
+        )
     coverage = data.get("coverage")
     if not isinstance(coverage, list) or not coverage:
         raise ManifestError("coverage must explicitly mark verified/fallback/unsupported pairs")
@@ -138,9 +166,19 @@ def validate_kit(
             )
             if not recipe_path.is_file():
                 raise ManifestError(f"verified coverage is missing recipe: {recipe_value}")
+            recipe = load_json(recipe_path)
+            if recipe.get("schema") != "sonic-impact-recipe/v1":
+                raise ManifestError(
+                    f"verified coverage has an unsupported recipe schema: {recipe_value}"
+                )
+            if rights_target != "local-preview":
+                publication = validate_recipe_publication_rights(recipe.get("rights"))
+                if not publication["publication_eligible"]:
+                    raise ManifestError(
+                        f"verified coverage is not publication-eligible: {recipe_value}"
+                    )
         elif recipe_value is not None:
             raise ManifestError(f"{label}.recipe is only valid for verified coverage")
-    rights = validate_rights(rights_path, root=root, target=rights_target)
     if profile not in {"community", "official-cc0"}:
         raise ManifestError("profile must be community or official-cc0")
     if profile == "official-cc0":

@@ -1,0 +1,276 @@
+{
+  "archive_root": "sonic-matter-demo-0.1.0-rc1",
+  "archive_sha256_same_machine": "6dba2561bad41dfecaf7a0faad958a158cbc8b1b25b2107835a83c63159494c8",
+  "golden_kind": "demo_inventory_v1",
+  "package": "sonic-matter-demo",
+  "records": [
+    {
+      "path": "ASSET_MANIFEST.json",
+      "sha256": "d1c3d7cc569b3cd6b794aab508fc7a031da2f991660a4eee9eb08ffc32d450f2",
+      "size": 2102
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "57a061040ed3186a8f81060b6b5aa44bb23c17ef2f21cca6eca87d5460884761",
+      "size": 1081
+    },
+    {
+      "path": "README.md",
+      "sha256": "58cddebbfedae3d703248582f77cbccdc0ac28f65cae04dd20b98cefd6d0d354",
+      "size": 773
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "c16beea555b3488a81aa4dbbc786940add0939a149766d7547852c426aee2c3c",
+      "size": 622
+    },
+    {
+      "path": "addons/sonic_matter/plugin.cfg",
+      "sha256": "773e8b4be7e58bc236a11eb4064145fecee52fcdbac646f8b9a14eaab8504807",
+      "size": 188
+    },
+    {
+      "path": "addons/sonic_matter/runtime/internal/sonic_weighted_choice_v1.gd",
+      "sha256": "3c2cbae69695a005823f11420abf205c6d35a3a6a05cff2be3af3130754f2fe3",
+      "size": 1841
+    },
+    {
+      "path": "addons/sonic_matter/runtime/internal/sonic_weighted_choice_v1.gd.uid",
+      "sha256": "e5dad21159a9397f4ea8bba86be12fc5e5e226ab9f5ef1602f8f73a755046ff5",
+      "size": 20
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_acoustic_material.gd",
+      "sha256": "86b3c424e8d95dcd8fa6daeb39e4352792675a09e9d743c62390b38cca55095b",
+      "size": 855
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_acoustic_material.gd.uid",
+      "sha256": "f2fe3104c1ab0c5f16b3a9610c3283bd872a5937d2aba0d058042243570a42e9",
+      "size": 19
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_foley_emitter_3d.gd",
+      "sha256": "f5b7bf0d88c79f4933d341ba2af2f848812c90a06f4458938b0cc04faa3a169c",
+      "size": 6105
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_foley_emitter_3d.gd.uid",
+      "sha256": "9c0a0c4b339dc87e80b57cb551c4a99548d102ab32ece8220316212d3f774e00",
+      "size": 19
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_foley_event.gd",
+      "sha256": "16998d256dcbacae20a4c88bc19c32b5ebf785469dafad966ad55745406987c5",
+      "size": 1620
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_foley_event.gd.uid",
+      "sha256": "1212378a2c5cfcd28258988a21335cd6f7e83dc010ec21a2e46003bd5d5ea323",
+      "size": 19
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_impact_family_fallback.gd",
+      "sha256": "7468b3bfcad5d15ff1584ee7c01ccb652d452c06933962068796081a5ec5ac33",
+      "size": 353
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_impact_family_fallback.gd.uid",
+      "sha256": "43ccac5cd61b045f966a6e0f0d40735c933733805de0450006480c8fd461f380",
+      "size": 19
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_impact_route.gd",
+      "sha256": "098010fbbcd70f991d502a066b4a7d5e2e360a12a960e371b15bec9d1a25b416",
+      "size": 794
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_impact_route.gd.uid",
+      "sha256": "7e6c1a2c6c903983948c5c6b627748c44424269224ca9c3b3dc3b7692b3d05d2",
+      "size": 19
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_impact_route_map.gd",
+      "sha256": "887305565134de9d2c4ef6ef13efaa57ae7fac5c77ec14620daa2e71ede5441a",
+      "size": 5665
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_impact_route_map.gd.uid",
+      "sha256": "6f54d61541f0918cf48148437b25ca975dfa391b41380272a093560f03719a57",
+      "size": 20
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_material_binding_3d.gd",
+      "sha256": "2809f1966ff399d0f223551aca56a3e08e6c0f93bffc527ebfddeb105ef1f74b",
+      "size": 478
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_material_binding_3d.gd.uid",
+      "sha256": "06350260ea8e909b6b5c21447b23ef90027faed79a3d9a8e91c0054f7655023d",
+      "size": 20
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_rigid_body_impact_adapter_3d.gd",
+      "sha256": "80e65769b44b7f54b6efcfb230022b0aa4c4bb21c6bdceb85670c07236407306",
+      "size": 4953
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_rigid_body_impact_adapter_3d.gd.uid",
+      "sha256": "3bb58729082cd49af32174059e802fed874e4c27742c28a08c1562bcc286adc9",
+      "size": 20
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_sample_selector.gd",
+      "sha256": "6ce1c53b76815d65102e806e60a4527a9a3688243dd6f97d9eac4b2a5a77f3a5",
+      "size": 4386
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_sample_selector.gd.uid",
+      "sha256": "55399ec1501018868764b82b7bd86cc77a2198187054e1d93a4cdab1bdd89314",
+      "size": 19
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_sample_variant.gd",
+      "sha256": "109d554070058a304c1d4cc4f234cd6f3b7a1c6e8fe4d887fa0a13a28e28010d",
+      "size": 468
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_sample_variant.gd.uid",
+      "sha256": "0b6b9922913898b56563ac0ead2d6374154c503c09dadc8ab120238ee1fcf038",
+      "size": 19
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_voice_allocator.gd",
+      "sha256": "f49b3e9aeccc4aa590a12213fe6b85d2847c9c6d10f98c6954561daaf3b4e587",
+      "size": 3237
+    },
+    {
+      "path": "addons/sonic_matter/runtime/sonic_voice_allocator.gd.uid",
+      "sha256": "a5450cd3b12e04c137da7aa9ef6ae4a747667cffeaefe345cabfe69e5e8b710c",
+      "size": 19
+    },
+    {
+      "path": "addons/sonic_matter/sonic_matter_plugin.gd",
+      "sha256": "d1abf1e738f33f2d85272c27be278e6dc0ec799669c29e0bd1c19f6442323f75",
+      "size": 1020
+    },
+    {
+      "path": "addons/sonic_matter/sonic_matter_plugin.gd.uid",
+      "sha256": "d72ce7806cf3cc90b94d55083cbdb95a39d48e65dd3970dd57cabfa8f366880c",
+      "size": 20
+    },
+    {
+      "path": "docs/gate-a-contract.md",
+      "sha256": "02880d1a596299249498e417d98fcbbf81e2c8acd8ed2ff51dff8c4f965665f1",
+      "size": 3479
+    },
+    {
+      "path": "docs/getting-started.md",
+      "sha256": "55fd772964e92d2ac1d687e5e50913e4877835c6d514808a04c5cd139d9c6858",
+      "size": 6329
+    },
+    {
+      "path": "examples/gate_a_3d/ASSET_LICENSE.md",
+      "sha256": "58686e39bd403864f1f9d49d829a84ed388d5982f0082c73862b9b8d867937b6",
+      "size": 439
+    },
+    {
+      "path": "examples/gate_a_3d/README.md",
+      "sha256": "91b1fc2a46fc48cb53ab3c618d62cf3ff32ab9f07f5cdcc16217a93bed1fdd37",
+      "size": 928
+    },
+    {
+      "path": "examples/gate_a_3d/asset-rights.json",
+      "sha256": "2ee290bd7e210950c9360f094ebc582107bdc747beb6a2dd78ed79723921fd66",
+      "size": 2103
+    },
+    {
+      "path": "examples/gate_a_3d/export_inventory_v1.json",
+      "sha256": "b288bda100f28b192d0051eb10b3126eeb650d0d0ce03af278a24372cb6385f6",
+      "size": 7793
+    },
+    {
+      "path": "examples/gate_a_3d/gate_a_demo.gd",
+      "sha256": "e1f966a7ac43456ec651545cf4f7e7c40a0e0a2e93b12f794890b15298f9753c",
+      "size": 17608
+    },
+    {
+      "path": "examples/gate_a_3d/gate_a_demo.gd.uid",
+      "sha256": "b64dd513b71aa3159a700559d7b96cc575ea676c74263d1ba02e989c40fc0b56",
+      "size": 20
+    },
+    {
+      "path": "examples/gate_a_3d/gate_a_demo.tscn",
+      "sha256": "11d20f659a2819d2200d1afcb089aa3309a120800bfb226aecaa28855c5f5874",
+      "size": 193
+    },
+    {
+      "path": "examples/gate_a_3d/generated_test_audio.gd",
+      "sha256": "4373948e134744408b6c3d1a093f70e005c95206e5070e50c01380cd9d51a300",
+      "size": 3686
+    },
+    {
+      "path": "examples/gate_a_3d/generated_test_audio.gd.uid",
+      "sha256": "7afab40acabc33abee6c3c990950f41a03ca2c2aaf477ba571ec03126b44f0b6",
+      "size": 19
+    },
+    {
+      "path": "project.godot",
+      "sha256": "1bee87c88181bcf975518a766db34116533f137f530d75b6e6f36426b93357b3",
+      "size": 787
+    },
+    {
+      "path": "tests/gate_a/audio_safety_runner.gd",
+      "sha256": "b28f847aea6e0ae3b9317faa7fffa53fcb2a0d949767cc18a5e0badc96897eaf",
+      "size": 2634
+    },
+    {
+      "path": "tests/gate_a/audio_safety_runner.gd.uid",
+      "sha256": "df5705b588f74525994bb3d68fa53fa41eaf4d4a9ed0557fad2b5c28d0b3c1cc",
+      "size": 19
+    },
+    {
+      "path": "tests/gate_a/lifecycle_smoke_runner.gd",
+      "sha256": "c57d49aaf71e3bcf55010893a1c282f7cb6bfdda5287d05088c31e0c6baee78a",
+      "size": 11586
+    },
+    {
+      "path": "tests/gate_a/lifecycle_smoke_runner.gd.uid",
+      "sha256": "f7c64b7568bcc92e5f5d7b61e8a3aa83163d804ec3ffb60742cd73b4681ce4c2",
+      "size": 20
+    },
+    {
+      "path": "tests/gate_a/scene_smoke_runner.gd",
+      "sha256": "730ddeb16757850f0914311cb1c58bb9de68dcfdfac71bd2d949c1048f4c9940",
+      "size": 1434
+    },
+    {
+      "path": "tests/gate_a/scene_smoke_runner.gd.uid",
+      "sha256": "a56831a2c90e40bd38deeca0097f46cd165f500d414aea5fbcf706ee03a5b196",
+      "size": 19
+    },
+    {
+      "path": "tests/gate_a/submission_probe.gd",
+      "sha256": "805a017944cc873df78fe23bc2855cc0ba89a0dcb677e509a383239ea2ddbf5d",
+      "size": 3162
+    },
+    {
+      "path": "tests/gate_a/submission_probe.gd.uid",
+      "sha256": "6e0fa57bb794de81521f570bf1f51da7abdfb391b810c92893959b71f6de518a",
+      "size": 20
+    },
+    {
+      "path": "tests/gate_a/test_runner.gd",
+      "sha256": "3c821f500fcb05705aac7b80b50e362d93a8237f5de2931e5b02e414eb58c783",
+      "size": 16214
+    },
+    {
+      "path": "tests/gate_a/test_runner.gd.uid",
+      "sha256": "dca37409bcd002882336f36d4bab5c1b9ed664a613db6e7b3c5f2d606f9bc734",
+      "size": 20
+    }
+  ],
+  "release": "0.1.0-rc1",
+  "schema_version": 1,
+  "update_policy": "verify-only; changes require a release version/inventory review; normal tests and CI never regenerate this file"
+}

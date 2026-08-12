@@ -16,6 +16,9 @@ from package_rc0 import AuditError, verify_archive
 
 ROOT = Path(__file__).resolve().parents[1]
 SMOKE_ENV = "SONIC_MATTER_PLUGIN_SMOKE"
+ALLOWED_ENVIRONMENT_ERRORS = {
+    "ERROR: Failed to read the root certificate store.",
+}
 
 PROJECT_TEMPLATE = """; Generated clean-install fixture.
 config_version=5
@@ -92,8 +95,16 @@ func _run() -> void:
     )
     var details: Dictionary = emitter.play_impact(source, target, event)
     var snapshot: Dictionary = emitter.debug_snapshot()
+    var voice_index := int(details.get("voice_index", -1))
+    var player := emitter.get_node_or_null("Voice%02d" % voice_index)
+    var voice_started := (
+        player is AudioStreamPlayer3D
+        and (player as AudioStreamPlayer3D).playing
+    )
+    snapshot["clean_voice_started"] = voice_started
     var passed := (
         not details.is_empty()
+        and voice_started
         and int(snapshot.get("played", 0)) == 1
         and int(snapshot.get("route_exact_ordered", 0)) == 1
         and int(snapshot.get("route_drops", 0)) == 0
@@ -174,8 +185,18 @@ def run_godot(
         raise AuditError(
             f"Godot command failed with {result.returncode}: {' '.join(arguments)}"
         )
-    if "SCRIPT ERROR:" in combined or "\nERROR:" in combined:
-        raise AuditError(f"Godot reported a script/runtime error: {' '.join(arguments)}")
+    unexpected_errors = [
+        line.strip()
+        for line in combined.splitlines()
+        if line.strip().startswith("ERROR:")
+        and line.strip() not in ALLOWED_ENVIRONMENT_ERRORS
+    ]
+    if "SCRIPT ERROR:" in combined or unexpected_errors:
+        summary = "; ".join(unexpected_errors) or "SCRIPT ERROR"
+        raise AuditError(
+            "Godot reported a script/runtime error "
+            f"({summary}): {' '.join(arguments)}"
+        )
     return combined
 
 

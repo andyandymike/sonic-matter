@@ -1,0 +1,137 @@
+{
+  "schema": "sonicmatter-content-pack-rights/v1",
+  "pack_id": "sonicmatter.ui-page-turn.starninjas-cc0",
+  "version": "1.0.0",
+  "approval_state": "approved",
+  "intake_tier": "cc0",
+  "source": {
+    "provider": "OpenGameArt",
+    "title": "10 Book Page Flips",
+    "creator": "StarNinjas",
+    "published_date": "2021-03-08",
+    "canonical_url": "https://opengameart.org/content/10-book-page-flips",
+    "download_url": "https://opengameart.org/sites/default/files/book_flips_-_starninjas.zip",
+    "acquired_at": "2026-08-11",
+    "archive_filename": "book_flips_-_starninjas.zip",
+    "archive_sha256": "0ff49c3677ea0e64544aeda3a0aa2ce71ee5d42b266da9e54421252a5ca5f20f"
+  },
+  "license": {
+    "spdx": "CC0-1.0",
+    "name": "Creative Commons Zero v1.0 Universal",
+    "canonical_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "attribution_required": false,
+    "attribution_appreciated": true,
+    "notice": "Source recording copyright is not covered by the repository MIT license. No endorsement is implied."
+  },
+  "rights": {
+    "local_preview": "allow",
+    "source_repo_distribution": "allow",
+    "material_kit_distribution": "allow",
+    "game_source_distribution": "allow",
+    "game_binary_embedding": "allow",
+    "standalone_baked_audio_distribution": "allow",
+    "evaluation_use": "allow",
+    "evaluation_stimulus_publication": "allow",
+    "training_or_parameter_fitting": "allow",
+    "private_embeddings": "allow",
+    "index_redistribution": "allow"
+  },
+  "audio": {
+    "container": "Ogg",
+    "codec": "Vorbis",
+    "sample_rate_hz": 44100,
+    "channels": 2
+  },
+  "assets": [
+    {
+      "asset_id": "starninjas.book-flip.01",
+      "path": "audio/book_flip.1.ogg",
+      "archive_member_path": "book_flip.1.ogg",
+      "size_bytes": 13577,
+      "duration_ms": 754.6,
+      "sha256": "461bc5088f312ea4bca1b512c2cd9f3c5cbe9055df321d3c8a98aa061a045df9",
+      "transforms": []
+    },
+    {
+      "asset_id": "starninjas.book-flip.02",
+      "path": "audio/book_flip.2.ogg",
+      "archive_member_path": "book_flip.2.ogg",
+      "size_bytes": 17435,
+      "duration_ms": 1114.6,
+      "sha256": "4f4fa078fe4ed48f0f8ac8dd4039cefbba83baeb5a60272d68e9fa0fa925e0dc",
+      "transforms": []
+    },
+    {
+      "asset_id": "starninjas.book-flip.03",
+      "path": "audio/book_flip.3.ogg",
+      "archive_member_path": "book_flip.3.ogg",
+      "size_bytes": 18231,
+      "duration_ms": 1091.3,
+      "sha256": "ba66b947b6f53f557fa8db37413e66a2168c79ced10ca55a8abdfea134550817",
+      "transforms": []
+    },
+    {
+      "asset_id": "starninjas.book-flip.04",
+      "path": "audio/book_flip.4.ogg",
+      "archive_member_path": "book_flip.4.ogg",
+      "size_bytes": 11763,
+      "duration_ms": 650.2,
+      "sha256": "4b66e2f2222ad5365f417cdb66a14c81254f4ccac59598e2b9cf334cbca136c4",
+      "transforms": []
+    },
+    {
+      "asset_id": "starninjas.book-flip.05",
+      "path": "audio/book_flip.5.ogg",
+      "archive_member_path": "book_flip.5.ogg",
+      "size_bytes": 14801,
+      "duration_ms": 870.7,
+      "sha256": "3fd510b29e52ea6f47a87472707d1e159b09dfeada5ae9e25a3525071ecc2a6a",
+      "transforms": []
+    },
+    {
+      "asset_id": "starninjas.book-flip.06",
+      "path": "audio/book_flip.6.ogg",
+      "archive_member_path": "book_flip.6.ogg",
+      "size_bytes": 12248,
+      "duration_ms": 696.6,
+      "sha256": "f8ce9310329ca2134ce95226feb6aada0b577c55d0fc0a05155d6f9da628d41b",
+      "transforms": []
+    },
+    {
+      "asset_id": "starninjas.book-flip.07",
+      "path": "audio/book_flip.7.ogg",
+      "archive_member_path": "book_flip.7.ogg",
+      "size_bytes": 15624,
+      "duration_ms": 940.4,
+      "sha256": "3ab4a3d01f038f3d144fbd5869630612a76c611daea8890a3c57f3f21f4e2045",
+      "transforms": []
+    },
+    {
+      "asset_id": "starninjas.book-flip.08",
+      "path": "audio/book_flip.8.ogg",
+      "archive_member_path": "book_flip.8.ogg",
+      "size_bytes": 11818,
+      "duration_ms": 603.7,
+      "sha256": "0a39301fbbd9cf422148bebab3c1c8b5bd9eaf08dd780d98832d0ebacbefb35e",
+      "transforms": []
+    },
+    {
+      "asset_id": "starninjas.book-flip.09",
+      "path": "audio/book_flip.9.ogg",
+      "archive_member_path": "book_flip.9.ogg",
+      "size_bytes": 17119,
+      "duration_ms": 998.5,
+      "sha256": "ef84248ff6fed254b7abcd82ad5d1dc21d21062f97698db5e6fd53e62b474d28",
+      "transforms": []
+    },
+    {
+      "asset_id": "starninjas.book-flip.10",
+      "path": "audio/book_flip.10.ogg",
+      "archive_member_path": "book_flip.10.ogg",
+      "size_bytes": 17379,
+      "duration_ms": 1126.2,
+      "sha256": "f9244aafcdc55cdb094927acc12839d33b47798e91c4d208a5ac1eab457daecd",
+      "transforms": []
+    }
+  ]
+}

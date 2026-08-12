@@ -104,7 +104,117 @@ func _test_invalid_and_missing_inputs() -> void:
         selector.select_impact(empty_material, _impact_event(1, 1)).is_empty(),
         "unmapped material should fail closed",
     )
+    _test_non_finite_audio_parameters()
     _test_zero_weight_and_stats(selector)
+
+
+func _test_non_finite_audio_parameters() -> void:
+    var selector := SonicSampleSelector.new()
+    var invalid_variant_gain := GeneratedTestAudio.create_material(
+        &"invalid_variant_gain",
+    )
+    for variant in invalid_variant_gain.impact_variants:
+        variant.gain_db = NAN
+    _expect(
+        selector.select_impact(
+            invalid_variant_gain,
+            _impact_event(2, 2),
+        ).is_empty(),
+        "non-finite variant gain should fail closed",
+    )
+
+    var invalid_variant_pitch := GeneratedTestAudio.create_material(
+        &"invalid_variant_pitch",
+    )
+    for variant in invalid_variant_pitch.impact_variants:
+        variant.pitch_scale = INF
+    _expect(
+        selector.select_impact(
+            invalid_variant_pitch,
+            _impact_event(3, 3),
+        ).is_empty(),
+        "non-finite variant pitch should fail closed",
+    )
+
+    var invalid_material := GeneratedTestAudio.create_material(&"invalid_material")
+    invalid_material.pitch_variation = NAN
+    _expect(
+        selector.select_impact(
+            invalid_material,
+            _impact_event(4, 4),
+        ).is_empty(),
+        "non-finite material variation should fail closed",
+    )
+
+    var invalid_gain_variation := GeneratedTestAudio.create_material(
+        &"invalid_gain_variation",
+    )
+    invalid_gain_variation.gain_variation_db = INF
+    _expect(
+        selector.select_impact(
+            invalid_gain_variation,
+            _impact_event(5, 5),
+        ).is_empty(),
+        "non-finite gain variation should fail closed",
+    )
+
+    var invalid_gain_range := GeneratedTestAudio.create_material(
+        &"invalid_gain_range",
+    )
+    invalid_gain_range.impact_gain_db = Vector2(NAN, -3.0)
+    _expect(
+        selector.select_impact(
+            invalid_gain_range,
+            _impact_event(6, 6),
+        ).is_empty(),
+        "non-finite impact gain range should fail closed",
+    )
+
+    var finite_out_of_inspector_range := GeneratedTestAudio.create_material(
+        &"finite_out_of_inspector_range",
+    )
+    finite_out_of_inspector_range.pitch_variation = 0.75
+    finite_out_of_inspector_range.gain_variation_db = 18.0
+    for variant in finite_out_of_inspector_range.impact_variants:
+        variant.pitch_scale = -1.0
+    var finite_selection := selector.select_impact(
+        finite_out_of_inspector_range,
+        _impact_event(7, 7),
+    )
+    _expect(
+        not finite_selection.is_empty()
+        and float(finite_selection.get("pitch_scale", 0.0)) == 0.25,
+        "finite legacy values outside Inspector hints should remain clamped-compatible",
+    )
+
+    var overflow_material := GeneratedTestAudio.create_material(
+        &"finite_overflow_material",
+    )
+    overflow_material.impact_gain_db = Vector2(-1.0e308, 1.0e308)
+    var overflow_event := _impact_event(8, 8)
+    var stats_before := selector.stats()
+    _expect(
+        selector.select_impact(overflow_material, overflow_event).is_empty(),
+        "finite inputs that overflow output gain should fail closed",
+    )
+    var stats_after := selector.stats()
+    _expect(
+        int(stats_after["selected"]) == int(stats_before["selected"])
+        and int(stats_after["no_repeat_avoided"])
+        == int(stats_before["no_repeat_avoided"]),
+        "overflow failure advanced selection history or success counters",
+    )
+    overflow_material.impact_gain_db = Vector2(-18.0, -3.0)
+    var recovered := selector.select_impact(overflow_material, overflow_event)
+    var fresh := SonicSampleSelector.new().select_impact(
+        overflow_material,
+        overflow_event,
+    )
+    _expect(
+        not recovered.is_empty()
+        and recovered.get("variant_index") == fresh.get("variant_index"),
+        "overflow failure polluted no-repeat history",
+    )
 
 
 func _test_pair_resolution_order() -> void:

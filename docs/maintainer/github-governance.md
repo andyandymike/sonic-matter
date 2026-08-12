@@ -20,9 +20,18 @@ The administrator bypass does not override the separate safety ruleset. A
 direct maintainer push is therefore possible, while force-pushing or deleting
 `main` remains blocked.
 
+The workflow now also emits an aggregate `Release Gate` covering Gate A,
+Material Lab, content-pack rights, and Windows export/package evidence. After
+that check has completed successfully on the remote once, the maintainer must
+replace the ruleset's required `Gate A` context with `Release Gate` through the
+GitHub API while preserving the administrator bypass. Until that remote update
+is recorded, `Gate A` remains the currently enforced context.
+
 ## Automation
 
-- `CI` imports the project with Godot 4.6.1 and runs both Gate A test runners.
+- `CI` runs the Gate A/runtime compatibility suite, offline Material Lab and
+  UI Foley tests, content-pack rights checks, Windows export/package evidence,
+  and a single aggregate `Release Gate`.
 - `Docs` builds this site with a pinned MkDocs Material version and deploys it
   through GitHub Pages using OpenID Connect.
 - Dependabot checks GitHub Actions and the documentation dependency weekly.

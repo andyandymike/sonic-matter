@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build and verify deterministic SonicMatter Gate A RC0 archives."""
+"""Build and verify deterministic SonicMatter Gate A release-candidate archives."""
 
 from __future__ import annotations
 
@@ -25,6 +25,10 @@ RIGHTS_ACTIONS = (
     "private_embedding",
     "index_redistribution",
 )
+INVENTORY_ORACLES = {
+    "addon": "tests/runtime_v2/golden/addon_inventory_v1.json",
+    "demo": "tests/runtime_v2/golden/demo_inventory_v1.json",
+}
 
 
 class AuditError(RuntimeError):
@@ -164,6 +168,62 @@ def audit_source() -> None:
     read_bytes("THIRD_PARTY_NOTICES.md")
 
 
+def exact_inventory_records(files: dict[str, bytes]) -> list[dict[str, object]]:
+    return [
+        {
+            "path": path,
+            "sha256": sha256_bytes(files[path]),
+            "size": len(files[path]),
+        }
+        for path in sorted(files)
+    ]
+
+
+def assert_exact_inventory(
+    label: str,
+    expected: list[dict[str, object]],
+    actual: list[dict[str, object]],
+) -> None:
+    if expected == actual:
+        return
+    expected_by_path = {str(record.get("path")): record for record in expected}
+    actual_by_path = {str(record.get("path")): record for record in actual}
+    missing = sorted(set(expected_by_path) - set(actual_by_path))
+    extra = sorted(set(actual_by_path) - set(expected_by_path))
+    changed = sorted(
+        path
+        for path in set(expected_by_path) & set(actual_by_path)
+        if expected_by_path[path] != actual_by_path[path]
+    )
+    raise AuditError(
+        f"{label}: exact inventory drift "
+        f"missing={missing} extra={extra} changed={changed}"
+    )
+
+
+def validate_inventory_oracle(
+    kind: str,
+    files: dict[str, bytes],
+    *,
+    expected_version: str | None = None,
+) -> None:
+    relative_path = INVENTORY_ORACLES[kind]
+    oracle = json.loads(read_bytes(relative_path))
+    if oracle.get("schema_version") != 1:
+        raise AuditError(f"{relative_path}: schema_version must be 1")
+    if oracle.get("golden_kind") != f"{kind}_inventory_v1":
+        raise AuditError(f"{relative_path}: golden kind drifted")
+    version = expected_version or plugin_version()
+    if oracle.get("release") != version:
+        raise AuditError(f"{relative_path}: release does not match expected version")
+    if oracle.get("package") != f"sonic-matter-{kind}":
+        raise AuditError(f"{relative_path}: package identity drifted")
+    expected = oracle.get("records")
+    if not isinstance(expected, list):
+        raise AuditError(f"{relative_path}: records must be an array")
+    assert_exact_inventory(relative_path, expected, exact_inventory_records(files))
+
+
 def collect_package(kind: str) -> dict[str, bytes]:
     files: dict[str, bytes] = {}
     add_tree(files, "addons/sonic_matter", "addons/sonic_matter")
@@ -218,6 +278,7 @@ def package_manifest(kind: str, version: str, files: dict[str, bytes]) -> bytes:
 def write_archive(kind: str, output_dir: Path) -> Path:
     version = plugin_version()
     files = collect_package(kind)
+    validate_inventory_oracle(kind, files)
     files["PACKAGE_MANIFEST.json"] = package_manifest(kind, version, files)
 
     archive_root = f"sonic-matter-{kind}-{version}"
@@ -252,12 +313,16 @@ def verify_archive(path: Path) -> None:
         raise AuditError(f"archive does not exist: {path}")
     with zipfile.ZipFile(path, "r") as archive:
         names = [name for name in archive.namelist() if not name.endswith("/")]
+        if len(names) != len(set(names)):
+            raise AuditError(f"{path}: duplicate archive member")
         for name in names:
             member = PurePosixPath(name)
             if member.is_absolute() or ".." in member.parts:
                 raise AuditError(f"{path}: unsafe archive member {name}")
             if not member.parts or member.parts[0] in {"", "."}:
                 raise AuditError(f"{path}: invalid archive member {name}")
+            if len(member.parts) < 2:
+                raise AuditError(f"{path}: archive member has no relative path {name}")
 
         roots = {PurePosixPath(name).parts[0] for name in names}
         if len(roots) != 1:
@@ -282,17 +347,55 @@ def verify_archive(path: Path) -> None:
         if manifest_name not in names:
             raise AuditError(f"{path}: PACKAGE_MANIFEST.json is missing")
         manifest = json.loads(archive.read(manifest_name))
+        if manifest.get("schema_version") != 1:
+            raise AuditError(f"{path}: package manifest schema must be 1")
+        package_name = manifest.get("package")
+        package_kinds = {
+            "sonic-matter-addon": "addon",
+            "sonic-matter-demo": "demo",
+        }
+        if package_name not in package_kinds:
+            raise AuditError(f"{path}: unknown package identity {package_name!r}")
+        kind = package_kinds[package_name]
+        version = manifest.get("version")
+        if (
+            not isinstance(version, str)
+            or re.fullmatch(r"[0-9A-Za-z][0-9A-Za-z.-]*", version) is None
+        ):
+            raise AuditError(f"{path}: package version is missing")
+        if root != f"{package_name}-{version}":
+            raise AuditError(f"{path}: archive root does not match package/version")
         records = manifest.get("files", [])
+        if not isinstance(records, list):
+            raise AuditError(f"{path}: package files must be an array")
+        record_paths = [record.get("path") for record in records if isinstance(record, dict)]
+        if (
+            len(record_paths) != len(records)
+            or any(not isinstance(item, str) or not item for item in record_paths)
+            or len(record_paths) != len(set(record_paths))
+        ):
+            raise AuditError(f"{path}: invalid or duplicate manifest record")
         expected_names = {record["path"] for record in records}
         if relative_names != expected_names | {"PACKAGE_MANIFEST.json"}:
             raise AuditError(f"{path}: package file list does not match manifest")
 
+        actual_files: dict[str, bytes] = {}
         for record in records:
+            record_path = record["path"]
+            member = PurePosixPath(record_path)
+            if member.is_absolute() or ".." in member.parts:
+                raise AuditError(f"{path}: unsafe manifest path {record_path}")
             payload = archive.read(f"{root}/{record['path']}")
             if len(payload) != record["size"]:
                 raise AuditError(f"{path}: size mismatch for {record['path']}")
             if sha256_bytes(payload) != record["sha256"]:
                 raise AuditError(f"{path}: hash mismatch for {record['path']}")
+            actual_files[record_path] = payload
+        validate_inventory_oracle(
+            kind,
+            actual_files,
+            expected_version=version,
+        )
 
 
 def parse_args() -> argparse.Namespace:

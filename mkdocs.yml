@@ -50,6 +50,7 @@ nav:
   - Decisions:
       - Gate A bootstrap: adr/0001-gate-a-bootstrap.md
       - Impact material routing: adr/0002-impact-material-routing.md
+      - Weighted-choice compatibility: adr/0003-weighted-choice-microkernel.md
   - Maintainers:
       - GitHub governance: maintainer/github-governance.md
 

@@ -174,6 +174,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                         "manifest": str(result["manifest"]),
                         "rendered": len(result["rendered"]),
                         "recipe_sha256": result["recipe_sha256"],
+                        "publication_eligible": result["publication_eligible"],
                     },
                     sort_keys=True,
                 )

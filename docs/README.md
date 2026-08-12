@@ -6,7 +6,7 @@ hide:
 
 <section class="sm-hero">
   <div class="sm-hero__copy">
-    <div class="sm-eyebrow">Godot 4.6.1 · Gate A RC0</div>
+    <div class="sm-eyebrow">Godot 4.6.1 · Gate A RC1</div>
     <h1>Make collisions sound <span>alive.</span></h1>
     <p class="sm-hero__lede">
       Physics-driven, controllable Foley for games—local-first, deterministic,
@@ -44,8 +44,8 @@ hide:
     <span>Hard Gate A ceiling</span>
   </div>
   <div class="sm-metric">
-    <strong>Same seed</strong>
-    <span>Reproducible selection</span>
+    <strong>Same ordered trace</strong>
+    <span>Reproducible from reset state</span>
   </div>
 </div>
 
@@ -75,7 +75,7 @@ hide:
     <article class="sm-card">
       <div class="sm-card__icon">03</div>
       <h3>Engine-native playback</h3>
-      <p>A shared AudioStreamPlayer3D pool provides positional output, observable counters, and deterministic stealing.</p>
+      <p>A shared AudioStreamPlayer3D pool provides positional output, counters, and deterministic replacement ordering. Incoming events are not admission-controlled.</p>
     </article>
   </div>
 </section>

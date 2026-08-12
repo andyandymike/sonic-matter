@@ -1,11 +1,11 @@
-; Canonical source-demo project used by the RC0 packager.
+; Canonical source-demo project used by the Gate A release-candidate packager.
 ; The repository root project may contain maintainer-local editor changes.
 
 config_version=5
 
 [application]
 
-config/name="SonicMatter Gate A RC0"
+config/name="SonicMatter Gate A RC1"
 run/main_scene="res://examples/gate_a_3d/gate_a_demo.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 

@@ -9,5 +9,10 @@ class_name SonicSampleVariant
 
 
 func is_eligible() -> bool:
-    return stream != null and is_finite(weight) and weight > 0.0
-
+    return (
+        stream != null
+        and is_finite(weight)
+        and weight > 0.0
+        and is_finite(gain_db)
+        and is_finite(pitch_scale)
+    )

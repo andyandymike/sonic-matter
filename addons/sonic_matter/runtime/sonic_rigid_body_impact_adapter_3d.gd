@@ -57,10 +57,21 @@ func _on_body_entered(other_body: Node) -> void:
         return
     if not _is_canonical_reporter(other_body):
         return
+    if (
+        not is_finite(reference_speed_mps)
+        or reference_speed_mps <= 0.0
+        or not is_finite(minimum_intensity)
+        or minimum_intensity < 0.0
+        or minimum_intensity > 1.0
+    ):
+        return
 
+    var estimated_speed := _relative_speed_mps(other_body)
+    if estimated_speed < 0.0:
+        return
     var target_material := _find_acoustic_material(other_body)
     var intensity := clampf(
-        _body.linear_velocity.length() / maxf(reference_speed_mps, 0.1),
+        estimated_speed / reference_speed_mps,
         0.0,
         1.0,
     )
@@ -91,6 +102,15 @@ func _on_body_entered(other_body: Node) -> void:
         target_material,
         event,
     )
+
+
+func _relative_speed_mps(other_body: Node) -> float:
+    var relative_velocity := _body.linear_velocity
+    if other_body is RigidBody3D:
+        relative_velocity -= (other_body as RigidBody3D).linear_velocity
+    if not relative_velocity.is_finite():
+        return -1.0
+    return relative_velocity.length()
 
 
 func _is_canonical_reporter(other_body: Node) -> bool:
@@ -141,4 +161,3 @@ func _find_acoustic_material(body: Node) -> SonicAcousticMaterial:
         if child_material is SonicAcousticMaterial:
             return child_material as SonicAcousticMaterial
     return null
-

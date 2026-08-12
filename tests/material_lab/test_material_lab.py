@@ -136,6 +136,14 @@ class AnalysisRenderTests(unittest.TestCase):
             self.assertEqual(recipe["roughness"]["band_count"], 4)
             self.assertFalse(recipe["rights"]["publication_eligible"])
             self.assertEqual(
+                recipe["rights"]["project_output_audio_grant"]["decision_id"],
+                "D-015",
+            )
+            self.assertEqual(
+                recipe["rights"]["project_output_audio_grant"]["status"],
+                "unknown",
+            )
+            self.assertEqual(
                 {mode["role"] for mode in recipe["modal_body"]["modes"]}, {"pair-body"}
             )
 
@@ -158,6 +166,11 @@ class AnalysisRenderTests(unittest.TestCase):
             self.assertNotEqual(sha256_file(full_a), sha256_file(render_c["rendered"][0]))
             manifest = load_json(render_a["manifest"])
             self.assertFalse(manifest["safety"]["limiter_applied"])
+            self.assertFalse(manifest["rights"]["publication_eligible"])
+            self.assertIn(
+                "project_output_audio_grant_unknown",
+                manifest["rights"]["publication_blockers"],
+            )
             self.assertTrue(all(item["peak"] <= 0.98 for item in manifest["rendered"]))
 
             silent = render_recipe(
@@ -180,6 +193,42 @@ class AnalysisRenderTests(unittest.TestCase):
                     options=RenderOptions(arms=("sample_pool",)),
                 )
             self.assertFalse(failed_output.exists())
+
+    def test_parent_rights_cannot_bypass_open_output_audio_decision(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            audio_path = root / "audio" / "impact.wav"
+            write_wav_pcm24(audio_path, SAMPLE_RATE, _synthetic_impact(0))
+            rights_path = _rights_manifest(root, audio_path)
+            result = analyze_impacts(
+                [audio_path],
+                root / "analysis",
+                rights_manifest=rights_path,
+                rights_root=root,
+            )
+            recipe = load_json(result["recipe"])
+            self.assertTrue(recipe["rights"]["parent_publication_eligible"])
+            self.assertFalse(recipe["rights"]["publication_eligible"])
+            self.assertEqual(
+                ["project_output_audio_grant_unknown"],
+                recipe["rights"]["publication_blockers"],
+            )
+
+            rendered = render_recipe(result["recipe"], root / "render")
+            render_manifest = load_json(rendered["manifest"])
+            self.assertFalse(render_manifest["rights"]["publication_eligible"])
+            self.assertEqual(
+                "D-015",
+                render_manifest["rights"]["project_output_audio_grant"]["decision_id"],
+            )
+
+            recipe["rights"]["publication_eligible"] = True
+            tampered_recipe = result["recipe"].parent / "tampered-rights-recipe.json"
+            write_stable_json(tampered_recipe, recipe)
+            rejected_output = root / "tampered-render"
+            with self.assertRaises(ManifestError):
+                render_recipe(tampered_recipe, rejected_output)
+            self.assertFalse(rejected_output.exists())
 
 
 class RightsAndKitTests(unittest.TestCase):
@@ -230,8 +279,7 @@ class RightsAndKitTests(unittest.TestCase):
                             "event": "impact",
                             "source": "wood",
                             "target": "stone",
-                            "state": "verified",
-                            "recipe": recipe_path.relative_to(root).as_posix(),
+                            "state": "fallback",
                         },
                         {
                             "event": "impact",
@@ -246,6 +294,131 @@ class RightsAndKitTests(unittest.TestCase):
             self.assertEqual(report.file_count, len(files))
             audio_path.write_bytes(audio_path.read_bytes() + b"tamper")
             with self.assertRaises(ManifestError):
+                validate_kit(kit_path, profile="official-cc0")
+
+    def test_verified_recipe_fails_closed_while_d015_is_open(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            audio_path = root / "audio" / "impact.wav"
+            write_wav_pcm24(audio_path, SAMPLE_RATE, _synthetic_impact(0))
+            rights_path = _rights_manifest(root, audio_path)
+            recipe_path = root / "recipes" / "wood-stone.json"
+            write_stable_json(
+                recipe_path,
+                {
+                    "schema": "sonic-impact-recipe/v1",
+                    "rights": {
+                        "review_state": "validated",
+                        "parent_publication_eligible": True,
+                        "project_output_audio_grant": {
+                            "decision_id": "D-015",
+                            "status": "unknown",
+                            "license_spdx": None,
+                            "evidence_ids": [],
+                        },
+                        "publication_eligible": False,
+                        "publication_blockers": [
+                            "project_output_audio_grant_unknown"
+                        ],
+                    },
+                },
+            )
+            files = []
+            for path in sorted(root.rglob("*")):
+                if path.is_file():
+                    files.append(
+                        {
+                            "path": path.relative_to(root).as_posix(),
+                            "sha256": sha256_file(path),
+                            "bytes": path.stat().st_size,
+                        }
+                    )
+            kit_path = root / "kit.json"
+            write_stable_json(
+                kit_path,
+                {
+                    "schema": "sonic-material-kit/v1",
+                    "kit_id": "sonicmatter.test.blocked",
+                    "version": "0.1.0-experimental",
+                    "status": "experimental",
+                    "rights_manifest": rights_path.relative_to(root).as_posix(),
+                    "files": files,
+                    "coverage": [
+                        {
+                            "event": "impact",
+                            "source": "wood",
+                            "target": "stone",
+                            "state": "verified",
+                            "recipe": recipe_path.relative_to(root).as_posix(),
+                        }
+                    ],
+                },
+            )
+            for rights_target in (
+                "source-repo",
+                "material-kit",
+                "game-source",
+                "game-binary",
+                "public-bake",
+            ):
+                with self.subTest(rights_target=rights_target):
+                    with self.assertRaisesRegex(
+                        ManifestError,
+                        "not publication-eligible",
+                    ):
+                        validate_kit(
+                            kit_path,
+                            profile="official-cc0",
+                            rights_target=rights_target,
+                        )
+            validate_kit(
+                kit_path,
+                profile="official-cc0",
+                rights_target="local-preview",
+            )
+
+    def test_unregistered_audio_cannot_enter_a_kit(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            registered = root / "audio" / "registered.wav"
+            unregistered = root / "audio" / "generated.wav"
+            write_wav_pcm24(registered, SAMPLE_RATE, _synthetic_impact(0))
+            write_wav_pcm24(unregistered, SAMPLE_RATE, _synthetic_impact(1))
+            rights_path = _rights_manifest(root, registered)
+            files = []
+            for path in sorted(root.rglob("*")):
+                if path.is_file():
+                    files.append(
+                        {
+                            "path": path.relative_to(root).as_posix(),
+                            "sha256": sha256_file(path),
+                            "bytes": path.stat().st_size,
+                        }
+                    )
+            kit_path = root / "kit.json"
+            write_stable_json(
+                kit_path,
+                {
+                    "schema": "sonic-material-kit/v1",
+                    "kit_id": "sonicmatter.test.unregistered",
+                    "version": "0.1.0-experimental",
+                    "status": "experimental",
+                    "rights_manifest": rights_path.relative_to(root).as_posix(),
+                    "files": files,
+                    "coverage": [
+                        {
+                            "event": "impact",
+                            "source": "wood",
+                            "target": "stone",
+                            "state": "fallback",
+                        }
+                    ],
+                },
+            )
+            with self.assertRaisesRegex(
+                ManifestError,
+                "audio rights coverage is not exact",
+            ):
                 validate_kit(kit_path, profile="official-cc0")
 
 

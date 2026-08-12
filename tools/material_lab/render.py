@@ -19,6 +19,7 @@ from .io import (
     write_stable_json,
     write_wav_pcm24,
 )
+from .rights import validate_recipe_publication_rights
 
 
 ARM_NAMES = (
@@ -314,6 +315,11 @@ def render_recipe(
     if output_dir.exists() and any(output_dir.iterdir()):
         raise ManifestError(f"output directory must be empty: {output_dir}")
     recipe, samples, transients = _validate_recipe(recipe_path)
+    render_rights = validate_recipe_publication_rights(recipe.get("rights"))
+    raw_rights = recipe.get("rights", {})
+    for key in ("rights_manifest_sha256", "rights_pack_id"):
+        if isinstance(raw_rights, dict) and key in raw_rights:
+            render_rights[key] = raw_rights[key]
     recipe_sha = sha256_file(recipe_path)
     sample_rate = int(recipe["sample_rate"])
     duration_ms = float(recipe["render"]["duration_ms"])
@@ -379,6 +385,7 @@ def render_recipe(
             "arms": list(options.arms),
         },
         "rendered": rendered,
+        "rights": render_rights,
         "safety": {
             "limiter_applied": False,
             "silent_clipping_allowed": False,
@@ -390,4 +397,5 @@ def render_recipe(
         "manifest": manifest_path,
         "rendered": tuple(output_dir / item["path"] for item in rendered),
         "recipe_sha256": recipe_sha,
+        "publication_eligible": render_rights["publication_eligible"],
     }

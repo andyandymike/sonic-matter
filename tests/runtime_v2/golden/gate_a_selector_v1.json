@@ -1,0 +1,4253 @@
+{
+  "captured_at_utc": "2026-08-11T14:58:00Z",
+  "captured_from": {
+    "blocking_engine": "Godot 4.6.1 stable 14d19694e",
+    "blocking_platform": "Windows x86_64",
+    "capture_sha256": "803c7acaa7b5f0f34c05bb44db8f5e6ae7287936adb112d656f1e07df1c50616",
+    "commit": "52a25dc5c7cef4ab0136563b55d9d434afadbd86",
+    "runtime_scope_clean": true,
+    "runtime_scope_diff_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "working_tree_note": "Unrelated pre-existing README/CI/tools/content-pack work was present; addons runtime, Gate A examples, and Gate A tests had no diff."
+  },
+  "engine": {
+    "build": "official",
+    "hash": "14d19694e0c88a3f9e82d899a0400f27a24c176e",
+    "hex": 263681,
+    "major": 4,
+    "minor": 6,
+    "patch": 1,
+    "status": "stable",
+    "string": "4.6.1-stable (official)",
+    "timestamp": 0
+  },
+  "float_encoding": {
+    "name": "ieee754_binary64_little_endian_hex",
+    "sanity_1_0": "000000000000f03f"
+  },
+  "golden_kind": "gate_a_selector_v1",
+  "oracle_version": "gate_a_legacy_v1",
+  "schema_version": 1,
+  "selector": {
+    "algorithm": "gate_a_sample_selector_v1",
+    "default_id_material": {
+      "family_id": "temporary",
+      "gain_variation_db_bits": "9a9999999999e93f",
+      "impact_gain_db_x_bits": "00000000000034c0",
+      "impact_gain_db_y_bits": "00000000000010c0",
+      "material_id": "default",
+      "pitch_variation_bits": "9a9999999999993f",
+      "variants": [
+        {
+          "eligible": true,
+          "gain_db_bits": "0000000000000080",
+          "index": 0,
+          "pitch_scale_bits": "000000000000f03f",
+          "weight_bits": "000000000000f03f"
+        },
+        {
+          "eligible": true,
+          "gain_db_bits": "000000000000d0bf",
+          "index": 1,
+          "pitch_scale_bits": "000000000000f03f",
+          "weight_bits": "333333333333eb3f"
+        },
+        {
+          "eligible": true,
+          "gain_db_bits": "000000000000e0bf",
+          "index": 2,
+          "pitch_scale_bits": "000000000000f03f",
+          "weight_bits": "666666666666e63f"
+        }
+      ]
+    },
+    "default_id_stats": {
+      "invalid_events": 0,
+      "missing_mappings": 0,
+      "no_repeat_avoided": 7,
+      "selected": 8,
+      "submitted": 8
+    },
+    "default_id_trace": [
+      {
+        "input": {
+          "event_id": 4000,
+          "intensity_bits": "0000000000000000",
+          "material_id": "default",
+          "seed": 13000
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 4000,
+          "material_id": "default",
+          "pitch_scale_bits": "9a99d5e3ae4ff03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "9a9961b7115134c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 4001,
+          "intensity_bits": "9a9999999999b93f",
+          "material_id": "default",
+          "seed": 13037
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 4001,
+          "material_id": "default",
+          "pitch_scale_bits": "3333ff7ae607f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "cccc74ef08c732c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 4002,
+          "intensity_bits": "9a9999999999c93f",
+          "material_id": "default",
+          "seed": 13074
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 4002,
+          "material_id": "default",
+          "pitch_scale_bits": "cdcca8e1582af03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "000008049bae30c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 4003,
+          "intensity_bits": "333333333333d33f",
+          "material_id": "default",
+          "seed": 13111
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 4003,
+          "material_id": "default",
+          "pitch_scale_bits": "cdcca4f120c5ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "6666367824c92ec0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 4004,
+          "intensity_bits": "9a9999999999d93f",
+          "material_id": "default",
+          "seed": 13148
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 4004,
+          "material_id": "default",
+          "pitch_scale_bits": "0000f81f9035ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "9999298ebfeb2ac0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 4005,
+          "intensity_bits": "000000000000e03f",
+          "material_id": "default",
+          "seed": 13185
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 4005,
+          "material_id": "default",
+          "pitch_scale_bits": "000058c00e45ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "cdcc9cb76a1927c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 4006,
+          "intensity_bits": "333333333333e33f",
+          "material_id": "default",
+          "seed": 13222
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 4006,
+          "material_id": "default",
+          "pitch_scale_bits": "33336b9a708bef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "67667603a70c27c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 4007,
+          "intensity_bits": "666666666666e63f",
+          "material_id": "default",
+          "seed": 13259
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 4007,
+          "material_id": "default",
+          "pitch_scale_bits": "000098b686bfef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "6766b63df4a721c0"
+        }
+      }
+    ],
+    "edge_cases": [
+      {
+        "case": "null_material_invalid_event",
+        "legacy_observation": {
+          "empty": true,
+          "return_keys": []
+        }
+      },
+      {
+        "case": "empty_material_invalid_event",
+        "legacy_observation": {
+          "empty": true,
+          "return_keys": []
+        }
+      },
+      {
+        "case": "empty_material_valid_event",
+        "legacy_observation": {
+          "empty": true,
+          "return_keys": []
+        }
+      },
+      {
+        "case": "all_zero_weight",
+        "legacy_observation": {
+          "empty": true,
+          "return_keys": []
+        }
+      },
+      {
+        "case": "all_non_finite_weight",
+        "legacy_observation": {
+          "empty": true,
+          "return_keys": []
+        }
+      }
+    ],
+    "edge_stats": {
+      "invalid_events": 2,
+      "missing_mappings": 3,
+      "no_repeat_avoided": 0,
+      "selected": 0,
+      "submitted": 5
+    },
+    "non_contiguous_material": {
+      "family_id": "non_contiguous",
+      "gain_variation_db_bits": "9a9999999999e93f",
+      "impact_gain_db_x_bits": "00000000000034c0",
+      "impact_gain_db_y_bits": "00000000000010c0",
+      "material_id": "non_contiguous",
+      "pitch_variation_bits": "9a9999999999993f",
+      "variants": [
+        {
+          "eligible": true,
+          "gain_db_bits": "0000000000000080",
+          "index": 0,
+          "pitch_scale_bits": "000000000000f03f",
+          "weight_bits": "000000000000f03f"
+        },
+        {
+          "eligible": false,
+          "gain_db_bits": "000000000000d0bf",
+          "index": 1,
+          "pitch_scale_bits": "000000000000f03f",
+          "weight_bits": "0000000000000000"
+        },
+        {
+          "eligible": true,
+          "gain_db_bits": "000000000000e0bf",
+          "index": 2,
+          "pitch_scale_bits": "000000000000f03f",
+          "weight_bits": "666666666666e63f"
+        }
+      ]
+    },
+    "non_contiguous_stats": {
+      "invalid_events": 0,
+      "missing_mappings": 0,
+      "no_repeat_avoided": 15,
+      "selected": 16,
+      "submitted": 16
+    },
+    "non_contiguous_trace": [
+      {
+        "input": {
+          "event_id": 2000,
+          "intensity_bits": "0000000000000000",
+          "material_id": "non_contiguous",
+          "seed": 9000
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 2000,
+          "material_id": "non_contiguous",
+          "pitch_scale_bits": "6666366a3cf2ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "0000f08d5c6134c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 2001,
+          "intensity_bits": "9a9999999999b93f",
+          "material_id": "non_contiguous",
+          "seed": 9037
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 2001,
+          "material_id": "non_contiguous",
+          "pitch_scale_bits": "9a99f19de640f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "ccccdc11904a33c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 2002,
+          "intensity_bits": "9a9999999999c93f",
+          "material_id": "non_contiguous",
+          "seed": 9074
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 2002,
+          "material_id": "non_contiguous",
+          "pitch_scale_bits": "6666f673c477ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "0000b0e8198f30c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 2003,
+          "intensity_bits": "333333333333d33f",
+          "material_id": "non_contiguous",
+          "seed": 9111
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 2003,
+          "material_id": "non_contiguous",
+          "pitch_scale_bits": "33336b80193ef03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "0000a04f56da2fc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 2004,
+          "intensity_bits": "9a9999999999d93f",
+          "material_id": "non_contiguous",
+          "seed": 9148
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 2004,
+          "material_id": "non_contiguous",
+          "pitch_scale_bits": "9a99e9382a72ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "0000e0f498ac2ac0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 2005,
+          "intensity_bits": "000000000000e03f",
+          "material_id": "non_contiguous",
+          "seed": 9185
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 2005,
+          "material_id": "non_contiguous",
+          "pitch_scale_bits": "cdccbc1c143eef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "0000a05cb6e129c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 2006,
+          "intensity_bits": "333333333333e33f",
+          "material_id": "non_contiguous",
+          "seed": 9222
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 2006,
+          "material_id": "non_contiguous",
+          "pitch_scale_bits": "3333bb631448f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "cdcc2c5f892a24c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 2007,
+          "intensity_bits": "666666666666e63f",
+          "material_id": "non_contiguous",
+          "seed": 9259
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 2007,
+          "material_id": "non_contiguous",
+          "pitch_scale_bits": "cdcca455092ef03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "000020e0198422c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 2008,
+          "intensity_bits": "9a9999999999e93f",
+          "material_id": "non_contiguous",
+          "seed": 9296
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 2008,
+          "material_id": "non_contiguous",
+          "pitch_scale_bits": "66668e47fe13f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "999959879dbb1fc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 2009,
+          "intensity_bits": "cdccccccccccec3f",
+          "material_id": "non_contiguous",
+          "seed": 9333
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 2009,
+          "material_id": "non_contiguous",
+          "pitch_scale_bits": "cdcc64b0c65bf03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "000040daf31619c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 2010,
+          "intensity_bits": "000000000000f03f",
+          "material_id": "non_contiguous",
+          "seed": 9370
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 2010,
+          "material_id": "non_contiguous",
+          "pitch_scale_bits": "cdcc144b0b08f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "0000c0d6388f12c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 2011,
+          "intensity_bits": "0000000000000000",
+          "material_id": "non_contiguous",
+          "seed": 9407
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 2011,
+          "material_id": "non_contiguous",
+          "pitch_scale_bits": "3333ebb3d34ff03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "333303643d9434c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 2012,
+          "intensity_bits": "9a9999999999b93f",
+          "material_id": "non_contiguous",
+          "seed": 9444
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 2012,
+          "material_id": "non_contiguous",
+          "pitch_scale_bits": "0000d05deaa7ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "0000f0e7707d32c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 2013,
+          "intensity_bits": "9a9999999999c93f",
+          "material_id": "non_contiguous",
+          "seed": 9481
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 2013,
+          "material_id": "non_contiguous",
+          "pitch_scale_bits": "9a9911312243f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "3333839e6db531c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 2014,
+          "intensity_bits": "333333333333d33f",
+          "material_id": "non_contiguous",
+          "seed": 9518
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 2014,
+          "material_id": "non_contiguous",
+          "pitch_scale_bits": "00000844f11ff03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "9999f9bd6bc42fc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 2015,
+          "intensity_bits": "9a9999999999d93f",
+          "material_id": "non_contiguous",
+          "seed": 9555
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 2015,
+          "material_id": "non_contiguous",
+          "pitch_scale_bits": "cdcce4140c0ff03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "3333536eedea2bc0"
+        }
+      }
+    ],
+    "primary_material": {
+      "family_id": "wood",
+      "gain_variation_db_bits": "9a9999999999e93f",
+      "impact_gain_db_x_bits": "00000000000034c0",
+      "impact_gain_db_y_bits": "00000000000010c0",
+      "material_id": "wood",
+      "pitch_variation_bits": "9a9999999999993f",
+      "variants": [
+        {
+          "eligible": true,
+          "gain_db_bits": "0000000000000080",
+          "index": 0,
+          "pitch_scale_bits": "000000000000f03f",
+          "weight_bits": "000000000000f03f"
+        },
+        {
+          "eligible": true,
+          "gain_db_bits": "000000000000d0bf",
+          "index": 1,
+          "pitch_scale_bits": "000000000000f03f",
+          "weight_bits": "333333333333eb3f"
+        },
+        {
+          "eligible": true,
+          "gain_db_bits": "000000000000e0bf",
+          "index": 2,
+          "pitch_scale_bits": "000000000000f03f",
+          "weight_bits": "666666666666e63f"
+        }
+      ]
+    },
+    "primary_stats": {
+      "invalid_events": 0,
+      "missing_mappings": 0,
+      "no_repeat_avoided": 63,
+      "selected": 64,
+      "submitted": 64
+    },
+    "primary_trace": [
+      {
+        "input": {
+          "event_id": 1000,
+          "intensity_bits": "0000000000000000",
+          "material_id": "wood",
+          "seed": 7000
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1000,
+          "material_id": "wood",
+          "pitch_scale_bits": "66668aecc023f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "3333ab7cdd3f34c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1001,
+          "intensity_bits": "9a9999999999b93f",
+          "material_id": "wood",
+          "seed": 7037
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1001,
+          "material_id": "wood",
+          "pitch_scale_bits": "00002811793def3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "cccc6411b3d631c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1002,
+          "intensity_bits": "9a9999999999c93f",
+          "material_id": "wood",
+          "seed": 7074
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1002,
+          "material_id": "wood",
+          "pitch_scale_bits": "9a99a15ea1f1ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "67669e5b038930c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1003,
+          "intensity_bits": "333333333333d33f",
+          "material_id": "wood",
+          "seed": 7111
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1003,
+          "material_id": "wood",
+          "pitch_scale_bits": "333327189940f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "666616bf6de42cc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1004,
+          "intensity_bits": "9a9999999999d93f",
+          "material_id": "wood",
+          "seed": 7148
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1004,
+          "material_id": "wood",
+          "pitch_scale_bits": "9a9961682977ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "99998997e3692cc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1005,
+          "intensity_bits": "000000000000e03f",
+          "material_id": "wood",
+          "seed": 7185
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1005,
+          "material_id": "wood",
+          "pitch_scale_bits": "6666ce763692ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "cdcc7c10721c29c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1006,
+          "intensity_bits": "333333333333e33f",
+          "material_id": "wood",
+          "seed": 7222
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1006,
+          "material_id": "wood",
+          "pitch_scale_bits": "3333bb9cd44bef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "00007091027625c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1007,
+          "intensity_bits": "666666666666e63f",
+          "material_id": "wood",
+          "seed": 7259
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1007,
+          "material_id": "wood",
+          "pitch_scale_bits": "0000140dac58f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "676696bd1b4121c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1008,
+          "intensity_bits": "9a9999999999e93f",
+          "material_id": "wood",
+          "seed": 7296
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1008,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdccf0ddc647f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "ccccac4a72ec1dc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1009,
+          "intensity_bits": "cdccccccccccec3f",
+          "material_id": "wood",
+          "seed": 7333
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1009,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdccf4f38485ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "3333939dc84716c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1010,
+          "intensity_bits": "000000000000f03f",
+          "material_id": "wood",
+          "seed": 7370
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1010,
+          "material_id": "wood",
+          "pitch_scale_bits": "9a99dd036501f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "666646ad96ec10c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1011,
+          "intensity_bits": "0000000000000000",
+          "material_id": "wood",
+          "seed": 7407
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1011,
+          "material_id": "wood",
+          "pitch_scale_bits": "0000b46c2d49f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "66663e732ec534c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1012,
+          "intensity_bits": "9a9999999999b93f",
+          "material_id": "wood",
+          "seed": 7444
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1012,
+          "material_id": "wood",
+          "pitch_scale_bits": "9a9961cf9d9aef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "33332bf7616e33c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1013,
+          "intensity_bits": "9a9999999999c93f",
+          "material_id": "wood",
+          "seed": 7481
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1013,
+          "material_id": "wood",
+          "pitch_scale_bits": "66664ef53b54ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "cdcc24e044af30c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1014,
+          "intensity_bits": "333333333333d33f",
+          "material_id": "wood",
+          "seed": 7518
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1014,
+          "material_id": "wood",
+          "pitch_scale_bits": "66666adab953f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "3333a31fd65c2fc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1015,
+          "intensity_bits": "9a9999999999d93f",
+          "material_id": "wood",
+          "seed": 7555
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1015,
+          "material_id": "wood",
+          "pitch_scale_bits": "333347abd442f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "cdccfccf57032bc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1016,
+          "intensity_bits": "000000000000e03f",
+          "material_id": "wood",
+          "seed": 7592
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1016,
+          "material_id": "wood",
+          "pitch_scale_bits": "9a993dbea31ff03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "0000f050e85c27c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1017,
+          "intensity_bits": "333333333333e33f",
+          "material_id": "wood",
+          "seed": 7629
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1017,
+          "material_id": "wood",
+          "pitch_scale_bits": "66668eb43e35ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "9a99c9584f2f25c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1018,
+          "intensity_bits": "666666666666e63f",
+          "material_id": "wood",
+          "seed": 7666
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1018,
+          "material_id": "wood",
+          "pitch_scale_bits": "33333b86cfc4ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "3433a33996eb22c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1019,
+          "intensity_bits": "9a9999999999e93f",
+          "material_id": "wood",
+          "seed": 7703
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1019,
+          "material_id": "wood",
+          "pitch_scale_bits": "0000f42b302af03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "cccc7c41fd3d20c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1020,
+          "intensity_bits": "cdccccccccccec3f",
+          "material_id": "wood",
+          "seed": 7740
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1020,
+          "material_id": "wood",
+          "pitch_scale_bits": "3333fb8f574aef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "999979cd7f2017c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1021,
+          "intensity_bits": "000000000000f03f",
+          "material_id": "wood",
+          "seed": 7777
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1021,
+          "material_id": "wood",
+          "pitch_scale_bits": "0000b486ed57f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "6666266da8480cc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1022,
+          "intensity_bits": "0000000000000000",
+          "material_id": "wood",
+          "seed": 7814
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1022,
+          "material_id": "wood",
+          "pitch_scale_bits": "6666aa99bc34f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "3333ebd6d42134c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1023,
+          "intensity_bits": "9a9999999999b93f",
+          "material_id": "wood",
+          "seed": 7851
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1023,
+          "material_id": "wood",
+          "pitch_scale_bits": "0000948bb11af03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "cccc64179d4e33c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1024,
+          "intensity_bits": "9a9999999999c93f",
+          "material_id": "wood",
+          "seed": 7888
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1024,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcc143a0c73ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "0000784c9f4831c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1025,
+          "intensity_bits": "333333333333d33f",
+          "material_id": "wood",
+          "seed": 7925
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1025,
+          "material_id": "wood",
+          "pitch_scale_bits": "000028146eb9ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "666696b147512fc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1026,
+          "intensity_bits": "9a9999999999d93f",
+          "material_id": "wood",
+          "seed": 7962
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1026,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcc543084edef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "6666d6eb94ec2ac0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1027,
+          "intensity_bits": "000000000000e03f",
+          "material_id": "wood",
+          "seed": 7999
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1027,
+          "material_id": "wood",
+          "pitch_scale_bits": "00003405f319f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "0000b037d15f29c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1028,
+          "intensity_bits": "333333333333e33f",
+          "material_id": "wood",
+          "seed": 8036
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1028,
+          "material_id": "wood",
+          "pitch_scale_bits": "66664a13fe33f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "9a9989694d4425c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1029,
+          "intensity_bits": "666666666666e63f",
+          "material_id": "wood",
+          "seed": 8073
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1029,
+          "material_id": "wood",
+          "pitch_scale_bits": "0000e8546bd8ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "cdcc7c7fe86622c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1030,
+          "intensity_bits": "9a9999999999e93f",
+          "material_id": "wood",
+          "seed": 8110
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1030,
+          "material_id": "wood",
+          "pitch_scale_bits": "33333b83da48ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "666646dfada51fc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1031,
+          "intensity_bits": "cdccccccccccec3f",
+          "material_id": "wood",
+          "seed": 8147
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1031,
+          "material_id": "wood",
+          "pitch_scale_bits": "000094a57129f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "000060fa417d18c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1032,
+          "intensity_bits": "000000000000f03f",
+          "material_id": "wood",
+          "seed": 8184
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1032,
+          "material_id": "wood",
+          "pitch_scale_bits": "33337b7952c3ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "cccc8ce870dd0fc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1033,
+          "intensity_bits": "0000000000000000",
+          "material_id": "wood",
+          "seed": 8221
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1033,
+          "material_id": "wood",
+          "pitch_scale_bits": "000094d64d00f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "6666fe467cd333c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1034,
+          "intensity_bits": "9a9999999999b93f",
+          "material_id": "wood",
+          "seed": 8258
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1034,
+          "material_id": "wood",
+          "pitch_scale_bits": "3333b7053311f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "66669e3b08cd32c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1035,
+          "intensity_bits": "9a9999999999c93f",
+          "material_id": "wood",
+          "seed": 8295
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1035,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdccc0f26334f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "9a99f1c70c2d31c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1036,
+          "intensity_bits": "333333333333d33f",
+          "material_id": "wood",
+          "seed": 8332
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1036,
+          "material_id": "wood",
+          "pitch_scale_bits": "6666cadf9457f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "0000f045fe192dc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1037,
+          "intensity_bits": "9a9999999999d93f",
+          "material_id": "wood",
+          "seed": 8369
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1037,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcc0098a606f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "666616b6ec852bc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1038,
+          "intensity_bits": "000000000000e03f",
+          "material_id": "wood",
+          "seed": 8406
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1038,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcc545ebc7def3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "6666d6471fcd28c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1039,
+          "intensity_bits": "333333333333e33f",
+          "material_id": "wood",
+          "seed": 8443
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1039,
+          "material_id": "wood",
+          "pitch_scale_bits": "00001472084df03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "cdccfcb70db925c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1040,
+          "intensity_bits": "666666666666e63f",
+          "material_id": "wood",
+          "seed": 8480
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1040,
+          "material_id": "wood",
+          "pitch_scale_bits": "6666ae96e8e5ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "676656416f4923c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1041,
+          "intensity_bits": "9a9999999999e93f",
+          "material_id": "wood",
+          "seed": 8517
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1041,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcc60382516f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "cccc2cf778c91bc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1042,
+          "intensity_bits": "cdccccccccccec3f",
+          "material_id": "wood",
+          "seed": 8554
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1042,
+          "material_id": "wood",
+          "pitch_scale_bits": "333377463030f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "999979288b4916c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1043,
+          "intensity_bits": "000000000000f03f",
+          "material_id": "wood",
+          "seed": 8591
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1043,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcc80336153f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "000060038ce611c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1044,
+          "intensity_bits": "0000000000000000",
+          "material_id": "wood",
+          "seed": 8628
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1044,
+          "material_id": "wood",
+          "pitch_scale_bits": "9a996165d665ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "cdccc42641f333c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1045,
+          "intensity_bits": "9a9999999999b93f",
+          "material_id": "wood",
+          "seed": 8665
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1045,
+          "material_id": "wood",
+          "pitch_scale_bits": "3333a796ef37f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "6666beb18ec432c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1046,
+          "intensity_bits": "9a9999999999c93f",
+          "material_id": "wood",
+          "seed": 8702
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1046,
+          "material_id": "wood",
+          "pitch_scale_bits": "9a99a15b4ee0ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "9a99d1e9853a31c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1047,
+          "intensity_bits": "333333333333d33f",
+          "material_id": "wood",
+          "seed": 8739
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1047,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcce0d3df62f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "cdcc646c021530c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1048,
+          "intensity_bits": "9a9999999999d93f",
+          "material_id": "wood",
+          "seed": 8776
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1048,
+          "material_id": "wood",
+          "pitch_scale_bits": "66660a6b171bf03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "9999896a37712dc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1049,
+          "intensity_bits": "000000000000e03f",
+          "material_id": "wood",
+          "seed": 8813
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1049,
+          "material_id": "wood",
+          "pitch_scale_bits": "00001458483ef03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "0000308340b128c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1050,
+          "intensity_bits": "333333333333e33f",
+          "material_id": "wood",
+          "seed": 8850
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1050,
+          "material_id": "wood",
+          "pitch_scale_bits": "9a991d457961f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "3333a341f62724c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1051,
+          "intensity_bits": "666666666666e63f",
+          "material_id": "wood",
+          "seed": 8887
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1051,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdccb4caba6fef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "cdcc7c8d321b24c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1052,
+          "intensity_bits": "9a9999999999e93f",
+          "material_id": "wood",
+          "seed": 8924
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1052,
+          "material_id": "wood",
+          "pitch_scale_bits": "0000c8a41cb6ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "323313872eb61dc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1053,
+          "intensity_bits": "cdccccccccccec3f",
+          "material_id": "wood",
+          "seed": 8961
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1053,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcc8019a144f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "6666c699f1d618c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1054,
+          "intensity_bits": "000000000000f03f",
+          "material_id": "wood",
+          "seed": 8998
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1054,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcc5461b1f9ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "3333137aceae12c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1055,
+          "intensity_bits": "0000000000000000",
+          "material_id": "wood",
+          "seed": 9035
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1055,
+          "material_id": "wood",
+          "pitch_scale_bits": "66668e4d6c7cef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "6666fe80e62835c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1056,
+          "intensity_bits": "9a9999999999b93f",
+          "material_id": "wood",
+          "seed": 9072
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1056,
+          "material_id": "wood",
+          "pitch_scale_bits": "0000a4488655f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "3333aba3ac2032c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1057,
+          "intensity_bits": "9a9999999999c93f",
+          "material_id": "wood",
+          "seed": 9109
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1057,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcce0b91f54f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "6766fed11bd131c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1058,
+          "intensity_bits": "333333333333d33f",
+          "material_id": "wood",
+          "seed": 9146
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1058,
+          "material_id": "wood",
+          "pitch_scale_bits": "6666eeedea8bef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "000070cde2cf2ec0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1059,
+          "intensity_bits": "9a9999999999d93f",
+          "material_id": "wood",
+          "seed": 9183
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1059,
+          "material_id": "wood",
+          "pitch_scale_bits": "000068d01d89ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "3333e3f68dfd29c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1060,
+          "intensity_bits": "000000000000e03f",
+          "material_id": "wood",
+          "seed": 9220
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1060,
+          "material_id": "wood",
+          "pitch_scale_bits": "66662e467949ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "3333230fc8ad28c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1061,
+          "intensity_bits": "333333333333e33f",
+          "material_id": "wood",
+          "seed": 9257
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1061,
+          "material_id": "wood",
+          "pitch_scale_bits": "6666da82584ef03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "9a994914c16225c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1062,
+          "intensity_bits": "666666666666e63f",
+          "material_id": "wood",
+          "seed": 9294
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1062,
+          "material_id": "wood",
+          "pitch_scale_bits": "66666e3cf1c3ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "cdcc3c95513c22c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1063,
+          "intensity_bits": "9a9999999999e93f",
+          "material_id": "wood",
+          "seed": 9331
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1063,
+          "material_id": "wood",
+          "pitch_scale_bits": "33335b628f7def3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "ccccfc9179ba20c0"
+        }
+      }
+    ],
+    "reset_replay_stats": {
+      "invalid_events": 0,
+      "missing_mappings": 0,
+      "no_repeat_avoided": 63,
+      "selected": 64,
+      "submitted": 64
+    },
+    "reset_replay_trace": [
+      {
+        "input": {
+          "event_id": 1000,
+          "intensity_bits": "0000000000000000",
+          "material_id": "wood",
+          "seed": 7000
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1000,
+          "material_id": "wood",
+          "pitch_scale_bits": "66668aecc023f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "3333ab7cdd3f34c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1001,
+          "intensity_bits": "9a9999999999b93f",
+          "material_id": "wood",
+          "seed": 7037
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1001,
+          "material_id": "wood",
+          "pitch_scale_bits": "00002811793def3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "cccc6411b3d631c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1002,
+          "intensity_bits": "9a9999999999c93f",
+          "material_id": "wood",
+          "seed": 7074
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1002,
+          "material_id": "wood",
+          "pitch_scale_bits": "9a99a15ea1f1ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "67669e5b038930c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1003,
+          "intensity_bits": "333333333333d33f",
+          "material_id": "wood",
+          "seed": 7111
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1003,
+          "material_id": "wood",
+          "pitch_scale_bits": "333327189940f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "666616bf6de42cc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1004,
+          "intensity_bits": "9a9999999999d93f",
+          "material_id": "wood",
+          "seed": 7148
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1004,
+          "material_id": "wood",
+          "pitch_scale_bits": "9a9961682977ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "99998997e3692cc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1005,
+          "intensity_bits": "000000000000e03f",
+          "material_id": "wood",
+          "seed": 7185
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1005,
+          "material_id": "wood",
+          "pitch_scale_bits": "6666ce763692ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "cdcc7c10721c29c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1006,
+          "intensity_bits": "333333333333e33f",
+          "material_id": "wood",
+          "seed": 7222
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1006,
+          "material_id": "wood",
+          "pitch_scale_bits": "3333bb9cd44bef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "00007091027625c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1007,
+          "intensity_bits": "666666666666e63f",
+          "material_id": "wood",
+          "seed": 7259
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1007,
+          "material_id": "wood",
+          "pitch_scale_bits": "0000140dac58f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "676696bd1b4121c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1008,
+          "intensity_bits": "9a9999999999e93f",
+          "material_id": "wood",
+          "seed": 7296
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1008,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdccf0ddc647f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "ccccac4a72ec1dc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1009,
+          "intensity_bits": "cdccccccccccec3f",
+          "material_id": "wood",
+          "seed": 7333
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1009,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdccf4f38485ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "3333939dc84716c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1010,
+          "intensity_bits": "000000000000f03f",
+          "material_id": "wood",
+          "seed": 7370
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1010,
+          "material_id": "wood",
+          "pitch_scale_bits": "9a99dd036501f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "666646ad96ec10c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1011,
+          "intensity_bits": "0000000000000000",
+          "material_id": "wood",
+          "seed": 7407
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1011,
+          "material_id": "wood",
+          "pitch_scale_bits": "0000b46c2d49f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "66663e732ec534c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1012,
+          "intensity_bits": "9a9999999999b93f",
+          "material_id": "wood",
+          "seed": 7444
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1012,
+          "material_id": "wood",
+          "pitch_scale_bits": "9a9961cf9d9aef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "33332bf7616e33c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1013,
+          "intensity_bits": "9a9999999999c93f",
+          "material_id": "wood",
+          "seed": 7481
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1013,
+          "material_id": "wood",
+          "pitch_scale_bits": "66664ef53b54ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "cdcc24e044af30c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1014,
+          "intensity_bits": "333333333333d33f",
+          "material_id": "wood",
+          "seed": 7518
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1014,
+          "material_id": "wood",
+          "pitch_scale_bits": "66666adab953f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "3333a31fd65c2fc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1015,
+          "intensity_bits": "9a9999999999d93f",
+          "material_id": "wood",
+          "seed": 7555
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1015,
+          "material_id": "wood",
+          "pitch_scale_bits": "333347abd442f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "cdccfccf57032bc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1016,
+          "intensity_bits": "000000000000e03f",
+          "material_id": "wood",
+          "seed": 7592
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1016,
+          "material_id": "wood",
+          "pitch_scale_bits": "9a993dbea31ff03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "0000f050e85c27c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1017,
+          "intensity_bits": "333333333333e33f",
+          "material_id": "wood",
+          "seed": 7629
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1017,
+          "material_id": "wood",
+          "pitch_scale_bits": "66668eb43e35ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "9a99c9584f2f25c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1018,
+          "intensity_bits": "666666666666e63f",
+          "material_id": "wood",
+          "seed": 7666
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1018,
+          "material_id": "wood",
+          "pitch_scale_bits": "33333b86cfc4ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "3433a33996eb22c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1019,
+          "intensity_bits": "9a9999999999e93f",
+          "material_id": "wood",
+          "seed": 7703
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1019,
+          "material_id": "wood",
+          "pitch_scale_bits": "0000f42b302af03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "cccc7c41fd3d20c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1020,
+          "intensity_bits": "cdccccccccccec3f",
+          "material_id": "wood",
+          "seed": 7740
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1020,
+          "material_id": "wood",
+          "pitch_scale_bits": "3333fb8f574aef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "999979cd7f2017c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1021,
+          "intensity_bits": "000000000000f03f",
+          "material_id": "wood",
+          "seed": 7777
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1021,
+          "material_id": "wood",
+          "pitch_scale_bits": "0000b486ed57f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "6666266da8480cc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1022,
+          "intensity_bits": "0000000000000000",
+          "material_id": "wood",
+          "seed": 7814
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1022,
+          "material_id": "wood",
+          "pitch_scale_bits": "6666aa99bc34f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "3333ebd6d42134c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1023,
+          "intensity_bits": "9a9999999999b93f",
+          "material_id": "wood",
+          "seed": 7851
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1023,
+          "material_id": "wood",
+          "pitch_scale_bits": "0000948bb11af03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "cccc64179d4e33c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1024,
+          "intensity_bits": "9a9999999999c93f",
+          "material_id": "wood",
+          "seed": 7888
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1024,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcc143a0c73ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "0000784c9f4831c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1025,
+          "intensity_bits": "333333333333d33f",
+          "material_id": "wood",
+          "seed": 7925
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1025,
+          "material_id": "wood",
+          "pitch_scale_bits": "000028146eb9ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "666696b147512fc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1026,
+          "intensity_bits": "9a9999999999d93f",
+          "material_id": "wood",
+          "seed": 7962
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1026,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcc543084edef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "6666d6eb94ec2ac0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1027,
+          "intensity_bits": "000000000000e03f",
+          "material_id": "wood",
+          "seed": 7999
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1027,
+          "material_id": "wood",
+          "pitch_scale_bits": "00003405f319f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "0000b037d15f29c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1028,
+          "intensity_bits": "333333333333e33f",
+          "material_id": "wood",
+          "seed": 8036
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1028,
+          "material_id": "wood",
+          "pitch_scale_bits": "66664a13fe33f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "9a9989694d4425c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1029,
+          "intensity_bits": "666666666666e63f",
+          "material_id": "wood",
+          "seed": 8073
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1029,
+          "material_id": "wood",
+          "pitch_scale_bits": "0000e8546bd8ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "cdcc7c7fe86622c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1030,
+          "intensity_bits": "9a9999999999e93f",
+          "material_id": "wood",
+          "seed": 8110
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1030,
+          "material_id": "wood",
+          "pitch_scale_bits": "33333b83da48ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "666646dfada51fc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1031,
+          "intensity_bits": "cdccccccccccec3f",
+          "material_id": "wood",
+          "seed": 8147
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1031,
+          "material_id": "wood",
+          "pitch_scale_bits": "000094a57129f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "000060fa417d18c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1032,
+          "intensity_bits": "000000000000f03f",
+          "material_id": "wood",
+          "seed": 8184
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1032,
+          "material_id": "wood",
+          "pitch_scale_bits": "33337b7952c3ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "cccc8ce870dd0fc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1033,
+          "intensity_bits": "0000000000000000",
+          "material_id": "wood",
+          "seed": 8221
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1033,
+          "material_id": "wood",
+          "pitch_scale_bits": "000094d64d00f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "6666fe467cd333c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1034,
+          "intensity_bits": "9a9999999999b93f",
+          "material_id": "wood",
+          "seed": 8258
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1034,
+          "material_id": "wood",
+          "pitch_scale_bits": "3333b7053311f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "66669e3b08cd32c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1035,
+          "intensity_bits": "9a9999999999c93f",
+          "material_id": "wood",
+          "seed": 8295
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1035,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdccc0f26334f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "9a99f1c70c2d31c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1036,
+          "intensity_bits": "333333333333d33f",
+          "material_id": "wood",
+          "seed": 8332
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1036,
+          "material_id": "wood",
+          "pitch_scale_bits": "6666cadf9457f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "0000f045fe192dc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1037,
+          "intensity_bits": "9a9999999999d93f",
+          "material_id": "wood",
+          "seed": 8369
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1037,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcc0098a606f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "666616b6ec852bc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1038,
+          "intensity_bits": "000000000000e03f",
+          "material_id": "wood",
+          "seed": 8406
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1038,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcc545ebc7def3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "6666d6471fcd28c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1039,
+          "intensity_bits": "333333333333e33f",
+          "material_id": "wood",
+          "seed": 8443
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1039,
+          "material_id": "wood",
+          "pitch_scale_bits": "00001472084df03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "cdccfcb70db925c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1040,
+          "intensity_bits": "666666666666e63f",
+          "material_id": "wood",
+          "seed": 8480
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1040,
+          "material_id": "wood",
+          "pitch_scale_bits": "6666ae96e8e5ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "676656416f4923c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1041,
+          "intensity_bits": "9a9999999999e93f",
+          "material_id": "wood",
+          "seed": 8517
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1041,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcc60382516f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "cccc2cf778c91bc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1042,
+          "intensity_bits": "cdccccccccccec3f",
+          "material_id": "wood",
+          "seed": 8554
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1042,
+          "material_id": "wood",
+          "pitch_scale_bits": "333377463030f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "999979288b4916c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1043,
+          "intensity_bits": "000000000000f03f",
+          "material_id": "wood",
+          "seed": 8591
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1043,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcc80336153f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "000060038ce611c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1044,
+          "intensity_bits": "0000000000000000",
+          "material_id": "wood",
+          "seed": 8628
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1044,
+          "material_id": "wood",
+          "pitch_scale_bits": "9a996165d665ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "cdccc42641f333c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1045,
+          "intensity_bits": "9a9999999999b93f",
+          "material_id": "wood",
+          "seed": 8665
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1045,
+          "material_id": "wood",
+          "pitch_scale_bits": "3333a796ef37f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "6666beb18ec432c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1046,
+          "intensity_bits": "9a9999999999c93f",
+          "material_id": "wood",
+          "seed": 8702
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1046,
+          "material_id": "wood",
+          "pitch_scale_bits": "9a99a15b4ee0ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "9a99d1e9853a31c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1047,
+          "intensity_bits": "333333333333d33f",
+          "material_id": "wood",
+          "seed": 8739
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1047,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcce0d3df62f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "cdcc646c021530c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1048,
+          "intensity_bits": "9a9999999999d93f",
+          "material_id": "wood",
+          "seed": 8776
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1048,
+          "material_id": "wood",
+          "pitch_scale_bits": "66660a6b171bf03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "9999896a37712dc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1049,
+          "intensity_bits": "000000000000e03f",
+          "material_id": "wood",
+          "seed": 8813
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1049,
+          "material_id": "wood",
+          "pitch_scale_bits": "00001458483ef03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "0000308340b128c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1050,
+          "intensity_bits": "333333333333e33f",
+          "material_id": "wood",
+          "seed": 8850
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1050,
+          "material_id": "wood",
+          "pitch_scale_bits": "9a991d457961f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "3333a341f62724c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1051,
+          "intensity_bits": "666666666666e63f",
+          "material_id": "wood",
+          "seed": 8887
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1051,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdccb4caba6fef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "cdcc7c8d321b24c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1052,
+          "intensity_bits": "9a9999999999e93f",
+          "material_id": "wood",
+          "seed": 8924
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1052,
+          "material_id": "wood",
+          "pitch_scale_bits": "0000c8a41cb6ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "323313872eb61dc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1053,
+          "intensity_bits": "cdccccccccccec3f",
+          "material_id": "wood",
+          "seed": 8961
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1053,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcc8019a144f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "6666c699f1d618c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1054,
+          "intensity_bits": "000000000000f03f",
+          "material_id": "wood",
+          "seed": 8998
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1054,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcc5461b1f9ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "3333137aceae12c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1055,
+          "intensity_bits": "0000000000000000",
+          "material_id": "wood",
+          "seed": 9035
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1055,
+          "material_id": "wood",
+          "pitch_scale_bits": "66668e4d6c7cef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "6666fe80e62835c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1056,
+          "intensity_bits": "9a9999999999b93f",
+          "material_id": "wood",
+          "seed": 9072
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1056,
+          "material_id": "wood",
+          "pitch_scale_bits": "0000a4488655f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "3333aba3ac2032c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1057,
+          "intensity_bits": "9a9999999999c93f",
+          "material_id": "wood",
+          "seed": 9109
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1057,
+          "material_id": "wood",
+          "pitch_scale_bits": "cdcce0b91f54f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "6766fed11bd131c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1058,
+          "intensity_bits": "333333333333d33f",
+          "material_id": "wood",
+          "seed": 9146
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1058,
+          "material_id": "wood",
+          "pitch_scale_bits": "6666eeedea8bef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "000070cde2cf2ec0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1059,
+          "intensity_bits": "9a9999999999d93f",
+          "material_id": "wood",
+          "seed": 9183
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1059,
+          "material_id": "wood",
+          "pitch_scale_bits": "000068d01d89ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "3333e3f68dfd29c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1060,
+          "intensity_bits": "000000000000e03f",
+          "material_id": "wood",
+          "seed": 9220
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1060,
+          "material_id": "wood",
+          "pitch_scale_bits": "66662e467949ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "3333230fc8ad28c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1061,
+          "intensity_bits": "333333333333e33f",
+          "material_id": "wood",
+          "seed": 9257
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1061,
+          "material_id": "wood",
+          "pitch_scale_bits": "6666da82584ef03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "9a994914c16225c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1062,
+          "intensity_bits": "666666666666e63f",
+          "material_id": "wood",
+          "seed": 9294
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1062,
+          "material_id": "wood",
+          "pitch_scale_bits": "66666e3cf1c3ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 0,
+          "variant_index": 0,
+          "volume_db_bits": "cdcc3c95513c22c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 1063,
+          "intensity_bits": "9a9999999999e93f",
+          "material_id": "wood",
+          "seed": 9331
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 1063,
+          "material_id": "wood",
+          "pitch_scale_bits": "33335b628f7def3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 2,
+          "variant_index": 2,
+          "volume_db_bits": "ccccfc9179ba20c0"
+        }
+      }
+    ],
+    "single_material": {
+      "family_id": "single",
+      "gain_variation_db_bits": "9a9999999999e93f",
+      "impact_gain_db_x_bits": "00000000000034c0",
+      "impact_gain_db_y_bits": "00000000000010c0",
+      "material_id": "single",
+      "pitch_variation_bits": "9a9999999999993f",
+      "variants": [
+        {
+          "eligible": false,
+          "gain_db_bits": "0000000000000080",
+          "index": 0,
+          "pitch_scale_bits": "000000000000f03f",
+          "weight_bits": "0000000000000000"
+        },
+        {
+          "eligible": true,
+          "gain_db_bits": "000000000000d0bf",
+          "index": 1,
+          "pitch_scale_bits": "000000000000f03f",
+          "weight_bits": "333333333333eb3f"
+        },
+        {
+          "eligible": false,
+          "gain_db_bits": "000000000000e0bf",
+          "index": 2,
+          "pitch_scale_bits": "000000000000f03f",
+          "weight_bits": "0000000000000000"
+        }
+      ]
+    },
+    "single_stats": {
+      "invalid_events": 0,
+      "missing_mappings": 0,
+      "no_repeat_avoided": 0,
+      "selected": 8,
+      "submitted": 8
+    },
+    "single_trace": [
+      {
+        "input": {
+          "event_id": 3000,
+          "intensity_bits": "0000000000000000",
+          "material_id": "single",
+          "seed": 11000
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 3000,
+          "material_id": "single",
+          "pitch_scale_bits": "0000500f5dbfef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "3333a31d090035c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 3001,
+          "intensity_bits": "9a9999999999b93f",
+          "material_id": "single",
+          "seed": 11037
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 3001,
+          "material_id": "single",
+          "pitch_scale_bits": "9a99c9f18fbcef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "cccc5cb2ded632c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 3002,
+          "intensity_bits": "9a9999999999c93f",
+          "material_id": "single",
+          "seed": 11074
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 3002,
+          "material_id": "single",
+          "pitch_scale_bits": "333343d4c2b9ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "00003089689b30c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 3003,
+          "intensity_bits": "333333333333d33f",
+          "material_id": "single",
+          "seed": 11111
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 3003,
+          "material_id": "single",
+          "pitch_scale_bits": "0000f8d2a924f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "333383b7d70b30c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 3004,
+          "intensity_bits": "9a9999999999d93f",
+          "material_id": "single",
+          "seed": 11148
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 3004,
+          "material_id": "single",
+          "pitch_scale_bits": "cdcc34444323f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "66664614f2e92bc0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 3005,
+          "intensity_bits": "000000000000e03f",
+          "material_id": "single",
+          "seed": 11185
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 3005,
+          "material_id": "single",
+          "pitch_scale_bits": "66661e363809f03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "0000a09d53fa28c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 3006,
+          "intensity_bits": "333333333333e33f",
+          "material_id": "single",
+          "seed": 11222
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 3006,
+          "material_id": "single",
+          "pitch_scale_bits": "6666f6a2b039ef3f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "3333931ee45326c0"
+        }
+      },
+      {
+        "input": {
+          "event_id": 3007,
+          "intensity_bits": "666666666666e63f",
+          "material_id": "single",
+          "seed": 11259
+        },
+        "legacy_observation": {
+          "empty": false,
+          "event_id": 3007,
+          "material_id": "single",
+          "pitch_scale_bits": "9a9931109a4ff03f",
+          "return_keys": [
+            "event_id",
+            "material_id",
+            "pitch_scale",
+            "stream",
+            "variant_index",
+            "volume_db"
+          ],
+          "stream_slot": 1,
+          "variant_index": 1,
+          "volume_db_bits": "6766869f74ad23c0"
+        }
+      }
+    ]
+  },
+  "source_hashes": {
+    "allocator": "f49b3e9aeccc4aa590a12213fe6b85d2847c9c6d10f98c6954561daaf3b4e587",
+    "emitter": "3bfd5f5480fdcf8d57efc9a99cbe5cde88915e907b01a728c591598fe585f941",
+    "fixture": "4373948e134744408b6c3d1a093f70e005c95206e5070e50c01380cd9d51a300",
+    "selector": "8438cd062431b6b88b54162ac61ddca98cbac92a9c89a63f97d1245883a0ff47"
+  },
+  "update_policy": "verify-only; never regenerated by normal tests or CI; changes require an explicit oracle version bump and reviewed migration record"
+}

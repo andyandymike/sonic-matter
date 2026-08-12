@@ -56,7 +56,7 @@ func play_impact(
     if event == null or not event.is_valid():
         _stats["invalid_submissions"] += 1
         return {}
-    if _players.is_empty():
+    if _players.size() != clampi(voice_limit, 1, 8):
         _build_voice_pool()
     if impact_route_map == null:
         _stats["route_drops"] += 1
@@ -100,6 +100,11 @@ func play_impact(
     player.global_position = event.position
     _voice_tokens[voice_index] = voice_token
     player.play()
+    if not player.playing:
+        _allocator.release(voice_index, voice_token)
+        _voice_tokens[voice_index] = 0
+        player.stream = null
+        return {}
     _stats["played"] += 1
 
     var details := selection.duplicate(true)
@@ -143,7 +148,8 @@ func reset_debug_state() -> void:
     for player in _players:
         player.stop()
     _selector.reset()
-    _allocator.configure(clampi(voice_limit, 1, 8))
+    _build_voice_pool()
+    _allocator.configure(_players.size())
     _voice_tokens.resize(_players.size())
     _voice_tokens.fill(0)
     for key in _stats:
@@ -151,9 +157,17 @@ func reset_debug_state() -> void:
 
 
 func _build_voice_pool() -> void:
-    if not _players.is_empty():
-        return
     var capacity := clampi(voice_limit, 1, 8)
+    if _players.size() == capacity:
+        return
+
+    for player in _players:
+        player.stop()
+        remove_child(player)
+        player.queue_free()
+    _players.clear()
+    _voice_tokens.clear()
+
     _allocator.configure(capacity)
     for index in capacity:
         var player := AudioStreamPlayer3D.new()
@@ -166,4 +180,3 @@ func _build_voice_pool() -> void:
         add_child(player)
         _players.append(player)
         _voice_tokens.append(0)
-

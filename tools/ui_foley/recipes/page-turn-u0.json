@@ -1,0 +1,114 @@
+{
+  "schema": "sonic-ui-paper/v1",
+  "recipe_id": "page-turn-u0",
+  "created_date": "2026-08-11",
+  "generator": {
+    "id": "sonicmatter.ui-paper-baker",
+    "version": "1.0.0"
+  },
+  "render": {
+    "sample_rate_hz": 48000,
+    "channels": 2,
+    "sample_format": "PCM_S24LE",
+    "user_seed": 20260811,
+    "variants_per_profile": 3
+  },
+  "profiles": [
+    {
+      "id": "normal",
+      "cue_id": "ui.foley.page_turn.light",
+      "duration_ms": 280,
+      "target_peak_dbfs": -5.0,
+      "pan": {
+        "start": -0.20,
+        "end": 0.22
+      },
+      "friction": {
+        "amplitude": 0.31,
+        "highpass_hz": 660.0,
+        "lowpass_start_hz": 4100.0,
+        "lowpass_end_hz": 13800.0,
+        "am_rate_hz": 33.0
+      },
+      "fiber_grains": {
+        "rate_hz": 76.0,
+        "duration_ms": [1.2, 4.2],
+        "frequency_hz": [1800.0, 9800.0],
+        "amplitude": 0.055
+      },
+      "micro_buckle": {
+        "count": 4,
+        "duration_ms": [8.0, 26.0],
+        "amplitude": 0.058
+      },
+      "body_modes": [
+        {"frequency_hz": 230.0, "amplitude": 0.032, "decay_ms": 82.0},
+        {"frequency_hz": 520.0, "amplitude": 0.021, "decay_ms": 68.0},
+        {"frequency_hz": 1180.0, "amplitude": 0.012, "decay_ms": 46.0},
+        {"frequency_hz": 2480.0, "amplitude": 0.006, "decay_ms": 31.0}
+      ],
+      "landing": {
+        "position": 0.82,
+        "amplitude": 0.12,
+        "decay_ms": 72.0
+      }
+    },
+    {
+      "id": "reduced",
+      "cue_id": "ui.foley.paper_settle.static",
+      "duration_ms": 112,
+      "target_peak_dbfs": -7.0,
+      "pan": {
+        "start": -0.05,
+        "end": 0.06
+      },
+      "friction": {
+        "amplitude": 0.12,
+        "highpass_hz": 780.0,
+        "lowpass_start_hz": 3800.0,
+        "lowpass_end_hz": 9800.0,
+        "am_rate_hz": 24.0
+      },
+      "fiber_grains": {
+        "rate_hz": 48.0,
+        "duration_ms": [1.0, 3.2],
+        "frequency_hz": [1600.0, 8200.0],
+        "amplitude": 0.036
+      },
+      "micro_buckle": {
+        "count": 1,
+        "duration_ms": [7.0, 14.0],
+        "amplitude": 0.032
+      },
+      "body_modes": [
+        {"frequency_hz": 310.0, "amplitude": 0.015, "decay_ms": 42.0},
+        {"frequency_hz": 890.0, "amplitude": 0.008, "decay_ms": 31.0},
+        {"frequency_hz": 2100.0, "amplitude": 0.004, "decay_ms": 23.0}
+      ],
+      "landing": {
+        "position": 0.63,
+        "amplitude": 0.075,
+        "decay_ms": 34.0
+      }
+    }
+  ],
+  "rights": {
+    "creation_method": "project-authored pure procedural synthesis",
+    "recorded_parents": [],
+    "external_assets": [],
+    "output_license": "UNDECIDED",
+    "output_rights_decision_id": "D-015",
+    "local_preview": "allow",
+    "private_game_source_use": "allow",
+    "source_repo_distribution": "unknown",
+    "material_kit_distribution": "unknown",
+    "game_source_distribution": "unknown",
+    "game_binary_embedding": "unknown",
+    "standalone_baked_audio_distribution": "unknown",
+    "training_or_parameter_fitting": "unknown",
+    "evaluation_use": "unknown",
+    "evaluation_stimulus_publication": "unknown",
+    "private_embeddings": "unknown",
+    "index_redistribution": "unknown"
+  }
+}

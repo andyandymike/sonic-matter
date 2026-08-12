@@ -1,0 +1,209 @@
+{
+  "inventory_sha256": "b0feb0ad479d06870dd71cbb9fb60394a4fca1f66db6dbe0de101cefb0a9303f",
+  "oracle_excluded_from_records": true,
+  "oracle_path": "res://examples/gate_a_3d/export_inventory_v1.json",
+  "records": [
+    {
+      "path": "res://.godot/exported/133200997/export-89befd62f8ea3b6598266e5e50023940-gate_a_demo.scn",
+      "sha256": "1eb0ff2df36edb317a65c2b39f50b5ef5a080a11b184ef9e50fed645bb124c66",
+      "size": 700
+    },
+    {
+      "path": "res://.godot/global_script_class_cache.cfg",
+      "sha256": "d0089d9d31bb82832f451570902e10fe5a1439c5370a50d625722f2457a88456",
+      "size": 2057
+    },
+    {
+      "path": "res://.godot/uid_cache.bin",
+      "sha256": "7592e5b716ec733539729b7c90e612ed6f50edd4e7e8f8f45e7e85edf83e72d4",
+      "size": 2383
+    },
+    {
+      "path": "res://ASSET_MANIFEST.json",
+      "sha256": "d1c3d7cc569b3cd6b794aab508fc7a031da2f991660a4eee9eb08ffc32d450f2",
+      "size": 2102
+    },
+    {
+      "path": "res://LICENSE",
+      "sha256": "57a061040ed3186a8f81060b6b5aa44bb23c17ef2f21cca6eca87d5460884761",
+      "size": 1081
+    },
+    {
+      "path": "res://THIRD_PARTY_NOTICES.md",
+      "sha256": "c16beea555b3488a81aa4dbbc786940add0939a149766d7547852c426aee2c3c",
+      "size": 622
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/internal/sonic_weighted_choice_v1.gd.remap",
+      "sha256": "6f9a7797d7fca9b23e8f7ec3d33add07520489acb1feb43a750865cd6c9118d6",
+      "size": 88
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/internal/sonic_weighted_choice_v1.gdc",
+      "sha256": "27c4579e2c2f278a750d359134a7f41b8b578ed26d8d4a44014c8e893197297a",
+      "size": 1300
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_acoustic_material.gd.remap",
+      "sha256": "a387e8266bdb88728ec34d02e972b6d91b6e3083d4937ab93590d60e4e4e74c8",
+      "size": 78
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_acoustic_material.gdc",
+      "sha256": "adb485a00089d9583d100bac0cf4dac51623912ea7c81608f43d4a774d09824f",
+      "size": 906
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_foley_emitter_3d.gd.remap",
+      "sha256": "3f19e1ac4979bfe5134c55526c1dbbad9221844f437c63366c826b597a314d3a",
+      "size": 77
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_foley_emitter_3d.gdc",
+      "sha256": "5891ac422af0729a40d280178e770bd72108c3329f9297b8f94631a1da806775",
+      "size": 5069
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_foley_event.gd.remap",
+      "sha256": "d2fdfb51ba2cc8004ccf49b3866e60d391131873d98e23f82224ddb3eeb69d6b",
+      "size": 72
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_foley_event.gdc",
+      "sha256": "1796116c05bdcedf6cb181875d18f6d697a16a2d490ba9b87c2842ae8512486a",
+      "size": 1403
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_impact_family_fallback.gd.remap",
+      "sha256": "f9056a3fda6562544f8d4c7149ca55d7232fb68c664dd02de9bdd72c0a5fb492",
+      "size": 83
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_impact_family_fallback.gdc",
+      "sha256": "b72078d66c6101aad7a1e7706dac9bb5c975b50b175309ef4c81cb929cc923da",
+      "size": 429
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_impact_route.gd.remap",
+      "sha256": "423bc9f40738769fbedd7568e081f9a6faa4eab642f823635fe7f5fecc8c9ebc",
+      "size": 73
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_impact_route.gdc",
+      "sha256": "9802e06f9e7e124ccbbf3ef86eddca58232b348faaef409a580a4c848803d101",
+      "size": 670
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_impact_route_map.gd.remap",
+      "sha256": "46d313327633c6a380040e80bb1023b08f29653f633c23cdc65bb310e76ac5f8",
+      "size": 77
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_impact_route_map.gdc",
+      "sha256": "3fae24962d498f85e0356305246db7af3721b909f3e7224e8f2243e29a85674f",
+      "size": 3535
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_material_binding_3d.gd.remap",
+      "sha256": "3c23ce154fb44fa471f2e4d2a0c775b6e36a8423b3b4067bf7ea026ede90dc31",
+      "size": 80
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_material_binding_3d.gdc",
+      "sha256": "12fdfcdc5b3eb8e15ee0e34abc838fccbb801b7428bf2be7b5b3829224a7e828",
+      "size": 560
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_rigid_body_impact_adapter_3d.gd.remap",
+      "sha256": "8ab71b9a61a575b973a8e01a583272f564ff315b602bb576eea19571cc5fb8a7",
+      "size": 89
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_rigid_body_impact_adapter_3d.gdc",
+      "sha256": "4806c00fb503323698f86bd73bf1f01fde121836f5c010bbd156543185540458",
+      "size": 3537
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_sample_selector.gd.remap",
+      "sha256": "7f79aafdb1846688d50a52569faf0dbade18b8801188adabe664715f4173c78d",
+      "size": 76
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_sample_selector.gdc",
+      "sha256": "2c245965f79bde5914d4fe4d8964da8e4888c92f17d5fcb2e02514f342bbd3bc",
+      "size": 3591
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_sample_variant.gd.remap",
+      "sha256": "c53a57d452cb278e456403cb2d7c082b8bf87ed5ce2e77e00efed87543c4726a",
+      "size": 75
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_sample_variant.gdc",
+      "sha256": "541b3496ebc406325684aa05e3144d810f9ec7ab6490a9a3363f15081a4e33ec",
+      "size": 604
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_voice_allocator.gd.remap",
+      "sha256": "e6e13523829129363b284f5b71c7a7de23bb9ada04d6b387e9a8fe78075e53d4",
+      "size": 76
+    },
+    {
+      "path": "res://addons/sonic_matter/runtime/sonic_voice_allocator.gdc",
+      "sha256": "bd2a3179860282e6a724cc9c3cb4f28991e5e8ed48cfaaebaf2cbf69e0ddbbd5",
+      "size": 2469
+    },
+    {
+      "path": "res://addons/sonic_matter/sonic_matter_plugin.gd.remap",
+      "sha256": "9a5329434eb1b1dbd281127dca969f1cd218d1d1cac8ac103b167a8b732300f9",
+      "size": 66
+    },
+    {
+      "path": "res://addons/sonic_matter/sonic_matter_plugin.gdc",
+      "sha256": "fc3c56086d9e013c783b6deb00f8e12c5bf148a40e1cb7877f8c6bd1ccd5f5d9",
+      "size": 840
+    },
+    {
+      "path": "res://examples/gate_a_3d/ASSET_LICENSE.md",
+      "sha256": "58686e39bd403864f1f9d49d829a84ed388d5982f0082c73862b9b8d867937b6",
+      "size": 439
+    },
+    {
+      "path": "res://examples/gate_a_3d/asset-rights.json",
+      "sha256": "2ee290bd7e210950c9360f094ebc582107bdc747beb6a2dd78ed79723921fd66",
+      "size": 2103
+    },
+    {
+      "path": "res://examples/gate_a_3d/gate_a_demo.gd.remap",
+      "sha256": "f3f82415ebaf48d7068234e41c1e94fc9263b6a94850e448f90686c37ae7ee8b",
+      "size": 57
+    },
+    {
+      "path": "res://examples/gate_a_3d/gate_a_demo.gdc",
+      "sha256": "df77f510d59007c352b1ade362bbb6beebbebe576a2e442e8df9bf3f697aba9b",
+      "size": 14409
+    },
+    {
+      "path": "res://examples/gate_a_3d/gate_a_demo.tscn.remap",
+      "sha256": "411f44fd812358ac5e5ea3ff96608cdb80aae287fe5d1ed5eab81bc0727d3133",
+      "size": 104
+    },
+    {
+      "path": "res://examples/gate_a_3d/generated_test_audio.gd.remap",
+      "sha256": "0f9899e263d31870e1d0d566325be03bc6dff8575305362dc2e950f7d2b74845",
+      "size": 66
+    },
+    {
+      "path": "res://examples/gate_a_3d/generated_test_audio.gdc",
+      "sha256": "abb880294b3e0b97a0ac08d3442aa4094f4843e7c406f4d0f666cb53ddb9f092",
+      "size": 3095
+    },
+    {
+      "path": "res://project.binary",
+      "sha256": "2e15a967ba4b83027c2e182659384d3b00c2a2131f59c84b7a0d8a44aab8ec6c",
+      "size": 722
+    }
+  ],
+  "release": "0.1.0-rc1",
+  "schema_version": 1
+}

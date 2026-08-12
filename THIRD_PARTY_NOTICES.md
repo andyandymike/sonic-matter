@@ -2,7 +2,7 @@
 
 ## Core addon
 
-The SonicMatter Gate A RC0 core addon contains project-authored MIT-licensed
+The SonicMatter Gate A RC1 core addon contains project-authored MIT-licensed
 source code and no bundled audio recordings, model code, model weights, or
 third-party runtime libraries.
 

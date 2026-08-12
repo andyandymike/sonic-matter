@@ -1,13 +1,13 @@
 # Getting started
 
-SonicMatter 0.1.0-rc0 is a small Godot 4.6.1 addon plus a standalone 3D
+SonicMatter 0.1.0-rc1 is a small Godot 4.6.1 addon plus a standalone 3D
 acceptance scene. Bring legal impact samples, describe both sides of a contact,
 and let an explicit route map choose the bounded, deterministic sample pool.
 
 !!! info "Current evidence boundary"
     Gate A is sample-first, not an AI sound generator or the planned hybrid DSP
     renderer. Windows and Godot 4.6.1 are the bound target. The timed first-user
-    study is still outstanding, so RC0 is not a Gate A completion claim.
+    study is still outstanding, so RC1 is not a Gate A completion claim.
 
 ## Try the acceptance scene
 
@@ -34,14 +34,14 @@ no-repeat, missing mappings, voices, and steals.
 
 ## Install the addon
 
-Every successful RC0 CI run builds an addon zip and a self-contained source-demo
+Every successful RC1 CI run builds an addon zip and a self-contained source-demo
 zip. Until a tagged release exists, you can also build both locally:
 
 ```powershell
 python -X utf8 tools/package_rc0.py --kind all
 ```
 
-Extract `sonic-matter-addon-0.1.0-rc0.zip` into the root of a Godot project,
+Extract `sonic-matter-addon-0.1.0-rc1.zip` into the root of a Godot project,
 then enable **SonicMatter** under **Project Settings → Plugins**. Python is only
 maintainer packaging tooling; the installed addon needs no Python, compiler,
 model, cloud service, or GPU.
@@ -76,6 +76,9 @@ Create three resources for a first pair:
 Set each variant's weight, gain, and pitch, then bound the output material's
 intensity gain and variation. Three closely related recordings are a practical
 starting point; more than one eligible variant enables no-adjacent-repeat.
+No-repeat history is stateful per output material ID. Repeating one event and
+seed without resetting may intentionally select another variant; resetting and
+replaying the same ordered event stream reproduces the same sequence.
 
 Create a `SonicImpactRoute` whose source and target IDs match the first two
 resources and whose output points at the third. Append it to
@@ -100,12 +103,16 @@ On `SonicRigidBodyImpactAdapter3D`:
 - assign the source acoustic material;
 - use a scene-unique `stable_source_id`;
 - tune `reference_speed_mps` and `minimum_intensity`;
-- use `priority` to protect important events during a voice storm.
+- `priority` ranks active voices when a full pool must replace one. Gate A does
+  not reject a lower-priority incoming event; every valid mapped submission
+  receives a voice.
 
 Add `SonicMaterialBinding3D` to the contacted static or physics body and
 assign its target material. If both bodies have adapters, the lower stable
 source ID emits one canonical report. Source/target roles and intensity remain
-estimated rather than measured physical impulse.
+estimated rather than measured physical impulse. For two rigid bodies, the
+estimate uses relative linear speed; other body types retain the reporting
+body's speed estimate.
 
 ## Submit authored events
 
@@ -142,14 +149,16 @@ godot --headless --path . --script res://tests/gate_a/scene_smoke_runner.gd
 godot --headless --path . --script res://tests/gate_a/lifecycle_smoke_runner.gd
 godot --headless --path . --script res://tests/gate_a/audio_safety_runner.gd
 godot --headless --path . --script res://tests/gate_a/submission_probe.gd
+godot --headless --path . --script res://tests/runtime_v2/gate_a_policy_compat_runner.gd
 python -X utf8 tools/package_rc0.py --kind all
-python -X utf8 tools/verify_clean_install.py --archive artifacts/packages/sonic-matter-addon-0.1.0-rc0.zip --godot godot
+python -X utf8 tools/verify_clean_install.py --archive artifacts/packages/sonic-matter-addon-0.1.0-rc1.zip --godot godot
 ```
 
 Passing runs emit `GATE_A_TESTS_OK`, `GATE_A_SCENE_SMOKE_OK`,
-`GATE_A_LIFECYCLE_OK`, and two `PACKAGE_BUILD_OK` records. CI additionally
-exports the Windows release, runs its `--gate-a-export-smoke` path, and retains
-the executable, PCK, logs, and archives as a workflow artifact.
+`GATE_A_LIFECYCLE_OK`, `RUNTIME_V2_COMPAT_OK`, and two `PACKAGE_BUILD_OK`
+records. CI additionally exports the Windows release, runs its
+`--gate-a-export-smoke` path, verifies logical PCK inventory, and retains the
+executable, PCK, logs, and archives as a workflow artifact.
 
 ## What is not implemented yet
 

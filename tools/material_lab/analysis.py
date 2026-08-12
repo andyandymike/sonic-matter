@@ -16,7 +16,7 @@ from .io import (
     write_stable_json,
     write_wav_pcm24,
 )
-from .rights import RightsAsset, RightsReport, validate_rights
+from .rights import RightsAsset, RightsReport, publication_rights, validate_rights
 
 
 RECIPE_SCHEMA = "sonic-impact-recipe/v1"
@@ -334,12 +334,13 @@ def _rights_for_inputs(
 ) -> tuple[dict[str, Any], dict[str, RightsAsset]]:
     all_prepared = paths + tap_paths
     if rights_manifest is None:
+        rights = publication_rights(
+            review_state="unreviewed-local-only",
+            parent_publication_eligible=False,
+        )
+        rights["rights_manifest_sha256"] = None
         return (
-            {
-                "review_state": "unreviewed-local-only",
-                "publication_eligible": False,
-                "rights_manifest_sha256": None,
-            },
+            rights,
             {},
         )
     report: RightsReport = validate_rights(
@@ -353,18 +354,19 @@ def _rights_for_inputs(
                 f"rights manifest does not inventory analysis input SHA-256 {prepared.sha256}"
             )
         matched[prepared.sha256] = asset
-    publishable = all(
+    parent_publication_eligible = all(
         asset.actions["standalone_baked_audio_distribution"] == "allow"
         and asset.actions["material_kit_distribution"] == "allow"
         for asset in matched.values()
     )
+    rights = publication_rights(
+        review_state="validated",
+        parent_publication_eligible=parent_publication_eligible,
+    )
+    rights["rights_manifest_sha256"] = sha256_file(rights_manifest)
+    rights["rights_pack_id"] = report.pack_id
     return (
-        {
-            "review_state": "validated",
-            "publication_eligible": publishable,
-            "rights_manifest_sha256": sha256_file(rights_manifest),
-            "rights_pack_id": report.pack_id,
-        },
+        rights,
         matched,
     )
 

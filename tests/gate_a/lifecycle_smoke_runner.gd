@@ -1,10 +1,29 @@
 extends SceneTree
 
 const EMITTER_SCRIPT := preload("res://addons/sonic_matter/runtime/sonic_foley_emitter_3d.gd")
+const IMPACT_ADAPTER_SCRIPT := preload("res://addons/sonic_matter/runtime/sonic_rigid_body_impact_adapter_3d.gd")
 const TEST_AUDIO := preload("res://examples/gate_a_3d/generated_test_audio.gd")
 const GATE_A_DEMO := preload("res://examples/gate_a_3d/gate_a_demo.tscn")
 
 var _failures: Array[String] = []
+
+
+class RecordingImpactEmitter:
+    extends Node
+
+    var calls: Array[Dictionary] = []
+
+    func play_impact(
+            source_material: SonicAcousticMaterial,
+            target_material: SonicAcousticMaterial,
+            event: SonicFoleyEvent,
+    ) -> Dictionary:
+        calls.append({
+            "source_material": source_material,
+            "target_material": target_material,
+            "event": event,
+        })
+        return {"accepted": true}
 
 
 func _initialize() -> void:
@@ -14,6 +33,8 @@ func _initialize() -> void:
 func _run() -> void:
     var fixture := _create_fixture()
     await _test_recreate_reset_pause_and_burst(fixture)
+    await _test_voice_limit_reconfiguration(fixture)
+    await _test_relative_speed_for_canonical_reporter()
     await _test_missing_route_is_observable(fixture)
     await _test_scene_transition()
 
@@ -169,6 +190,138 @@ func _test_missing_route_is_observable(fixture: Dictionary) -> void:
     )
 
     emitter.queue_free()
+    await process_frame
+
+
+func _test_voice_limit_reconfiguration(fixture: Dictionary) -> void:
+    var emitter := EMITTER_SCRIPT.new()
+    emitter.name = "VoiceLimitEmitter"
+    emitter.set("impact_route_map", fixture["route_map"])
+    emitter.set("voice_limit", 2)
+    root.add_child(emitter)
+    await process_frame
+    _expect(
+        int(emitter.call("debug_snapshot").get("voice_capacity", 0)) == 2,
+        "initial voice capacity did not use voice_limit=2",
+    )
+
+    emitter.set("voice_limit", 4)
+    for event_index in 4:
+        var details: Dictionary = emitter.call(
+            "play_impact",
+            fixture["source"],
+            fixture["target"],
+            SonicFoleyEvent.impact(
+                12000 + event_index,
+                13000 + event_index,
+                0.8,
+                Vector3.ZERO,
+            ),
+        )
+        _expect(
+            not details.is_empty()
+            and int(details.get("voice_index", -1)) < 4,
+            "voice-limit growth dropped or indexed event %d out of range"
+            % event_index,
+        )
+    var grown_snapshot: Dictionary = emitter.call("debug_snapshot")
+    _expect(
+        int(grown_snapshot.get("voice_capacity", 0)) == 4,
+        "voice-limit growth did not rebuild the player pool",
+    )
+    _expect(
+        int(grown_snapshot.get("active_voices", 0)) == 4,
+        "voice-limit growth did not expose four usable voices",
+    )
+
+    emitter.set("voice_limit", 1)
+    emitter.call("reset_debug_state")
+    var shrunk_snapshot: Dictionary = emitter.call("debug_snapshot")
+    _expect(
+        int(shrunk_snapshot.get("voice_capacity", 0)) == 1,
+        "voice-limit shrink did not rebuild the player pool",
+    )
+    _expect(
+        int(shrunk_snapshot.get("active_voices", -1)) == 0,
+        "voice-limit shrink left an active allocation",
+    )
+    emitter.queue_free()
+    await process_frame
+
+
+func _test_relative_speed_for_canonical_reporter() -> void:
+    var recording_emitter := RecordingImpactEmitter.new()
+    recording_emitter.name = "RecordingImpactEmitter"
+    root.add_child(recording_emitter)
+
+    var stationary_body := RigidBody3D.new()
+    stationary_body.name = "StationaryCanonicalBody"
+    var stationary_adapter := IMPACT_ADAPTER_SCRIPT.new()
+    stationary_adapter.name = "StationaryAdapter"
+    stationary_adapter.emitter_path = recording_emitter.get_path()
+    stationary_adapter.acoustic_material = TEST_AUDIO.create_material(
+        &"stationary_source",
+        &"wood",
+        &"wood",
+    )
+    stationary_adapter.stable_source_id = 1
+    stationary_adapter.reference_speed_mps = 10.0
+    stationary_adapter.minimum_intensity = 0.05
+    stationary_body.add_child(stationary_adapter)
+
+    var fast_body := RigidBody3D.new()
+    fast_body.name = "FastOtherBody"
+    var fast_adapter := IMPACT_ADAPTER_SCRIPT.new()
+    fast_adapter.name = "FastAdapter"
+    fast_adapter.emitter_path = recording_emitter.get_path()
+    fast_adapter.acoustic_material = TEST_AUDIO.create_material(
+        &"fast_target",
+        &"metal",
+        &"metal",
+    )
+    fast_adapter.stable_source_id = 2
+    fast_body.add_child(fast_adapter)
+
+    root.add_child(stationary_body)
+    root.add_child(fast_body)
+    await process_frame
+    stationary_body.linear_velocity = Vector3.ZERO
+    fast_body.linear_velocity = Vector3(10.0, 0.0, 0.0)
+    stationary_adapter.call("_on_body_entered", fast_body)
+
+    _expect(
+        recording_emitter.calls.size() == 1,
+        "stationary canonical reporter swallowed a high-relative-speed impact",
+    )
+    if recording_emitter.calls.size() == 1:
+        var event := recording_emitter.calls[0]["event"] as SonicFoleyEvent
+        _expect(
+            is_equal_approx(event.intensity, 1.0),
+            "canonical reporter did not derive intensity from relative speed",
+        )
+    fast_adapter.call("_on_body_entered", stationary_body)
+    _expect(
+        recording_emitter.calls.size() == 1,
+        "two adapters emitted duplicate canonical reports",
+    )
+
+    stationary_adapter.reference_speed_mps = NAN
+    stationary_adapter.call("_on_body_entered", fast_body)
+    _expect(
+        recording_emitter.calls.size() == 1,
+        "non-finite reference speed did not fail closed",
+    )
+    stationary_adapter.reference_speed_mps = 10.0
+    stationary_adapter.minimum_intensity = NAN
+    stationary_adapter.call("_on_body_entered", fast_body)
+    _expect(
+        recording_emitter.calls.size() == 1,
+        "non-finite minimum intensity did not fail closed",
+    )
+
+    stationary_body.queue_free()
+    fast_body.queue_free()
+    recording_emitter.queue_free()
     await process_frame
 
 
