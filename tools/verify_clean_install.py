@@ -12,7 +12,10 @@ import sys
 import tempfile
 import zipfile
 
-from package_rc0 import AuditError, verify_archive
+try:
+    from package_rc0 import AuditError, verify_archive
+except ModuleNotFoundError:
+    from tools.package_rc0 import AuditError, verify_archive
 
 ROOT = Path(__file__).resolve().parents[1]
 SMOKE_ENV = "SONIC_MATTER_PLUGIN_SMOKE"
@@ -125,9 +128,54 @@ func _run() -> void:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--archive", type=Path, required=True)
-    parser.add_argument("--godot", default="godot")
+    parser.add_argument("--godot")
     parser.add_argument("--keep", action="store_true")
     return parser.parse_args()
+
+
+def _resolve_executable_path(candidate: Path, label: str) -> str:
+    try:
+        resolved = candidate.resolve(strict=True)
+    except OSError as error:
+        raise AuditError(f"{label} does not resolve: {candidate}") from error
+    if not resolved.is_file():
+        raise AuditError(f"{label} is not a file: {resolved}")
+    return str(resolved)
+
+
+def resolve_godot_executable(requested: str | None) -> str:
+    environment_path = os.environ.get("GODOT")
+    if requested:
+        requested_path = Path(requested)
+        if requested_path.is_absolute() or bool(os.path.dirname(requested)):
+            return _resolve_executable_path(requested_path, "requested Godot")
+
+        located = shutil.which(requested)
+        if located:
+            return _resolve_executable_path(Path(located), "requested Godot")
+
+        # setup-godot exposes an extensionless filesystem link through GODOT.
+        # Python's Windows PATH lookup can miss that alias, so execute its
+        # verified absolute path only when it names the requested command.
+        if (
+            environment_path
+            and Path(environment_path).name.casefold() == requested.casefold()
+        ):
+            return _resolve_executable_path(
+                Path(environment_path),
+                "GODOT environment executable",
+            )
+        raise AuditError(f"requested Godot executable was not found: {requested}")
+
+    if environment_path:
+        return _resolve_executable_path(
+            Path(environment_path),
+            "GODOT environment executable",
+        )
+    located = shutil.which("godot")
+    if located:
+        return _resolve_executable_path(Path(located), "Godot from PATH")
+    raise AuditError("Godot executable was not found in GODOT or PATH")
 
 
 def extract_verified_archive(archive_path: Path, destination: Path) -> Path:
@@ -234,19 +282,21 @@ def main() -> int:
 
     succeeded = False
     try:
+        godot = resolve_godot_executable(args.godot)
+        print(f"CLEAN_ADDON_GODOT {godot}")
         package_root = extract_verified_archive(archive, workspace / "archive")
         project_root = workspace / "target"
         project_root.mkdir()
         shutil.copytree(package_root / "addons", project_root / "addons")
 
-        verify_cycle(args.godot, project_root)
+        verify_cycle(godot, project_root)
         (project_root / "clean_addon_smoke.gd").write_text(
             RUNTIME_SMOKE,
             encoding="utf-8",
             newline="\n",
         )
         output = run_godot(
-            args.godot,
+            godot,
             project_root,
             ["--script", "res://clean_addon_smoke.gd"],
         )

@@ -2,13 +2,17 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 from pathlib import Path, PurePosixPath
+import sys
 import tempfile
 import unittest
+from unittest import mock
 import warnings
 import zipfile
 
 from tools import package_rc0
+from tools import verify_clean_install
 
 
 def record(path: str, payload: bytes) -> dict[str, object]:
@@ -20,6 +24,22 @@ def record(path: str, payload: bytes) -> dict[str, object]:
 
 
 class ExactPackageInventoryTests(unittest.TestCase):
+    def test_clean_install_godot_resolution_fails_closed(self) -> None:
+        missing_path = Path(tempfile.gettempdir()) / "missing-sonic-godot.exe"
+        environment_before = os.environ.get("GODOT")
+        os.environ["GODOT"] = sys.executable
+        try:
+            with self.assertRaisesRegex(package_rc0.AuditError, "does not resolve"):
+                verify_clean_install.resolve_godot_executable(str(missing_path))
+            with mock.patch("shutil.which", return_value=None):
+                with self.assertRaisesRegex(package_rc0.AuditError, "was not found"):
+                    verify_clean_install.resolve_godot_executable("godot4")
+        finally:
+            if environment_before is None:
+                os.environ.pop("GODOT", None)
+            else:
+                os.environ["GODOT"] = environment_before
+
     def test_exact_records_pass(self) -> None:
         records = [record("a.txt", b"a"), record("b.txt", b"bb")]
         package_rc0.assert_exact_inventory("fixture", records, records.copy())
