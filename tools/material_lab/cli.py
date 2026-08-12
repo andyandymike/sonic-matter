@@ -8,15 +8,20 @@ from typing import Sequence
 
 from .analysis import AnalysisOptions, analyze_impacts
 from .errors import MaterialLabError
+from .godot_compiler import compile_godot_kit, validate_godot_compile_plan
 from .intake import inventory_zip
 from .io import write_stable_json
 from .kit import validate_kit
+from .proposal import validate_proposal
 from .render import ARM_NAMES, RenderOptions, render_recipe
 from .rights import TARGET_ACTIONS, validate_rights
 
 
 def _paths(values: list[str] | None) -> list[Path]:
     return [Path(value) for value in values or []]
+
+GODOT_RIGHTS_TARGETS = ("game-binary", "game-source", "local-preview")
+
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -35,6 +40,40 @@ def _parser() -> argparse.ArgumentParser:
     kit.add_argument("manifest", type=Path)
     kit.add_argument("--profile", choices=("community", "official-cc0"), default="community")
     kit.add_argument("--rights-target", choices=sorted(TARGET_ACTIONS), default="material-kit")
+    proposal = subparsers.add_parser(
+        "validate-proposal",
+        help="validate a draft-only bounded authoring proposal without applying it",
+    )
+    proposal.add_argument("proposal", type=Path)
+    proposal.add_argument("--base", type=Path, required=True)
+
+    godot_plan = subparsers.add_parser(
+        "validate-godot-plan",
+        help="validate an official-CC0 Kit and explicit Gate A compile plan",
+    )
+    godot_plan.add_argument("kit_manifest", type=Path)
+    godot_plan.add_argument("--plan", type=Path, required=True)
+    godot_plan.add_argument(
+        "--rights-target",
+        action="append",
+        choices=GODOT_RIGHTS_TARGETS,
+        required=True,
+    )
+
+    godot_compile = subparsers.add_parser(
+        "compile-godot-kit",
+        help="compile a validated Kit and explicit plan into deterministic Godot resources",
+    )
+    godot_compile.add_argument("kit_manifest", type=Path)
+    godot_compile.add_argument("--plan", type=Path, required=True)
+    godot_compile.add_argument("--output", type=Path, required=True)
+    godot_compile.add_argument(
+        "--rights-target",
+        action="append",
+        choices=GODOT_RIGHTS_TARGETS,
+        required=True,
+    )
+
 
     inventory = subparsers.add_parser(
         "inventory-archive", help="safely inventory a quarantine ZIP without extracting it"
@@ -99,6 +138,30 @@ def main(argv: Sequence[str] | None = None) -> int:
                 args.manifest, profile=args.profile, rights_target=args.rights_target
             )
             print("MATERIAL_KIT_OK " + json.dumps(report.as_dict(), sort_keys=True))
+            return 0
+        if args.command == "validate-proposal":
+            receipt = validate_proposal(args.proposal, args.base)
+            print("MATERIAL_PROPOSAL_DRAFT_OK " + json.dumps(receipt, sort_keys=True))
+            return 0
+        if args.command == "validate-godot-plan":
+            report = validate_godot_compile_plan(
+                args.kit_manifest,
+                args.plan,
+                rights_targets=args.rights_target,
+            )
+            print("MATERIAL_GODOT_PLAN_OK " + json.dumps(report.as_dict(), sort_keys=True))
+            return 0
+        if args.command == "compile-godot-kit":
+            report = compile_godot_kit(
+                args.kit_manifest,
+                args.plan,
+                args.output,
+                rights_targets=args.rights_target,
+            )
+            print(
+                "MATERIAL_GODOT_COMPILE_OK "
+                + json.dumps(report.as_dict(), sort_keys=True)
+            )
             return 0
         if args.command == "inventory-archive":
             inventory = inventory_zip(

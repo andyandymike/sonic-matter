@@ -48,3 +48,6 @@ node_modules/
 /renders/
 *.tmp.wav
 *.log
+
+# Disposable Material Lab fixture compiled during Python/Godot integration tests.
+/tests/material_lab/generated_ci/

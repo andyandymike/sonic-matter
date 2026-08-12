@@ -20,7 +20,9 @@ Python.
 Material Kits and no-training modal/residual impact analysis. It remains
 outside Gate A and is not imported by the Godot addon. See
 `tools/material_lab/README.md` for its exact claims, six-arm workflow, and
-quarantine rules.
+quarantine rules. Its optional authoring bridge also validates draft-only mix
+suggestions and deterministically compiles an audited sample-first Kit into
+current Gate A Godot resources; neither path invokes a model or enters runtime.
 
 ## Experimental UI Foley
 

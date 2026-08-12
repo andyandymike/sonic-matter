@@ -46,11 +46,13 @@ theme:
 nav:
   - Home: README.md
   - Getting started: getting-started.md
+  - Authoring bridge: authoring-bridge.md
   - Gate A: gate-a-contract.md
   - Decisions:
       - Gate A bootstrap: adr/0001-gate-a-bootstrap.md
       - Impact material routing: adr/0002-impact-material-routing.md
       - Weighted-choice compatibility: adr/0003-weighted-choice-microkernel.md
+      - AI-assisted authoring bridge: adr/0004-ai-assisted-authoring-bridge.md
   - Maintainers:
       - GitHub governance: maintainer/github-governance.md
 

@@ -5,7 +5,9 @@ and bake audio, but it is never imported by a shipped game or the audio thread.
 """
 
 from .analysis import AnalysisOptions, analyze_impacts
+from .godot_compiler import compile_godot_kit, validate_godot_compile_plan
 from .kit import validate_kit
+from .proposal import validate_proposal
 from .render import ARM_NAMES, RenderOptions, render_recipe
 from .rights import RIGHTS_ACTIONS, validate_rights
 
@@ -15,8 +17,11 @@ __all__ = [
     "AnalysisOptions",
     "RenderOptions",
     "analyze_impacts",
+    "compile_godot_kit",
     "render_recipe",
+    "validate_godot_compile_plan",
     "validate_kit",
+    "validate_proposal",
     "validate_rights",
 ]
 

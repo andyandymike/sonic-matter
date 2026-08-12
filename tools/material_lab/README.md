@@ -102,6 +102,67 @@ A verified recipe must also pass the current D-015 output-audio decision for
 every non-local target; choosing a different distribution target cannot bypass
 that gate.
 
+## Compile an audited Kit for Godot
+
+The authoring bridge can turn an `official-cc0` Material Kit plus an explicit
+`sonic-godot-compile-plan/v1` into ordinary Gate A resources. This is a
+sample-first projection for the current RC1 runtime, not the future B0 portable
+recipe format. The plan must live outside the Kit directory and bind the exact
+raw SHA-256 of `kit.json`.
+
+```powershell
+.venv\Scripts\python -m tools.material_lab validate-godot-plan `
+  .local\kits\wood-stone\kit.json `
+  --plan .local\plans\wood-stone.godot-plan.json `
+  --rights-target game-source `
+  --rights-target game-binary
+
+.venv\Scripts\python -m tools.material_lab compile-godot-kit `
+  .local\kits\wood-stone\kit.json `
+  --plan .local\plans\wood-stone.godot-plan.json `
+  --output .local\compiled\wood-stone `
+  --rights-target game-source `
+  --rights-target game-binary
+```
+
+The destination must not exist. A successful compile atomically creates copied
+audio, identity materials, `impact_route_map.tres`, and a provenance-bearing
+`compiled-manifest.json` with the exact non-manifest output inventory hash.
+Copy that tree into a Godot project that already has the SonicMatter addon,
+then assign the identity materials to the existing 3D adapter/bindings and the
+route map to `SonicFoleyEmitter3D`. The shipped game still needs no Python.
+Compiler v1 accepts only validated RIFF/WAVE format tag 1 with non-empty,
+uncompressed mono/stereo integer PCM;
+OGG and MP3 remain deferred until they have equally reliable content probes.
+Atomic no-replace publication is supported on Windows and Linux in v1; other
+authoring platforms fail closed.
+
+Only `local-preview`, `game-source`, and `game-binary` are accepted compiler
+targets. Every requested target is checked independently. Unknown or denied
+public rights, stale hashes, an ambiguous route, an unsupported coverage claim,
+an unsafe path, or an existing destination fails closed.
+
+See [the authoring bridge contract](../../docs/authoring-bridge.md) for the
+compile-plan fields and coverage rules.
+
+## Validate an untrusted mix proposal
+
+`validate-proposal` is the first AI-safe envelope, but it does not invoke or
+bundle any AI. It accepts only one to four finite edits to the transient, body,
+roughness, or master gain of an existing experimental recipe:
+
+```powershell
+.venv\Scripts\python -m tools.material_lab validate-proposal `
+  .local\proposals\wood-stone-mix.json `
+  --base .local\material-lab\wood-stone\recipe.json
+```
+
+Success prints `MATERIAL_PROPOSAL_DRAFT_OK` with `applied: false`,
+`authorization: "none"`, and `render_safety_evaluated: false`. It writes
+nothing and never grants rights, approves a recipe, renders audio, or feeds the
+Godot compiler. Any accepted suggestion remains a manual recipe edit followed
+by the normal render, listening, rights, and Kit gates.
+
 ## Tests
 
 ```powershell
