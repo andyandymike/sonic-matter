@@ -1,2 +1,2 @@
 # Authoring-only dependency. Games and the Gate A addon do not require Python.
-numpy==2.3.5
+numpy==2.5.2
