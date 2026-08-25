@@ -1,0 +1,2 @@
+# Authoring-only decoder. Games and the Gate A addon do not require Python.
+miniaudio==1.71

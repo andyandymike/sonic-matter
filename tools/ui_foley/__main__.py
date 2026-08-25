@@ -5,12 +5,17 @@ import json
 from pathlib import Path
 
 from .bake import BakeError, bake_recipe, load_recipe
+from .derive_recordings import (
+    DerivativeError,
+    derive_recordings,
+    load_derivative_recipe,
+)
 
 
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="python -m tools.ui_foley",
-        description="Bake deterministic, procedural UI Foley masters.",
+        description="Bake deterministic UI Foley masters and recording derivatives.",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -23,6 +28,18 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Write only the six deployable masters and the manifest.",
     )
     bake.add_argument(
+        "--overwrite-reviewed",
+        action="store_true",
+        help="Replace divergent existing evidence after an explicit review.",
+    )
+
+    derive = subparsers.add_parser(
+        "derive-recordings",
+        help="Create bounded PCM16 WAV derivatives from an audited recording pack.",
+    )
+    derive.add_argument("--recipe", type=Path, required=True)
+    derive.add_argument("--output", type=Path, required=True)
+    derive.add_argument(
         "--overwrite-reviewed",
         action="store_true",
         help="Replace divergent existing evidence after an explicit review.",
@@ -43,8 +60,17 @@ def main() -> int:
             )
             print(json.dumps(manifest["summary"], indent=2, sort_keys=True))
             return 0
-    except BakeError as exc:
-        print(f"ui-foley bake failed: {exc}")
+        if args.command == "derive-recordings":
+            recipe = load_derivative_recipe(args.recipe)
+            manifest = derive_recordings(
+                recipe,
+                args.output,
+                allow_overwrite=args.overwrite_reviewed,
+            )
+            print(json.dumps(manifest["summary"], indent=2, sort_keys=True))
+            return 0
+    except (BakeError, DerivativeError) as exc:
+        print(f"ui-foley authoring failed: {exc}")
         return 2
     return 2
 
