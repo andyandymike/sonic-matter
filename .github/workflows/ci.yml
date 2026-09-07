@@ -34,7 +34,7 @@ jobs:
           fi
 
       - name: Install Godot
-        uses: chickensoft-games/setup-godot@f166999204a4f2722c6fe042fbaa3b3ea0d9c789 # v2.4.1
+        uses: chickensoft-games/setup-godot@c233594225991af5aec714e52457cc76d6df8fa2 # v2.4.2
         with:
           version: 4.6.1
           use-dotnet: false
@@ -99,7 +99,7 @@ jobs:
       - name: Run Material Lab tests
         run: python -X utf8 -m unittest discover -s tests/material_lab -v
       - name: Install Godot for compiled-resource smoke
-        uses: chickensoft-games/setup-godot@f166999204a4f2722c6fe042fbaa3b3ea0d9c789 # v2.4.1
+        uses: chickensoft-games/setup-godot@c233594225991af5aec714e52457cc76d6df8fa2 # v2.4.2
         with:
           version: 4.6.1
           use-dotnet: false
@@ -164,7 +164,7 @@ jobs:
         run: python -X utf8 -m unittest tests.material_lab.test_authoring_bridge -v
 
       - name: Install Godot with export templates
-        uses: chickensoft-games/setup-godot@f166999204a4f2722c6fe042fbaa3b3ea0d9c789 # v2.4.1
+        uses: chickensoft-games/setup-godot@c233594225991af5aec714e52457cc76d6df8fa2 # v2.4.2
         with:
           version: 4.6.1
           use-dotnet: false
