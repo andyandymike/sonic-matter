@@ -89,3 +89,7 @@ first. See [CONTRIBUTING.md](CONTRIBUTING.md).
 Project-authored source code and documentation are licensed under the MIT
 License unless a file states otherwise. Third-party assets and dependencies
 retain their own licenses and must be recorded explicitly.
+
+## Shared audio authoring
+
+The optional [shared authoring CLI](docs/shared-audio.md) provides registered recording snapshots, the existing fused Q15 profile, protected editing, loops, scene timelines, cue packages and local search through the shared core 0.6.0. Follow its pinned installation and verification steps. The Godot addon continues to consume ordinary audio resources.

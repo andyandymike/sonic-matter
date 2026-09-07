@@ -1,0 +1,4 @@
+# Authoring only; excluded from the Godot addon and game export.
+-r requirements-ui-derivative.txt
+# Reviewed core 0.6.0 source; do not replace the commit with a branch.
+matter-audio-core @ git+https://github.com/andyandymike/matter-audio-core.git@7834d03ad5447dd383b3f011e20d381ac0aa0f03

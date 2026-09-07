@@ -285,6 +285,38 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+  shared-audio:
+    name: Shared audio (${{ matrix.os }}, Python ${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python-version: "3.10"
+          - os: windows-latest
+            python-version: "3.12"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: |
+            requirements-authoring.txt
+            requirements-ui-derivative.txt
+      - name: Build wheels from the pinned core source and product requirements
+        run: python -m pip wheel --disable-pip-version-check --wheel-dir .local/audio-wheels -r requirements-authoring.txt
+      - name: Install the built wheels without a package index
+        run: python -m pip install --no-index --find-links .local/audio-wheels "matter-audio-core==0.6.0" "miniaudio==1.71"
+      - name: Verify dependency consistency
+        run: python -m pip check
+      - name: Verify installed authoring, adapter tests and exact exports (zero model calls)
+        run: python -X utf8 tools/check_shared_audio.py
+
   release-gate:
     name: Release Gate
     if: ${{ always() }}
@@ -293,6 +325,7 @@ jobs:
       - material-lab
       - content-packs
       - windows-export
+      - shared-audio
     runs-on: ubuntu-latest
     timeout-minutes: 2
 
@@ -304,17 +337,20 @@ jobs:
           MATERIAL_LAB_RESULT: "${{ needs['material-lab'].result }}"
           CONTENT_PACKS_RESULT: "${{ needs['content-packs'].result }}"
           WINDOWS_EXPORT_RESULT: "${{ needs['windows-export'].result }}"
+          AUDIO_RESULT: "${{ needs['shared-audio'].result }}"
         run: |
           printf '%s\n' \
             "Gate A=$GATE_A_RESULT" \
             "Material Lab=$MATERIAL_LAB_RESULT" \
             "Content packs=$CONTENT_PACKS_RESULT" \
-            "Windows export=$WINDOWS_EXPORT_RESULT"
+            "Windows export=$WINDOWS_EXPORT_RESULT" \
+            "Shared audio=$AUDIO_RESULT"
           for result in \
             "$GATE_A_RESULT" \
             "$MATERIAL_LAB_RESULT" \
             "$CONTENT_PACKS_RESULT" \
-            "$WINDOWS_EXPORT_RESULT"
+            "$WINDOWS_EXPORT_RESULT" \
+            "$AUDIO_RESULT"
           do
             if [ "$result" != "success" ]; then
               exit 1

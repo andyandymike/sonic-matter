@@ -46,6 +46,7 @@ theme:
 nav:
   - Home: README.md
   - Getting started: getting-started.md
+  - Shared audio authoring: shared-audio.md
   - Authoring bridge: authoring-bridge.md
   - Gate A: gate-a-contract.md
   - Decisions:
