@@ -11,7 +11,7 @@ Two repository rulesets apply to `main`:
    blocks branch deletion and non-fast-forward updates and requires linear
    history.
 2. **Main contribution policy** requires contributors to use a pull request,
-   pass the `Gate A` status check, receive one code-owner approval, resolve all
+   pass the `Release Gate` status check, receive one code-owner approval, resolve all
    review conversations, and obtain approval for the latest push. Repository
    administrators have an `always` bypass for this quality ruleset so the sole
    maintainer can still make an intentional direct push.
@@ -20,18 +20,17 @@ The administrator bypass does not override the separate safety ruleset. A
 direct maintainer push is therefore possible, while force-pushing or deleting
 `main` remains blocked.
 
-The workflow now also emits an aggregate `Release Gate` covering Gate A,
-Material Lab, content-pack rights, and Windows export/package evidence. After
-that check has completed successfully on the remote once, the maintainer must
-replace the ruleset's required `Gate A` context with `Release Gate` through the
-GitHub API while preserving the administrator bypass. Until that remote update
-is recorded, `Gate A` remains the currently enforced context.
+The required `Release Gate` aggregates Gate A, Material Lab, content-pack
+rights, Windows export/package evidence, and shared-audio integration checks.
+Every dependency must succeed. The contribution ruleset was updated through
+the GitHub API on 2026-10-01 after verifying a successful remote run; the
+administrator bypass remains in place.
 
 ## Automation
 
 - `CI` runs the Gate A/runtime compatibility suite, offline Material Lab and
   UI Foley tests, content-pack rights checks, Windows export/package evidence,
-  and a single aggregate `Release Gate`.
+  shared-audio integration checks, and a single aggregate `Release Gate`.
 - `Docs` builds this site with a pinned MkDocs Material version and deploys it
   through GitHub Pages using OpenID Connect.
 - Dependabot checks GitHub Actions and the documentation dependency weekly.
