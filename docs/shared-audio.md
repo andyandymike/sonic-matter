@@ -203,6 +203,16 @@ acceptance. The existing product-specific publication checks still apply.
 | Comparison and delivery | `audition`, `export`, `cue-set` |
 | Production authoring | `normalize/v1`, `loop/v1`, `scene/v1`, `analyze`, `library` |
 
+Named musical regions, sequential arrangements with boundary crossfades, and
+explicit new marks on a completed arrangement belong to
+[ScoreMatter's music workflow](https://andyandymike.github.io/score-matter/shared-audio/#arrange-named-regions-into-a-complete-track).
+SonicMatter uses the shared PCM operations above and its recording-specific
+authoring commands. To bring a finished ScoreMatter track into a SonicMatter
+project, export its exact WAV and register it through the project's recording
+manifest with accurate source and rights declarations. Asset IDs and sessions
+belong to their workspace; importing that WAV does not transfer ScoreMatter's
+annotations or PCM locks.
+
 Use `action resolve` before editing and `action show REQUEST_ID` to query a
 request. Reuse its ID to replay a completed request. An unfinished transaction
 requires inspection; managed-job recovery is an explicit job workflow and does
