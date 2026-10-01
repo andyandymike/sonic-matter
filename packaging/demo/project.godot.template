@@ -5,7 +5,7 @@ config_version=5
 
 [application]
 
-config/name="SonicMatter Gate A RC1"
+config/name="SonicMatter Gate A RC2"
 run/main_scene="res://examples/gate_a_3d/gate_a_demo.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 

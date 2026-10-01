@@ -2,7 +2,7 @@
 
 This optional content pack contains ten real book-page recordings for local,
 model-free UI Foley. It is intentionally separate from the Gate A add-on and
-is not included in the `0.1.0-rc1` add-on, demo archive, or exported Gate A
+is not included in the `0.1.0-rc2` add-on, demo archive, or exported Gate A
 PCK. Games may copy the pack explicitly under its separate CC0 provenance.
 
 The recordings come from StarNinjas' **10 Book Page Flips** upload on

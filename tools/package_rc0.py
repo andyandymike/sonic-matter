@@ -26,8 +26,8 @@ RIGHTS_ACTIONS = (
     "index_redistribution",
 )
 INVENTORY_ORACLES = {
-    "addon": "tests/runtime_v2/golden/addon_inventory_v1.json",
-    "demo": "tests/runtime_v2/golden/demo_inventory_v1.json",
+    "addon": "tests/runtime_v2/golden/addon_inventory_v2.json",
+    "demo": "tests/runtime_v2/golden/demo_inventory_v2.json",
 }
 
 
@@ -211,7 +211,7 @@ def validate_inventory_oracle(
     oracle = json.loads(read_bytes(relative_path))
     if oracle.get("schema_version") != 1:
         raise AuditError(f"{relative_path}: schema_version must be 1")
-    if oracle.get("golden_kind") != f"{kind}_inventory_v1":
+    if oracle.get("golden_kind") != f"{kind}_inventory_v2":
         raise AuditError(f"{relative_path}: golden kind drifted")
     version = expected_version or plugin_version()
     if oracle.get("release") != version:

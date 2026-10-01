@@ -7,8 +7,8 @@ zip before returning success.
 
 ~~~powershell
 python -X utf8 tools/package_rc0.py --kind all
-python -X utf8 tools/package_rc0.py --verify artifacts/packages/sonic-matter-addon-0.1.0-rc1.zip
-python -X utf8 tools/verify_clean_install.py --archive artifacts/packages/sonic-matter-addon-0.1.0-rc1.zip --godot godot
+python -X utf8 tools/package_rc0.py --verify artifacts/packages/sonic-matter-addon-0.1.0-rc2.zip
+python -X utf8 tools/verify_clean_install.py --archive artifacts/packages/sonic-matter-addon-0.1.0-rc2.zip --godot godot
 ~~~
 
 The packager is maintainer/CI tooling. Games using the addon do not require

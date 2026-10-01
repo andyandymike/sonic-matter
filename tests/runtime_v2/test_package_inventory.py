@@ -71,13 +71,13 @@ class ExactPackageInventoryTests(unittest.TestCase):
                 self.assertEqual([], leaked)
 
     def test_windows_export_oracles_are_synchronized(self) -> None:
-        compact_path = Path("examples/gate_a_3d/export_inventory_v1.json")
-        golden_path = Path("tests/runtime_v2/golden/windows_export_inventory_v1.json")
+        compact_path = Path("examples/gate_a_3d/export_inventory_v2.json")
+        golden_path = Path("tests/runtime_v2/golden/windows_export_inventory_v2.json")
         compact_bytes = compact_path.read_bytes()
         compact = json.loads(compact_bytes)
         golden = json.loads(golden_path.read_text(encoding="utf-8"))
 
-        self.assertEqual("0.1.0-rc1", compact["release"])
+        self.assertEqual("0.1.0-rc2", compact["release"])
         self.assertEqual(compact["release"], golden["release"])
         self.assertEqual(compact["records"], golden["records"])
         self.assertEqual(

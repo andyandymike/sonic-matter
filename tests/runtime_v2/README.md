@@ -12,7 +12,7 @@ godot --headless --path . --script res://tests/runtime_v2/gate_a_policy_compat_r
 
 Passing output is `RUNTIME_V2_COMPAT_OK`.
 
-The files under `golden/` were captured from commit
+The selector, allocator and emitter files under `golden/` were captured from commit
 `52a25dc5c7cef4ab0136563b55d9d434afadbd86` while the add-on runtime, Gate A
 examples, and Gate A tests had no diff. Each fixture records the source-file
 hashes and exact little-endian IEEE-754 binary64 pitch/gain bits.
@@ -22,6 +22,13 @@ Changing a golden requires an explicit oracle-version bump, reviewed migration
 record, and public compatibility decision. JSON parses integral values as
 numbers, so the runner normalizes only integral numeric representation; all
 observable floating-point decisions remain exact hex strings.
+
+RC2 adds separate `*_inventory_v2.json` package/export oracles for the physics
+adapter seed correction and release metadata. The previous inventory v1 files
+remain historical RC1 evidence. Current packaging and export checks read v2;
+the selector, allocator and emitter behavior goldens remain unchanged. The
+physics lifecycle test additionally requires varied, repeatable event traces
+and catches the cancelled seed contribution that the legacy trace did not cover.
 
 The selector fixture also covers reset replay, non-contiguous eligible indices,
 one eligible candidate, empty/default material identity, zero/non-finite

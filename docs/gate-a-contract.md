@@ -1,8 +1,18 @@
 # Gate A public contract
 
-Gate A is a sample-first implementation slice. Version 0.1.0-rc1 is an
+Gate A is a sample-first implementation slice. Version 0.1.0-rc2 is an
 acceptance candidate, not the hybrid Foley research result or a production
 release.
+
+RC2 corrects the physics adapter's event seed: the adapter supplies its base
+seed, and the unchanged selector mixes in the event ID once. Repeated impacts
+now vary their sample, pitch and gain while an identical event trace and base
+seed remain reproducible. This changes physics-adapter traces from RC1; the
+frozen selector, allocator and emitter behavior fixtures are unchanged.
+
+Gate A v1 material resources and Material Lab plans targeting `0.1.0-rc1`
+remain compatible with RC2. Their compiler target lock is a separate existing
+contract and is not rewritten by this adapter correction.
 
 ## Included
 

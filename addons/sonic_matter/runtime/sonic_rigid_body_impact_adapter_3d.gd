@@ -87,7 +87,9 @@ func _on_body_entered(other_body: Node) -> void:
     )
     var event := SonicFoleyEvent.impact(
         event_id,
-        base_seed ^ event_id,
+        # The selector mixes event_id itself. Mixing it here as well would
+        # cancel that contribution and freeze variation across collisions.
+        base_seed,
         intensity,
         _body.global_position,
         priority,

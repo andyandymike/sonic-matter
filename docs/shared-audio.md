@@ -3,12 +3,12 @@
 `python -m tools.authoring` combines registered recording snapshots and the
 frozen SonicMatter Q15 profile with shared editing. Python and the decoder are
 authoring dependencies; the Godot addon consumes ordinary audio resources.
-Both products use Matter Audio Core **0.6.0** for sessions, PCM protection, jobs,
+Both products use Matter Audio Core **0.6.1** for sessions, PCM protection, jobs,
 comparisons, loops, scene timelines, cue packages and measured local search.
 
 ## Install from a clean checkout
 
-Shared audio authoring supports Windows and Linux; Core 0.6.0 cannot publish
+Shared audio authoring supports Windows and Linux; Core 0.6.1 cannot publish
 artifacts on macOS. Godot runtime support is documented separately in the
 [Gate A contract](gate-a-contract.md).
 
@@ -26,19 +26,22 @@ same commands on either platform:
 
 ```sh
 python -m pip wheel --wheel-dir .local/audio-wheels -r requirements-authoring.txt
-python -m pip install --no-index --find-links .local/audio-wheels "matter-audio-core==0.6.0" "miniaudio==1.71"
+python -m pip install --no-index --find-links .local/audio-wheels "matter-audio-core==0.6.1" "miniaudio==1.71"
 python -m pip check
 python -m tools.authoring capabilities --json
 python -X utf8 tools/check_shared_audio.py
 ```
 
 `requirements-authoring.txt` builds the core from immutable commit
-`7834d03ad5447dd383b3f011e20d381ac0aa0f03`. It does not assume the core is on PyPI.
+`9ba1b8b1536d05beb8ebaeda39ba76cef0e92538`. It does not assume the core is on PyPI.
 The second step installs only the collected wheels. Retain that directory for
 offline installation on compatible Python/platform environments. Transitive
 third-party dependencies are resolved during the build; this is not a lockfile
 for every platform or a byte-reproducible wheel build. An absent core or a version
-other than 0.6.0 returns a structured installation error.
+other than 0.6.1 returns a structured installation error.
+
+Core 0.6.1 bounds complete artifact receipts before publication. SonicMatter's
+recording declarations and frozen Q15 arithmetic are unchanged.
 
 The verification script requires every adapter test to pass without skips. It
 uses fresh installed CLIs with an existing registered CC0 recording to check
@@ -229,13 +232,13 @@ Cue exports bind exact WAV bytes and optional saved selections. Comparison-page
 preview gain never changes delivery. Normalization uses RMS/peak, not LUFS;
 overlap loops shorten the selected window; feature distance does not provide
 semantic audio understanding. See the pinned
-[core production guide](https://github.com/andyandymike/matter-audio-core/blob/7834d03ad5447dd383b3f011e20d381ac0aa0f03/docs/production.md)
+[core production guide](https://github.com/andyandymike/matter-audio-core/blob/9ba1b8b1536d05beb8ebaeda39ba76cef0e92538/docs/production.md)
 for examples. These core operations call no audio model. Opening a comparison
 page does not start playback. Listening and game integration remain separate.
 
 ## Upgrade an existing workspace
 
-Stop clients and retain a backup before upgrading. Core 0.6.0 uses SQLite schema
+Stop clients and retain a backup before upgrading. Core 0.6.1 uses SQLite schema
 4, the same schema as 0.5. For an older workspace:
 
 ```sh

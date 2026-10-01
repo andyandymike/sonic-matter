@@ -1,4 +1,4 @@
-# SonicMatter Gate A demo 0.1.0-rc1
+# SonicMatter Gate A demo 0.1.0-rc2
 
 This is a self-contained source demo for Godot 4.6.1 on Windows.
 

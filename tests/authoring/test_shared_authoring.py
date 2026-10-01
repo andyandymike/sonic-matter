@@ -114,10 +114,10 @@ class AudioDependencyTests(unittest.TestCase):
 
     def test_old_optional_core_is_rejected_before_loading_adapters(self):
         from types import SimpleNamespace
-        code, response = self.call_with_core(SimpleNamespace(__version__="0.5.0"))
+        code, response = self.call_with_core(SimpleNamespace(__version__="0.6.0"))
         self.assertEqual(code, 2)
         self.assertEqual(response["error"]["code"], "audio_dependency_incompatible")
-        self.assertEqual(response["error"]["details"]["installed_core_version"], "0.5.0")
+        self.assertEqual(response["error"]["details"]["installed_core_version"], "0.6.0")
 
     def test_broken_core_dependency_is_not_reported_as_missing_core(self):
         with self.assertRaises(ModuleNotFoundError) as caught:

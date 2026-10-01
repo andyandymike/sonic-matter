@@ -218,7 +218,7 @@ def run_godot(
     environment = os.environ.copy()
     environment[SMOKE_ENV] = "1"
     result = subprocess.run(
-        [godot, "--headless", "--path", str(project_root), *arguments],
+        [godot, "--headless", "--audio-driver", "Dummy", "--path", str(project_root), *arguments],
         check=False,
         capture_output=True,
         text=True,

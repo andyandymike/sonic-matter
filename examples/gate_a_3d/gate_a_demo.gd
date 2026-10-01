@@ -4,7 +4,7 @@ const EMITTER_SCRIPT := preload("res://addons/sonic_matter/runtime/sonic_foley_e
 const IMPACT_ADAPTER_SCRIPT := preload("res://addons/sonic_matter/runtime/sonic_rigid_body_impact_adapter_3d.gd")
 const TEST_AUDIO := preload("res://examples/gate_a_3d/generated_test_audio.gd")
 const EXPORT_INVENTORY_ORACLE := (
-    "res://examples/gate_a_3d/export_inventory_v1.json"
+    "res://examples/gate_a_3d/export_inventory_v2.json"
 )
 const FORBIDDEN_EXPORT_PREFIXES := [
     "res://spec/",
@@ -80,7 +80,7 @@ func _run_export_inventory_observe() -> void:
     var records: Array = inventory.get("records", [])
     var payload := {
         "schema_version": 1,
-        "release": "0.1.0-rc1",
+        "release": "0.1.0-rc2",
         "oracle_path": EXPORT_INVENTORY_ORACLE,
         "oracle_excluded_from_records": true,
         "records": records,
@@ -109,7 +109,7 @@ func _verify_export_inventory() -> Dictionary:
             var oracle: Dictionary = parsed
             if int(oracle.get("schema_version", 0)) != 1:
                 errors.append("inventory oracle schema drifted")
-            if oracle.get("release") != "0.1.0-rc1":
+            if oracle.get("release") != "0.1.0-rc2":
                 errors.append("inventory oracle release drifted")
             if oracle.get("oracle_path") != EXPORT_INVENTORY_ORACLE:
                 errors.append("inventory oracle path drifted")

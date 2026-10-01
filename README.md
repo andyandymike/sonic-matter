@@ -17,7 +17,7 @@ should be exportable as ordinary audio assets for constrained platforms.
 
 ## Status
 
-Gate A 0.1.0-rc1 contains an explicit source-target material router,
+Gate A 0.1.0-rc2 contains an explicit source-target material router,
 deterministic sample selection, an eight-voice runtime, lifecycle/burst smokes,
 fail-closed rights-aware packaging, and a real Windows exported-build smoke on
 Godot 4.6.1. It remains an experimental acceptance candidate rather than a
@@ -92,4 +92,4 @@ retain their own licenses and must be recorded explicitly.
 
 ## Shared audio authoring
 
-The optional [shared authoring CLI](docs/shared-audio.md) provides registered recording snapshots, the existing fused Q15 profile, protected editing, loops, scene timelines, cue packages and local search through the shared core 0.6.0. Follow its pinned installation and verification steps. The Godot addon continues to consume ordinary audio resources.
+The optional [shared authoring CLI](docs/shared-audio.md) provides registered recording snapshots, the existing fused Q15 profile, protected editing, loops, scene timelines, cue packages and local search through the shared core 0.6.1. Follow its pinned installation and verification steps. The Godot addon continues to consume ordinary audio resources.

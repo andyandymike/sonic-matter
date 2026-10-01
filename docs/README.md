@@ -6,7 +6,7 @@ hide:
 
 <section class="sm-hero">
   <div class="sm-hero__copy">
-    <div class="sm-eyebrow">Godot 4.6.1 · Gate A RC1</div>
+    <div class="sm-eyebrow">Godot 4.6.1 · Gate A RC2</div>
     <h1>Make collisions sound <span>alive.</span></h1>
     <p class="sm-hero__lede">
       Physics-driven, controllable Foley for games—local-first, deterministic,

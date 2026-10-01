@@ -1,6 +1,6 @@
 # Getting started
 
-SonicMatter 0.1.0-rc1 is a small Godot 4.6.1 addon plus a standalone 3D
+SonicMatter 0.1.0-rc2 is a small Godot 4.6.1 addon plus a standalone 3D
 acceptance scene. Bring legal impact samples, describe both sides of a contact,
 and let an explicit route map choose the bounded, deterministic sample pool.
 
@@ -41,7 +41,7 @@ zip. Until a tagged release exists, you can also build both locally:
 python -X utf8 tools/package_rc0.py --kind all
 ```
 
-Extract `sonic-matter-addon-0.1.0-rc1.zip` into the root of a Godot project,
+Extract `sonic-matter-addon-0.1.0-rc2.zip` into the root of a Godot project,
 then enable **SonicMatter** under **Project Settings → Plugins**. Python is only
 maintainer packaging tooling; the installed addon needs no Python, compiler,
 model, cloud service, or GPU.
@@ -151,7 +151,7 @@ godot --headless --path . --script res://tests/gate_a/audio_safety_runner.gd
 godot --headless --path . --script res://tests/gate_a/submission_probe.gd
 godot --headless --path . --script res://tests/runtime_v2/gate_a_policy_compat_runner.gd
 python -X utf8 tools/package_rc0.py --kind all
-python -X utf8 tools/verify_clean_install.py --archive artifacts/packages/sonic-matter-addon-0.1.0-rc1.zip --godot godot
+python -X utf8 tools/verify_clean_install.py --archive artifacts/packages/sonic-matter-addon-0.1.0-rc2.zip --godot godot
 ```
 
 Passing runs emit `GATE_A_TESTS_OK`, `GATE_A_SCENE_SMOKE_OK`,

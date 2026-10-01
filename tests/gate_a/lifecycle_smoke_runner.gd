@@ -2,6 +2,7 @@ extends SceneTree
 
 const EMITTER_SCRIPT := preload("res://addons/sonic_matter/runtime/sonic_foley_emitter_3d.gd")
 const IMPACT_ADAPTER_SCRIPT := preload("res://addons/sonic_matter/runtime/sonic_rigid_body_impact_adapter_3d.gd")
+const MATERIAL_BINDING_SCRIPT := preload("res://addons/sonic_matter/runtime/sonic_material_binding_3d.gd")
 const TEST_AUDIO := preload("res://examples/gate_a_3d/generated_test_audio.gd")
 const GATE_A_DEMO := preload("res://examples/gate_a_3d/gate_a_demo.tscn")
 
@@ -35,6 +36,7 @@ func _run() -> void:
     await _test_recreate_reset_pause_and_burst(fixture)
     await _test_voice_limit_reconfiguration(fixture)
     await _test_relative_speed_for_canonical_reporter()
+    await _test_physics_adapter_variation(fixture)
     await _test_missing_route_is_observable(fixture)
     await _test_scene_transition()
 
@@ -323,6 +325,74 @@ func _test_relative_speed_for_canonical_reporter() -> void:
     fast_body.queue_free()
     recording_emitter.queue_free()
     await process_frame
+
+
+func _test_physics_adapter_variation(fixture: Dictionary) -> void:
+    var material: SonicAcousticMaterial = fixture["route_map"].exact_routes[0].output_material
+    # Identical per-variant gain/pitch isolate the event variation itself.
+    for variant in material.impact_variants:
+        variant.weight = 1.0
+        variant.gain_db = 0.0
+        variant.pitch_scale = 1.0
+    material.pitch_variation = 0.1
+    material.gain_variation_db = 3.0
+    var first: Array[Dictionary] = await _physics_adapter_trace(fixture, 0x51A7)
+    var repeated: Array[Dictionary] = await _physics_adapter_trace(fixture, 0x51A7)
+    var another_seed: Array[Dictionary] = await _physics_adapter_trace(fixture, 0x1234)
+    _expect(first.size() == 32, "physics trace did not select all 32 impacts")
+    _expect(first == repeated, "same physics trace and seed did not replay exactly")
+    _expect(first != another_seed, "changing the physics seed did not change variation")
+    var variants: Dictionary = {}
+    var pitches: Dictionary = {}
+    var gains: Dictionary = {}
+    var previous := -1
+    for selection in first:
+        var index := int(selection["variant_index"])
+        _expect(index != previous, "physics trace repeated the previous variant")
+        previous = index
+        variants[index] = true
+        pitches[selection["pitch_scale"]] = true
+        gains[selection["volume_db"]] = true
+    _expect(variants.size() >= 3, "physics trace collapsed to a fixed pair of variants")
+    _expect(pitches.size() > 2, "physics event pitch variation was cancelled")
+    _expect(gains.size() > 2, "physics event gain variation was cancelled")
+
+
+func _physics_adapter_trace(fixture: Dictionary, seed: int) -> Array[Dictionary]:
+    var selections: Array[Dictionary] = []
+    var emitter := EMITTER_SCRIPT.new()
+    emitter.name = "PhysicsVariationEmitter"
+    emitter.impact_route_map = fixture["route_map"]
+    emitter.impact_played.connect(func(details: Dictionary) -> void:
+        selections.append({
+            "variant_index": details["variant_index"],
+            "pitch_scale": details["pitch_scale"],
+            "volume_db": details["volume_db"],
+        })
+    )
+    root.add_child(emitter)
+    var body := RigidBody3D.new()
+    var adapter := IMPACT_ADAPTER_SCRIPT.new()
+    adapter.emitter_path = emitter.get_path()
+    adapter.acoustic_material = fixture["source"]
+    adapter.stable_source_id = 42
+    adapter.base_seed = seed
+    body.add_child(adapter)
+    var target := StaticBody3D.new()
+    var binding := MATERIAL_BINDING_SCRIPT.new()
+    binding.acoustic_material = fixture["target"]
+    target.add_child(binding)
+    root.add_child(body)
+    root.add_child(target)
+    await process_frame
+    body.linear_velocity = Vector3(8.0, 0.0, 0.0)
+    for index in 32:
+        adapter.call("_on_body_entered", target)
+    body.queue_free()
+    target.queue_free()
+    emitter.queue_free()
+    await process_frame
+    return selections
 
 
 func _create_fixture() -> Dictionary:

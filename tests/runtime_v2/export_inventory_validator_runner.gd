@@ -1,7 +1,7 @@
 extends SceneTree
 
 const GateADemoScript = preload("res://examples/gate_a_3d/gate_a_demo.gd")
-const ORACLE_PATH := "res://examples/gate_a_3d/export_inventory_v1.json"
+const ORACLE_PATH := "res://examples/gate_a_3d/export_inventory_v2.json"
 
 var _failures: Array[String] = []
 
@@ -123,7 +123,7 @@ func _test_frozen_oracle_shape() -> void:
         return
     var oracle: Dictionary = parsed
     _expect(int(oracle.get("schema_version", 0)) == 1, "oracle schema drifted")
-    _expect(oracle.get("release") == "0.1.0-rc1", "oracle release drifted")
+    _expect(oracle.get("release") == "0.1.0-rc2", "oracle release drifted")
     var records: Array = oracle.get("records", [])
     _expect(records.size() == 40, "oracle member count drifted")
     var result: Dictionary = GateADemoScript.validate_export_inventory_records(
