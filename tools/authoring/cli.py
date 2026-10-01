@@ -12,6 +12,7 @@ from matter_audio_core.errors import AudioError
 from matter_audio_core.media import PCM, encode_wav, sample_bytes
 
 from tools.ui_foley.derive_recordings import DerivativeError, _condition_samples, _relative_path
+from tools.authoring.recordings import capability as recordings_capability, import_recording, list_recordings
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 REGISTERED_MANIFESTS = ("content-packs/ui-page-turn-starninjas-cc0/asset-rights.json",)
@@ -55,7 +56,7 @@ def decoder_capability() -> dict:
         version = metadata.version("miniaudio")
     except metadata.PackageNotFoundError:
         version = None
-    return {"catalog": "registered_cc0_recordings", "decoder": {
+    return {"catalog": "registered_cc0_recordings", "project_recordings": recordings_capability(), "decoder": {
         "profile": DECODER_PROFILE, "installed_version": version,
         "availability": "available" if version == "1.71" else "missing_or_wrong_version"}}
 
@@ -131,9 +132,19 @@ def extend_parser(parser):
     decode = subcommands.add_parser("decode")
     decode.add_argument("source_asset_id")
     decode.add_argument("--request-id", required=True)
+    recordings = commands.add_parser("recordings").add_subparsers(dest="recordings_command", required=True)
+    recordings.add_parser("list").add_argument("--manifest", type=Path, required=True)
+    importing = recordings.add_parser("import")
+    importing.add_argument("recording_id")
+    importing.add_argument("--manifest", type=Path, required=True)
+    importing.add_argument("--request-id", required=True)
 
 
 def handle_extra(args, store):
+    if args.command == "recordings":
+        if args.recordings_command == "list":
+            return list_recordings(args.manifest)
+        return import_recording(store, args.manifest, args.recording_id, args.request_id)
     if args.command != "catalog":
         raise AudioError("unsupported_command", args.command)
     if args.catalog_command == "list":

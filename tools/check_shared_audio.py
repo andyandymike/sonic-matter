@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import importlib.metadata
 import json
+import struct
 import subprocess
 import sys
 import tempfile
@@ -72,6 +73,10 @@ def main():
             {item["operation"] for item in capabilities["operations"]}), "M4 operations are missing")
         require(capabilities["cue_sets"]["availability"] == capabilities["library"]["availability"] == "available",
                 "Cue packages or local search are unavailable")
+        project_recordings = capabilities["product_capabilities"]["project_recordings"]
+        require(project_recordings["availability"] == "available" and
+                project_recordings["manifest_schema"]["properties"]["schema"]["const"] == "sonic-project-recordings/v1",
+                "Project recording schema is not discoverable")
 
         if PRODUCT == "score-matter":
             from matter_audio_core.media import PCM, encode_wav, sample_bytes
@@ -89,6 +94,42 @@ def main():
             decoded = call("catalog", "decode", registration["source_asset_id"], "--request-id", "input")
             require(decoded["audio_model_calls"] == 0, "Decoding must not call a model")
             asset = next(item for item in decoded["outputs"] if item["role"] == "audio")
+
+        from matter_audio_core.media import PCM, encode_wav, sample_bytes
+        project_source = root / "project-recording.wav"
+        payload = encode_wav(PCM(sample_bytes(array("h", [-1000, 1000] * 100)), 8000, 1))
+        payload = payload[:12] + b"JUNK" + struct.pack("<I", 4) + b"note" + payload[12:]
+        payload = payload[:4] + struct.pack("<I", len(payload) - 8) + payload[8:]
+        project_source.write_bytes(payload)
+        project_manifest = root / "project-recordings.json"
+        project_manifest.write_text(json.dumps({"schema": "sonic-project-recordings/v1", "catalog_id": "check",
+            "recordings": [{"recording_id": "fixture", "path": project_source.name,
+                "sha256": hashlib.sha256(payload).hexdigest(), "size_bytes": len(payload), "creator": "Engineering fixture",
+                "source": {"kind": "synthetic_fixture", "reference": "Created by the zero-model shared smoke"},
+                "rights": {"local_preview": {"status": "allow", "evidence_refs": ["fixture"]}},
+                "evidence": [{"id": "fixture", "kind": "self_declaration", "reference": "Synthetic test-only PCM"}]}]}),
+            encoding="utf-8")
+        manifest_original = project_manifest.read_bytes()
+        listed = call("recordings", "list", "--manifest", project_manifest)
+        require(listed["recordings"][0]["rights"]["game_binary_embedding"]["status"] == "unknown",
+                "Project input must not gain distribution rights")
+        project_import = call("recordings", "import", "fixture", "--manifest", project_manifest, "--request-id", "project-input")
+        require(call("recordings", "import", "fixture", "--manifest", project_manifest, "--request-id", "project-input") == project_import,
+                "Project recording retry changed its receipt")
+        project_audio = next(item for item in project_import["outputs"] if item["role"] == "audio")
+        require((workspace / project_audio["locator"]).read_bytes() == payload and
+                project_import["rights_verification"] == "not_performed" and project_import["audio_model_calls"] == 0,
+                "Project WAV snapshot changed bytes or promoted rights")
+        write(["cue-set", "create"], {"schema": "matter-cue-set/v1", "set_id": "project-input", "name": "Project input",
+            "cues": [{"key": "fixture", "name": "Fixture", "selected_variant": "main",
+                      "variants": [{"key": "main", "asset_id": project_audio["asset_id"]}]}]})
+        project_export = write(["cue-set", "export"], {"schema": "matter-cue-export/v1", "request_id": "project-delivery",
+                                                      "set_id": "project-input", "variants": "selected"})
+        project_entry = project_export["body"]["entries"][0]
+        require((Path(project_export["directory"]) / project_entry["filename"]).read_bytes() == payload,
+                "Project WAV export changed ancillary metadata or PCM bytes")
+        require(project_source.read_bytes() == payload and project_manifest.read_bytes() == manifest_original,
+                "Project input files were modified")
 
         normalized = action("level", "normalize/v1", asset, {"target_rms_dbfs": -24, "max_boost_db": 24})
         analysis = call("analyze", normalized["asset_id"])["analysis"]
@@ -124,7 +165,8 @@ def main():
         require(source.read_bytes() == original, "Authoring modified the original source")
 
     print(json.dumps({"status": "passed", "product": PRODUCT, "core_version": "0.6.0", "adapter_tests": outcome.testsRun,
-                      "cli_calls": calls, "exported_wavs": 2, "exact_export_bytes": True,
+                      "cli_calls": calls, "exported_wavs": 3, "exact_export_bytes": True,
+                      "project_recording_snapshot": "original_wav_bytes_and_declarations",
                       "audio_model_calls": 0, "human_listening": "not_performed"}))
     return 0
 
