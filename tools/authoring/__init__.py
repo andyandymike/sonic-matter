@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 from typing import Sequence
 
-CORE_VERSION = "0.6.1"
+CORE_VERSION = "0.7.0"
 
 
 def main(argv: Sequence[str] | None = None) -> int:

@@ -161,8 +161,11 @@ def prepare_workspace(path):
 
 
 def main(argv=None):
+    from .diagnostics import doctor_provider
+
     registry = Registry()
     registry.register(legacy_operation())
     return run(argv, product="sonic-matter", registry=registry, allow_import=False,
                extend_parser=extend_parser, handle_extra=handle_extra,
-               prepare_workspace=prepare_workspace, capability_extra=decoder_capability)
+               prepare_workspace=prepare_workspace, capability_extra=decoder_capability,
+               diagnostic_extra=doctor_provider)

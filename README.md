@@ -92,4 +92,4 @@ retain their own licenses and must be recorded explicitly.
 
 ## Shared audio authoring
 
-The optional [shared authoring CLI](docs/shared-audio.md) provides registered recording snapshots, the existing fused Q15 profile, protected editing, loops, scene timelines, cue packages and local search through the shared core 0.6.1. Follow its pinned installation and verification steps. The Godot addon continues to consume ordinary audio resources.
+The optional [shared authoring CLI](docs/shared-audio.md) provides registered recording snapshots, the existing fused Q15 profile, protected editing, loops, scene timelines, cue packages, local search and read-only backend diagnostics through the shared core 0.7.0. Follow its pinned installation and verification steps. The Godot addon continues to consume ordinary audio resources.

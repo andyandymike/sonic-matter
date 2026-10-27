@@ -23,7 +23,7 @@ def require(condition, message):
 
 
 def main():
-    require(importlib.metadata.version("matter-audio-core") == "0.6.1", "Install the pinned core 0.6.1")
+    require(importlib.metadata.version("matter-audio-core") == "0.7.0", "Install the pinned core 0.7.0")
     if PRODUCT == "score-matter":
         requirements = importlib.metadata.requires("score-matter") or []
         require(any("matter-audio-core" in item and "audio" in item for item in requirements),
@@ -67,8 +67,24 @@ def main():
             require(result["status"] == "succeeded" and result["audio_model_calls"] == 0, "Expected zero-model PCM output")
             return result["outputs"][0]
 
+        diagnostic = call("doctor")
+        require(diagnostic["schema"] == "matter-diagnostics/v1" and diagnostic["product"] == PRODUCT,
+                "Wrong diagnostic report routing")
+        require(not workspace.exists() and diagnostic["scope"]["workspace_opened"] is False and
+                diagnostic["scope"]["audio_model_calls"] == 0 and diagnostic["scope"]["subprocesses"] == 0,
+                "Doctor opened a workspace or ran a backend")
+        require(diagnostic["core"]["availability"] == "available" and
+                {item["id"] for item in diagnostic["backends"]} ==
+                {"sonic.recording_decoder", "sonic.registered_catalog"} and
+                all(item["availability"] == "available" and item["loaded"] == "unknown" and
+                    item["execution_device"] == "unknown" for item in diagnostic["backends"]),
+                "Installed Sonic prerequisites were not reported separately from runtime execution")
+
         capabilities = call("capabilities")
-        require(capabilities["product"] == PRODUCT and capabilities["core_version"] == "0.6.1", "Wrong product/core routing")
+        require(capabilities["product"] == PRODUCT and capabilities["core_version"] == "0.7.0", "Wrong product/core routing")
+        require(capabilities["diagnostics"] == {"availability": "available", "command": "doctor",
+                "read_only": True, "network_calls": 0, "audio_model_calls": 0},
+                "Read-only doctor is not discoverable")
         require({"normalize/v1", "loop/v1", "scene/v1", "analyze/v1"}.issubset(
             {item["operation"] for item in capabilities["operations"]}), "M4 operations are missing")
         require(capabilities["cue_sets"]["availability"] == capabilities["library"]["availability"] == "available",
@@ -164,7 +180,7 @@ def main():
                 and matches["items"][0]["distance"] == 0, "Measured search returned unexpected results")
         require(source.read_bytes() == original, "Authoring modified the original source")
 
-    print(json.dumps({"status": "passed", "product": PRODUCT, "core_version": "0.6.1", "adapter_tests": outcome.testsRun,
+    print(json.dumps({"status": "passed", "product": PRODUCT, "core_version": "0.7.0", "adapter_tests": outcome.testsRun,
                       "cli_calls": calls, "exported_wavs": 3, "exact_export_bytes": True,
                       "project_recording_snapshot": "original_wav_bytes_and_declarations",
                       "audio_model_calls": 0, "human_listening": "not_performed"}))

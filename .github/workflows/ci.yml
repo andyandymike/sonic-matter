@@ -311,7 +311,7 @@ jobs:
       - name: Build wheels from the pinned core source and product requirements
         run: python -m pip wheel --disable-pip-version-check --wheel-dir .local/audio-wheels -r requirements-authoring.txt
       - name: Install the built wheels without a package index
-        run: python -m pip install --no-index --find-links .local/audio-wheels "matter-audio-core==0.6.1" "miniaudio==1.71"
+        run: python -m pip install --no-index --find-links .local/audio-wheels "matter-audio-core==0.7.0" "miniaudio==1.71"
       - name: Verify dependency consistency
         run: python -m pip check
       - name: Verify installed authoring, adapter tests and exact exports (zero model calls)
