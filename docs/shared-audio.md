@@ -34,7 +34,7 @@ python -X utf8 tools/check_shared_audio.py
 ```
 
 `requirements-authoring.txt` builds the core from immutable commit
-`a9dd7f66f5d9a11d2770aafb71c1c98f91303bfb`. It does not assume the core is on PyPI.
+`54af9032afe5cb5b446e1c00a634b0f83af7fbc1`. It does not assume the core is on PyPI.
 The second step installs only the collected wheels. Retain that directory for
 offline installation on compatible Python/platform environments. Transitive
 third-party dependencies are resolved during the build; this is not a lockfile
@@ -253,7 +253,7 @@ Cue exports bind exact WAV bytes and optional saved selections. Comparison-page
 preview gain never changes delivery. Normalization uses RMS/peak, not LUFS;
 overlap loops shorten the selected window; feature distance does not provide
 semantic audio understanding. See the pinned
-[core production guide](https://github.com/andyandymike/matter-audio-core/blob/a9dd7f66f5d9a11d2770aafb71c1c98f91303bfb/docs/production.md)
+[core production guide](https://github.com/andyandymike/matter-audio-core/blob/54af9032afe5cb5b446e1c00a634b0f83af7fbc1/docs/production.md)
 for examples. These core operations call no audio model. Opening a comparison
 page does not start playback. Listening and game integration remain separate.
 
@@ -275,11 +275,11 @@ Core 0.7 adds `quality <asset-id> --profile generic|music|speech --json` and
 `quality/v1`. Reports identify clipping risk, low-level regions and relative
 level changes with exact frame ranges, scan coverage and advisory warnings.
 They do not change audio or establish listening acceptance. See the
-[Core signal guide](https://github.com/andyandymike/matter-audio-core/blob/a9dd7f66f5d9a11d2770aafb71c1c98f91303bfb/docs/quality.md).
+[Core signal guide](https://github.com/andyandymike/matter-audio-core/blob/54af9032afe5cb5b446e1c00a634b0f83af7fbc1/docs/quality.md).
 
 A separately installed MIT HTTP client can save speech transcripts and SRT/VTT
 in an existing product-owned workspace. Use its matching `--product sonic`
 option and the exact registered source asset. Only explicit execution uploads
 audio; resolve, doctor, saved-result replay and export are offline. VoiceStudio
 remains an optional independently deployed service with its own license.
-See the [client guide](https://github.com/andyandymike/matter-audio-core/blob/a9dd7f66f5d9a11d2770aafb71c1c98f91303bfb/integrations/voicestudio/README.md).
+See the [client guide](https://github.com/andyandymike/matter-audio-core/blob/54af9032afe5cb5b446e1c00a634b0f83af7fbc1/integrations/voicestudio/README.md).
